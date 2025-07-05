@@ -1,7 +1,4 @@
 {
-  "name": "zanzstone",
-  "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@supabase/supabase-js": "^2.50.2",
     "@testing-library/dom": "^10.4.0",
@@ -12,6 +9,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^12.19.2",
     "next-themes": "^0.4.6",
+    "prerender-node": "^3.8.0",
     "react": "^19.1.0",
     "react-countup": "^6.5.3",
     "react-dom": "^19.1.0",
@@ -20,34 +18,11 @@
     "react-intersection-observer": "^9.16.0",
     "react-router-dom": "^7.6.3",
     "react-scripts": "5.0.1",
+    "react-snap": "^1.23.0",
     "sass": "^1.89.2",
     "styled-components": "^6.1.19",
     "swiper": "^11.2.9",
     "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
