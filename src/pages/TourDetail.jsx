@@ -13,6 +13,19 @@ const TourContainer = styled.div`
   padding: 40px 20px;
 `;
 
+const VIPContainer = styled.div`
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+  min-height: 100vh;
+  padding: 40px 20px;
+  color: white;
+`;
+
+const VIPContent = styled.div`
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+`;
+
 const BackButton = styled(Link)`
   display: inline-flex;
   align-items: center;
@@ -28,6 +41,18 @@ const BackButton = styled(Link)`
 
   svg {
     margin-right: 8px;
+  }
+`;
+
+const VIPBackButton = styled(BackButton)`
+  color: #FF7D33;
+  background: rgba(255, 125, 51, 0.1);
+  padding: 10px 20px;
+  border-radius: 25px;
+  
+  &:hover {
+    color: #FF7D33;
+    background: rgba(255, 125, 51, 0.2);
   }
 `;
 
@@ -48,6 +73,17 @@ const TourImage = styled(motion.img)`
   object-fit: cover;
   border-radius: 16px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+`;
+
+const ComprehensiveImage = styled(motion.img)`
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  border: 2px solid #FF7D33;
+  display: block;
 `;
 
 const TourInfo = styled.div`
@@ -91,6 +127,13 @@ const PriceTag = styled.div`
   font-weight: bold;
   color: #FF7D33;
   margin-bottom: 30px;
+`;
+
+const VIPPriceTag = styled(PriceTag)`
+  font-size: 2.2rem;
+  color: #FF7D33;
+  text-shadow: 0 2px 10px rgba(255, 125, 51, 0.3);
+  margin: 30px 0;
 `;
 
 const Section = styled.section`
@@ -168,21 +211,59 @@ const GalleryImage = styled(motion.img)`
   }
 `;
 
-const BookButton = styled(Link)`
+const BookButton = styled.button`
   display: inline-block;
   background: #FF7D33;
   color: white;
   padding: 15px 30px;
+  border: none;
   border-radius: 8px;
   font-size: 1.1rem;
   font-weight: bold;
   text-decoration: none;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
   margin-top: 20px;
+  cursor: pointer;
 
   &:hover {
     background: #E56C2B;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 125, 51, 0.3);
   }
+`;
+
+const VIPBookButton = styled(BookButton)`
+  background: linear-gradient(135deg, #FF7D33, #E56C2B);
+  padding: 18px 40px;
+  font-size: 1.3rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(255, 125, 51, 0.4);
+  
+  &:hover {
+    background: linear-gradient(135deg, #E56C2B, #FF7D33);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255, 125, 51, 0.5);
+  }
+`;
+
+const VIPTitle = styled.h1`
+  font-size: 3rem;
+  margin-bottom: 40px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #FF7D33, #FFA366);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+`;
+
+const VIPSubtitle = styled.p`
+  font-size: 1.3rem;
+  color: #FFA366;
+  margin-bottom: 40px;
+  text-align: center;
+  font-weight: 300;
 `;
 
 const TourDetail = () => {
@@ -195,10 +276,46 @@ const TourDetail = () => {
 
   const handleWhatsApp = () => {
     const message = encodeURIComponent(`Hello, I'm interested in the "${tour.name}" tour (ID: ${id}). Please provide more details.`);
-    const phone = '+255616543216'; // Replace with your WhatsApp number (with country code, no +)
+    const phone = '+255616543216';
     window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
   };
 
+  // Check if it's a VIP tour (has comprehensiveImage AND is in vip category)
+  const isVipTour = tour.comprehensiveImage && tour.category === 'vip';
+
+  if (isVipTour) {
+    return (
+      <>
+        <VIPContainer>
+          <VIPContent>
+            <VIPBackButton to="/tours">
+              <FiArrowLeft /> Back to Tours
+            </VIPBackButton>
+
+            <VIPTitle>{tour.name}</VIPTitle>
+            <VIPSubtitle>Exclusive Luxury Experience</VIPSubtitle>
+            
+            <ComprehensiveImage
+              src={tour.comprehensiveImage}
+              alt={tour.name}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            />
+            
+            {tour.price && <VIPPriceTag>{tour.price}</VIPPriceTag>}
+            
+            <VIPBookButton onClick={handleWhatsApp} style={{background: '#25D366'}}>
+              Book This VIP Experience
+            </VIPBookButton>
+          </VIPContent>
+        </VIPContainer>
+        <Footer />
+      </>
+    );
+  }
+
+  // Regular tour display (for private, sharing, optional, transfer categories)
   return (
     <>
       <TourContainer>
@@ -216,59 +333,88 @@ const TourDetail = () => {
           />
           <TourInfo>
             <h1>{tour.name}</h1>
-            <p>{tour.description}</p>
+            {tour.description && <p>{tour.description}</p>}
             
             <MetaInfo>
-              <MetaItem>
-                <FiMapPin /> {tour.startPoint}
-              </MetaItem>
-              <MetaItem>
-                <FiClock /> {tour.time}
-              </MetaItem>
-              <MetaItem>
-                {tour.type}
-              </MetaItem>
+              {tour.startPoint && (
+                <MetaItem>
+                  <FiMapPin /> {tour.startPoint}
+                </MetaItem>
+              )}
+              {tour.time && (
+                <MetaItem>
+                  <FiClock /> {tour.time}
+                </MetaItem>
+              )}
+              {tour.type && (
+                <MetaItem>
+                  {tour.type}
+                </MetaItem>
+              )}
             </MetaInfo>
             
-            <PriceTag>{tour.price}</PriceTag>
+            {tour.price && <PriceTag>{tour.price}</PriceTag>}
             
-           
-            <BookButton as="button" type="button" onClick={handleWhatsApp} style={{marginLeft: 16, background: '#25D366'}}>
+            <BookButton onClick={handleWhatsApp} style={{background: '#25D366'}}>
               Book this Tour
             </BookButton>
           </TourInfo>
         </TourHeader>
 
-        <Section>
-          <SectionTitle>Itinerary</SectionTitle>
-          {tour.itinerary?.map((item, index) => (
-            <ItineraryItem key={index}>
-              <ItineraryTime>{item.time}</ItineraryTime>
-              <ItineraryTitle>{item.title}</ItineraryTitle>
-              <ItineraryDescription>{item.description}</ItineraryDescription>
-            </ItineraryItem>
-          ))}
-        </Section>
-
-        <Section>
-          <SectionTitle>What's Included</SectionTitle>
-          <List>
-            {tour.inclusions?.map((item, index) => (
-              <ListItem key={index}>{item}</ListItem>
+        {tour.itinerary && tour.itinerary.length > 0 && (
+          <Section>
+            <SectionTitle>Itinerary</SectionTitle>
+            {tour.itinerary.map((item, index) => (
+              <ItineraryItem key={index}>
+                {item.time && <ItineraryTime>{item.time}</ItineraryTime>}
+                <ItineraryTitle>{item.title}</ItineraryTitle>
+                <ItineraryDescription>
+                  {Array.isArray(item.description) 
+                    ? item.description.map((desc, i) => (
+                        <div key={i}>{desc}</div>
+                      ))
+                    : item.description
+                  }
+                </ItineraryDescription>
+              </ItineraryItem>
             ))}
-          </List>
-        </Section>
+          </Section>
+        )}
 
-        <Section>
-          <SectionTitle>What to Bring</SectionTitle>
-          <List>
-            {tour.whatToBring?.map((item, index) => (
-              <ListItem key={index}>{item}</ListItem>
-            ))}
-          </List>
-        </Section>
+        {tour.inclusions && tour.inclusions.length > 0 && (
+          <Section>
+            <SectionTitle>What's Included</SectionTitle>
+            <List>
+              {tour.inclusions.map((item, index) => (
+                <ListItem key={index}>{item}</ListItem>
+              ))}
+            </List>
+          </Section>
+        )}
 
-        {tour.images?.length > 0 && (
+        {tour.whatToBring && tour.whatToBring.length > 0 && (
+          <Section>
+            <SectionTitle>What to Bring</SectionTitle>
+            <List>
+              {tour.whatToBring.map((item, index) => (
+                <ListItem key={index}>{item}</ListItem>
+              ))}
+            </List>
+          </Section>
+        )}
+
+        {tour.OptionalAddOns && tour.OptionalAddOns.length > 0 && (
+          <Section>
+            <SectionTitle>Optional Add-Ons</SectionTitle>
+            <List>
+              {tour.OptionalAddOns.map((item, index) => (
+                <ListItem key={index}>{item}</ListItem>
+              ))}
+            </List>
+          </Section>
+        )}
+
+        {tour.images && tour.images.length > 0 && (
           <Section>
             <SectionTitle>Gallery</SectionTitle>
             <Gallery>

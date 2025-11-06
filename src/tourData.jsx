@@ -114,12 +114,19 @@ import pung1 from "../src/assets/image/Folder1/pung1.jpeg"
 import pung2 from "../src/assets/image/Folder1/pung2.jpeg"
 import pung3 from "../src/assets/image/Folder1/pung3.jpg"
 import pung4 from "../src/assets/image/Folder1/pung4.jpg"
+import package1 from "../src/assets/image/packages/package1.jpg"
+import package2 from "../src/assets/image/packages/package2.jpg"
+import package3 from "../src/assets/image/packages/package3.jpg"
+import package4 from "../src/assets/image/packages/package4.jpg"
+import package5 from "../src/assets/image/packages/package5.jpg"
+import package6 from "../src/assets/image/packages/package6.jpg"
+import package7 from "../src/assets/image/packages/package7.jpg"
 
 
 export const tourCategories = [
     {
         id: "vip",
-        title: "VIP ZanStone Tours",
+        title: "Special Packages Zanzibar",
         description:
             "Exclusive luxury experiences with private guides and premium services",
         image: mnemba,
@@ -161,381 +168,68 @@ export const tourCategories = [
 
 export const allTours = {
     vip: [
-        {
+         {
             id: "nakupenda-vip",
-            name: "Nakupenda SandBank & Prison Island VIP Experience",
+            name: "8 Days & 7 Nights Zanzibar and Selous Safari",
             category: "vip",
-            startPoint: "Stone Town Beach",
-            time: "10:00 AM - 6:30 PM (After Sunset)",
-            type: "Private | Luxury | Full-Day",
-            price: "$700 for two persons",
-            description:
-                "A luxurious day on the waters of Zanzibar with this all-inclusive VIP trip, blending relaxation, culinary indulgence, and cultural discovery.",
-            image: nakupenda,
-            images: [nakupenda1, prison, nakupenda3, prison4,nakupenda2, prison2,nakupenda4, prison3,prison4,prison5,prison6,prison7],
-            itinerary: [
-                {
-                    title: "Departure from Stone Town Beach",
-                    description: [
-                        "Get ready for a luxurious day on the waters of Zanzibar with this all-inclusive VIP trip, blending relaxation, culinary indulgence, and cultural discovery.",
-                        "From the historic shores of Stone Town to the soft white sands of Nakupenda, this experience is designed to offer you the very best of the Indian Ocean – all in one unforgettable day."
-                    ],
-                },
-                {
-                    title: "Visit to Prison Island (Changuu Island)",
-                    description: [
-                        "Your first stop is the iconic Prison Island, just 20 minutes from Stone Town.",
-                        "Guided historical tour of the 19th-century prison building.",
-                        "Meet and feed the giant Aldabra tortoises – some over 150 years old.",
-                        "Relax and take photos on the beach or explore the old quarantine hospital ruins."
-                    ],
-                },
-                {
-                    title: "Departure from Stone Town Beach",
-                    description: [
-                        "Meet your crew and board your private luxury local boat, specially prepared with comfortable seating, shade, music, and refreshments.",
-                        "A quick safety briefing is given as you begin cruising into the turquoise waters of the Indian Ocean."
-                    ],
-                },
-                {
-                    title: "Snorkeling near the coral reefs",
-                    description: [
-                        "After leaving Prison Island, you'll head to a nearby reef for a guided snorkeling session.",
-                        "Explore vibrant marine life and colorful coral gardens.",
-                        "Snorkeling equipment provided (mask, fins, snorkel).",
-                        "Floating safety vest and assistance from crew if needed."
-                    ],
-                },
-                {
-                    title: "Lunch Served Onboard at a Nakupenda Sandbank",
-                    description: [
-                        "Arrive at a beautiful, remote sandbank (like Nakupenda or nyange sandbank) just in time for lunch under the sun.",
-                        " Your dedicated crew sets up a shaded dining space and serves a rich, freshly cooked feast:",
-                        " Grilled seafood (lobster, fish, prawns, octopus, calamari) and chicken",
-                        " Fresh salads and local vegetables",
-                        " Tropical fruits (mangoes, pineapples, bananas), salads and sauces",
-                        " Soft drinks, beers, and water",
-                        " Vegetarian options available upon request",
-                        " Special dietary requirements can be accommodated with prior notice",
-                        " Enjoy your meal with soft music playing, panoramic ocean views, and waves gently lapping the sand."
-                    ]
-                },
-                {
-                    title: "Sandbank Chill Time",
-                    description: `Relax on the pristine sandbank surrounded by turquoise waters:
- Sunbathe on beach mats
- Swim or float in the warm sea
- Take beautiful photos with endless ocean backgrounds
- Optional drone photography available (on request)`
-                },
-                {
-                    title: "4:00 PM Second Sandbank Exploration & Sunset Cruise",
-                    description: `As the day cools down, your boat will sail to a second, quieter sandbank (if tides allow), offering a peaceful space to enjoy golden hour.
- Listen to chill music
- Watch for dolphins (occasional sightings!)
- Soak in the serenity as your captain cruises slowly back toward Stone Town`
-                },
-
-                {
-                    title: " Return to Stone Town Beach (after sunset)",
-                    description: `Arrive back at Stone Town Beach just after sunset, feeling relaxed, sun-kissed, and full of incredible memories. The crew will assist you as you disembark.`
-                },
-
-                // More itinerary items...
-            ],
-            inclusions: [
-                "Private luxury local boat",
-                "Full-day guided tour",
-                "Entrance fees to Prison Island",
-                "Freshly prepared seafood & chicken lunch",
-                "Soft drinks, beers, and fruits",
-                "Snorkeling gear",
-                "Professional crew",
-                "Music system on board",
-                "Hotel transfer",
-                "Professional drone photo/video",
-            ],
-            whatToBring: [
-                "Swimsuit & towel",
-                "Sun hat & sunscreen",
-                "Sunglasses",
-                "Waterproof bag for electronics",
-                "Flip-flops or reef shoes",
-            ],
-            OptionalAddOns: [
-                "Champagne or wine onboard",
-                "Romantic couple setup",
-            ],
+            image: mnemba,
+            // Single comprehensive image containing all tour details
+            comprehensiveImage: package1,
+            // Remove all other detailed fields since they're now in the image
         },
-        {
+       {
             id: "mnemba-vip",
-            name: "Mnemba Atoll VIP Experience",
+            name: "6 Days & 5 Nights Zanzibar",
             category: "vip",
-            startPoint: "Matemwe Beach",
-            time: "7:00 AM - 1:00 PM",
-            type: "Private | Marine | Half-Day Luxury Adventure",
-            price: "$650",
-            description:
-                "Discover the world-famous Mnemba Atoll in style with this VIP private excursion, where early morning dolphin watching meets vibrant coral reef snorkeling in crystal-clear waters. Whether you're seeking adventure, relaxation, or marine life discovery, this tailor-made experience offers everything—comfort, exclusivity, and local charm.",
-            image: mnemba7,
-            //image: zanz4,
-            images: [mnemba, mnemba1, mnemba2, mnemba3,mnemba4,mnemba5,mnemba6,mnemba7,mnemba8,mnemba9,mnemba10,mnemba11,mnemba12],
-            itinerary: [
-                {
-                    title: "Hotel Pickup & Transfer to Matemwe Beach",
-                    description: `Begin your day early with a private hotel transfer to the northern coast of Zanzibar.
- Cold towels and bottled water offered during transfer
- Meet your friendly captain and crew upon arrival
- Safety briefing and quick orientation`,
-                },
-                {
-                    title: "Departure to Mnemba Marine Reserve",
-                    description: `Board your private speedboat or traditional boat (based on your preference), fully equipped with:
- Cushioned seating
- Music system
- Shade canopy
- Ice box with cold drinks
-Enjoy a scenic 30-minute ride toward the breathtaking Mnemba Atoll, surrounded by open sea and calm breezes.`,
-                },
-                {
-                    title: "Dolphin Watching (Wild & Ethical)",
-                    description: `Arrive near Mnemba’s protected zone where wild dolphins are often spotted.
- Watch and follow pods of bottlenose dolphins in their natural habitat
- Ethical viewing practices (no chasing or touching)
- Great photo opportunities from the boat
-(Note: Dolphin sightings are highly likely but not guaranteed, as they are wild animals)`,
-                },
-                {
-                    title: "Snorkeling at Mnemba Coral Gardens",
-                    description: `Anchor near the colorful reefs of Mnemba Marine Conservation Area for snorkeling.
- Explore stunning coral formations, reef fish, starfish, and sometimes turtles
- Snorkeling gear provided: mask, fins, life jackets
- Experienced snorkeling guide in the water with you
- Photographer available upon request for underwater photos`,
-                },
-                {
-                    title: "Sandbank Visit or Private Swim Stop (Tide Dependent)",
-                    description: `If the tide allows, stop at a nearby natural sandbank 
- Relax on white sands, swim in shallow waters
- Take beautiful photos in clear turquoise sea
- Enjoy drone footage or videos (optional)`,
-                },
-                {
-                    title: "VIP Beachside or Onboard Brunch",
-                    description: `Head to a calm spot or back to the beach for a delicious VIP brunch or seafood snack setup:
- Grilled seafood (octopus, prawns, or fish depending on the day’s catch)
- Tender grilled chicken
- Flavored rice, chapati, salad, and fruits
- Ice-cold soft drinks, beers, and fresh coconut water
- 🎶 Enjoy soft music and a relaxed tropical atmosphere`
-                },
-                {
-                    title: " Leisure Time & Cruise Back",
-                    description: `After brunch, take time to unwind on the boat or in the water. You may swim, sunbathe, or just enjoy the views as your captain sails gently back.`
-                },
-
-                {
-                    title: "  Return to matemwe beach + Hotel Drop-Off",
-                    description: `Arrive back on the beach with smiles, salty skin, and unforgettable memories. Your driver will be waiting to return you comfortably to your hotel.`
-                },
-
-                // More itinerary items...
-            ],
-            inclusions: [
-                "Private luxury boat (traditional dhow)",
-                "Round-trip hotel transfers",
-                "Professional snorkeling guide",
-                "Dolphin viewing session",
-                "Visit to Mnemba coral reef",
-                "Snorkeling equipment (mask, fins, life vests)",
-                "Seafood & chicken brunch",
-                "Beach or boat setup for meals ",
-                "Professional photographer",
-                "Friendly, English-speaking crew",
-                "Optional photography and drone footage "
-            ],
-            whatToBring: [
-                "Swimsuit & towel",
-                "Sun hat & sunscreen",
-                "Sunglasses",
-                "Waterproof bag for electronics",
-                "Flip-flops or reef shoes",
-
-            ],
-            OptionalAddOns: [
-                "Champagne or wine onboard",
-                "Romantic couple setup",
-            ],
-            // Add other details from your DOCX file...
+            image: nakupenda,
+            // Single comprehensive image containing all tour details
+            comprehensiveImage: package2,
+            // Remove all other detailed fields since they're now in the image
         },
-        {
+          {
             id: "sunset-cruise-vip",
-            name: "Private Sunset Cruise VIP",
+            name: "8 Days & 7 Nights Zanzibar and Mikumi Safari",
             category: "vip",
-            startPoint: "Stone Town Beach",
-            time: "4:30 PM - 7:00 PM",
-            type: "Private | Romantic | Luxury | Evening Cruise | Unfoorgettable",
-            price: "$500 for two persons",
-            description:
-                "Sail into the heart of Zanzibar's golden hour with our exclusive Private Sunset Cruise - VIP Experience.Departing from the historic shores of Stone Town, this intimate evening on the Indian Ocean includes a private dhow, a fresh seafood dinner on board, chilled drinks, romantic ambiance, and spectacular sunset views",
-            image: sunset2,
-            images: [sunset, sunset1, sunset3, sunset4,sunset5,sunset6],
-            itinerary: [
-                {
-                    title: "Hotel Pickup & Transfer to Nungwi/Kendwa Beach",
-                    description: `Begin your day early with a private hotel transfer to the northern coast of Zanzibar.
- Cold towels and bottled water offered during transfer
- Meet your friendly captain and crew upon arrival
- Safety briefing and quick orientation`,
-                    description: `A perfect choice for anniversaries, proposals, honeymoons, or just celebrating life in a magical setting.`,
-                },
-                {
-                    title: "Departure from Stone Town Beach",
-                    description: `You’ll be welcomed at Stone Town Beach by our professional crew with:
- Refreshing welcome drinks
- Cool towels
- Introduction and boarding of your private dhow, fully equipped with: Comfortable cushions and shade canopy
- Bluetooth music system
- Romantic lighting and decor (upon request)
- Ice box with beverages`,
-                },
-                {
-                    title: "Cruise Along the Historic Coast",
-                    description: `Your private dhow glides along Stone Town’s coastline, offering breathtaking views of:
- Forodhani Gardens, House of Wonders, and Old Fort
- Traditional ngalawa sailboats
- The ocean glowing with warm, golden light`,
-                },
-                {
-                    title: "VIP Seafood Dinner Onboard",
-                    description: `As the dhow anchors near the horizon line, your private dinner begins:
- Freshly grilled lobster, prawns, calamari, and fish
- Juicy grilled chicken (optional)
- Accompanied by vegetable rice, salads, and local sauces
- Ice-cold soft drinks, beers, or wine
- Optional champagne available by pre-order
- 🎶 All served with ambient music and stunning ocean views`,
-                },
-                {
-                    title: "Golden Sunset Moments",
-                    description: `Relax and watch the sky transform into a palette of red, orange, and purple.
- 💕 Romantic lantern setup with cushions
- 📸 Ideal moment for photos or drone video (optional add-on)
- 🌅 Breathe in the ocean air and savor the tranquility`,
-                },
-                {
-                    title: "Return to Stone Town Beach",
-                    description: `Sail gently back as the sun disappears and twilight sets in. Our crew will assist you ashore and ensure you leave with unforgettable memories.`
-                },
-
-
-                // More itinerary items...
-            ],
-            inclusions: [
-                "Private dhow cruise from Stone Town Beach",
-                "Welcome drinks & refreshing towels",
-                "Full seafood dinner on board (lobster, prawns, fish, rice, salad)",
-                "Romantic decor setup for couples",
-                "Soft drinks, beers, and wine",
-                "Drone video/photo package",
-                "Bluetooth music system onboard",
-                "Music system on board",
-                "Friendly captain & crew service throughout",
-                "Optional drone footage (extra)",
-                "Hotel pick-up and drop-off service"
-            ],
-            whatToBring: [
-                "Camera or phone",
-                "Light shawl or jacket",
-                "Sunglasses",
-                "Comfortable sandals",
-                "A big smile 😄",
-            ],
-            OptionalAddOns: [
-                "Premium champagne or cocktails",
-                "Proposal or anniversary setup",
-            ],
-            // Add other details from your DOCX file...
+            image: mnemba10,
+            // Single comprehensive image containing all tour details
+            comprehensiveImage: package3,
+            // Remove all other detailed fields since they're now in the image
         },
-        {
-            id: "safari-blue-vip",
-            name: "Safari Blue Adventure VIP",
+        { 
+            id: "sunset-cruise-vip",
+            name: "8 Days & 7 Nights Zanzibar and Mikumi Safari",
             category: "vip",
-            startPoint: "Fumba Beach",
-            time: "9:00 AM - 5:00 PM",
-            type: "Private | Luxury | Full-Day",
-            price: "$650 for two persons",
-            description:
-                "Escape to the sparkling waters of Menai Bay with the most iconic sea adventure in Zanzibar - Safari Blue, now reimagined as a VIP private experience. This luxurious day combines sailing, snorkeling, sandbank relaxation, island exploration, and an authentic seafood feast – all tailored for guests seeking exclusivity, comfort, and style.",
-            image: blue2,
-            images: [blue3, blue1, blue4],
-            itinerary: [
-                {
-                    title: "Check-In & Departure from Fumba Beach",
-                    description: `Meet your friendly crew at Fumba village, where your VIP adventure begins.
- Welcome drinks served upon arrival
- meet your private captain and guide
- Board your traditional dhow boat, upgraded for VIP comfort: cushions, shade, music, and coolers`,
-                },
-                {
-                    title: "Snorkeling at Coral Reefs",
-                    description: `Sail to the vibrant reefs of Menai Bay Marine Conservation Area for your first guided snorkeling session.
- Explore marine life among colorful corals
- Use of high-quality snorkeling gear included
- Floating life jackets available for comfort and safety
- Assistance and instruction from your guide, if needed`,
-                },
-                {
-                    title: "Gourmet Seafood Lunch on Kwale Island",
-                    description: `Sail to the beautiful Kwale Island, where your private seafood feast awaits under the trees.
- Freshly grilled lobster, prawns, octopus, calamari, and catch of the day
- Tender grilled chicken and vegetable curries
- Traditional Zanzibari rice and chapati
- Local sauces, salads, and tropical accompaniments
- Selection of chilled soft drinks, beers, and fresh juices
- 🎶 Enjoy music, friendly service, and a relaxed vibe throughout your meal.`,
-                },
-                {
-                    title: "Explore the Baobab Tree & Natural Lagoon",
-                    description: `After lunch, take a short walk to visit the ancient baobab tree, known for its giant trunk and cultural stories.
- Optional climbing photo opportunity
- Swim in the natural hidden lagoon surrounded by mangroves and coral rocks (tide-dependent)
- Learn about local flora, fauna, and island traditions from your guide`,
-                },
-                {
-                    title: "Sunset Sail & Return to Fumba Beach",
-                    description: `Cruise back toward Fumba aboard your dhow, as the sun begins to set over the Indian Ocean.
- Relax with music and drinks
- Enjoy the calm water and cool breeze
- Toast to an unforgettable day with a final round of cold beverages`,
-                },
-
-                // More itinerary items...
-            ],
-            inclusions: [
-                "Private luxury dhow boat with shaded seating & cushions",
-                "Welcome drinks at check-in",
-                "All snorkeling equipment",
-                "Fresh fruits, soft drinks, chilled beers ( optional), and juices",
-                "Private shaded area on the sandbank",
-                "Guided island tour and nature walk",
-                "Full-time crew & professional guide",
-                "Life jackets and safety equipment",
-                "Music on board",
-                "Professional drone photo/video",
-            ],
-            whatToBring: [
-                "Swimsuit & towel",
-                "Sun hat & sunscreen",
-                "Sunglasses",
-                "Waterproof bag for electronics",
-                "Flip-flops or reef shoes",
-                "Extra cash for souvenirs (if available)"
-            ],
-
-            // Add other details from your DOCX file...
-
-            // Add other details from your DOCX file...
+            image: sunset,
+            // Single comprehensive image containing all tour details
+            comprehensiveImage: package4,
+            // Remove all other detailed fields since they're now in the image
+        },
+         {
+            id: "sunset-cruise-vip",
+            name: "7 Days & 6 Nights  Zanzibar and Mikumi Safari",
+            category: "vip",
+            image: zanz8,
+            // Single comprehensive image containing all tour details
+            comprehensiveImage: package5,
+            // Remove all other detailed fields since they're now in the image
+        },
+         {
+            id: "sunset-cruise-vip",
+            name: "7 Days & 6 Nights Zanzibar",
+            category: "vip",
+            image: spice,
+            // Single comprehensive image containing all tour details
+            comprehensiveImage: package6,
+            // Remove all other detailed fields since they're now in the image
+        },
+         {
+            id: "sunset-cruise-vip",
+            name: "5 Days & 4 Nights Zanzibar",
+            category: "vip",
+            image: zanz3,
+            // Single comprehensive image containing all tour details
+            comprehensiveImage: package7,
+            // Remove all other detailed fields since they're now in the image
         },
     ],
     private: [

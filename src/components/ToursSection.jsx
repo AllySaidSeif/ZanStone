@@ -1,221 +1,594 @@
 // src/components/Tours/ToursSection.js
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FiClock, FiStar, FiMapPin, FiUsers, FiSearch } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import SectionTitle from '../components/SectionTitle';
 import { allTours } from '../tourData';
 
-
 const Section = styled.section`
   padding: 80px 0;
-  background: #f9f9f9;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  min-height: 100vh;
 `;
 
 const ToursContainer = styled.div`
-  position: relative;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 24px;
 `;
 
-const ScrollContainer = styled.div`
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  padding: 20px 0;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
+const SearchContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+`;
+
+const SearchBar = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
+  padding: 16px 20px 16px 50px;
+  border: 2px solid #e2e8f0;
+  border-radius: 20px;
+  font-size: 1rem;
+  background: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  
+  &:focus {
+    outline: none;
+    border-color: #FF7D33;
+    box-shadow: 0 0 0 3px rgba(255, 125, 51, 0.1), 0 6px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  &::placeholder {
+    color: #94a3b8;
   }
 `;
 
-const ToursWrapper = styled.div`
-  display: inline-flex;
-  gap: 30px;
-  padding: 10px;
+const SearchIcon = styled(FiSearch)`
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  width: 20px;
+  height: 20px;
+`;
+
+const CompactGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+  padding: 20px 0;
+
+  @media (min-width: 1400px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (max-width: 1399px) and (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 380px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 `;
 
 const TourCard = styled(motion.div)`
-  min-width: 300px;
   background: white;
-  border-radius: 12px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  height: 460px;
   display: flex;
   flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 
   &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
   }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #FF7D33, #FF6B6B, #FF7D33);
+    background-size: 200% 100%;
+    animation: shimmer 3s ease infinite;
+    z-index: 2;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+  flex-shrink: 0;
 `;
 
 const TourImage = styled.img`
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
+  transition: all 0.5s ease;
+  
+  ${TourCard}:hover & {
+    transform: scale(1.1);
+  }
+`;
+
+const ImageOverlay = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.3));
+  height: 50px;
+  z-index: 1;
+`;
+
+const VIPBadge = styled.div`
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #000;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  @media (max-width: 480px) {
+    padding: 4px 8px;
+    font-size: 0.65rem;
+    top: 8px;
+    right: 8px;
+  }
 `;
 
 const TourContent = styled.div`
   padding: 20px;
-  flex-grow: 1;
+  flex: 1;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 480px) {
+    padding: 16px;
+  }
+`;
+
+const TourHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  gap: 8px;
 `;
 
 const TourTitle = styled.h3`
-  margin: 0 0 10px 0;
-  font-size: 1.4rem;
-  color: #333;
-`;
+  margin: 0;
+  font-size: 1.1rem;
+  color: #1a202c;
+  line-height: 1.3;
+  font-weight: 700;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.8rem;
 
-const TourDescription = styled.p`
-  margin: 0 0 15px 0;
-  color: #666;
-  font-size: 0.95rem;
-  flex-grow: 1;
-`;
-
-const TourMeta = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  font-size: 0.9rem;
-  color: #555;
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    min-height: 2.6rem;
+  }
 `;
 
 const TourPrice = styled.div`
-  font-weight: bold;
-  color: #FF7D33;
+  background: linear-gradient(135deg, #FF7D33, #FF6B6B);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(255, 125, 51, 0.3);
+  flex-shrink: 0;
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+  }
+`;
+
+const TourDescription = styled.p`
+  color: #64748b;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.55rem;
+  flex-shrink: 0;
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    margin-bottom: 12px;
+  }
+`;
+
+const TourFeatures = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+
+  @media (max-width: 480px) {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+`;
+
+const Feature = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #475569;
+  font-size: 0.75rem;
+  font-weight: 500;
+  
+  svg {
+    color: #FF7D33;
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.7rem;
+    
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+`;
+
+const CardFooter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #f1f5f9;
+  flex-shrink: 0;
+
+  @media (max-width: 480px) {
+    padding-top: 12px;
+  }
+`;
+
+const Rating = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`;
+
+const Stars = styled.div`
+  display: flex;
+  gap: 1px;
+`;
+
+const Star = styled.div`
+  color: ${props => props.filled ? '#FFD700' : '#e2e8f0'};
+  font-size: 0.8rem;
+
+  @media (max-width: 480px) {
+    font-size: 0.7rem;
+  }
+`;
+
+const ReviewCount = styled.span`
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  @media (max-width: 480px) {
+    font-size: 0.7rem;
+  }
 `;
 
 const DetailsButton = styled(Link)`
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #FF7D33;
+  background: linear-gradient(135deg, #FF7D33, #E56C2B);
   color: white;
-  padding: 12px;
-  border-radius: 6px;
+  padding: 8px 16px;
+  border-radius: 10px;
   text-decoration: none;
-  font-weight: bold;
-  transition: background 0.3s ease;
-  margin-top: auto;
-
-  &:hover {
-    background: #E56C2B;
-  }
-`;
-
-const NavButton = styled.button`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: white;
-  border: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  z-index: 10;
+  font-weight: 600;
+  font-size: 0.85rem;
   transition: all 0.3s ease;
-
+  min-width: 90px;
+  border: none;
+  cursor: pointer;
+  
   &:hover {
-    background: #f5f5f5;
-    transform: translateY(-50%) scale(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 125, 51, 0.4);
+    color: white;
   }
 
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  @media (max-width: 480px) {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    min-width: 80px;
   }
 `;
 
-const PrevButton = styled(NavButton)`
-  left: 0;
+const EmptyState = styled(motion.div)`
+  text-align: center;
+  padding: 80px 20px;
+  
+  h3 {
+    font-size: 1.5rem;
+    color: #1e293b;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  
+  p {
+    color: #64748b;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
 `;
 
-const NextButton = styled(NavButton)`
-  right: 0;
+const ResultsCount = styled.div`
+  color: #64748b;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  text-align: center;
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+  }
 `;
 
-const ToursSection = ({ selectedCategory }) => {
-  const scrollRef = useRef(null);
+const ToursSection = () => {
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const scroll = (direction) => {
-    if (scrollRef.current) {
-      const { current } = scrollRef;
-      const scrollAmount = direction === 'left' ? -300 : 300;
-      current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  // Get all tours (excluding transfer)
+  const getToursToShow = () => {
+    const { transfer, ...otherCategories } = allTours;
+    let tours = Object.values(otherCategories).flat();
+
+    // Filter by search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      tours = tours.filter(tour => 
+        tour.name.toLowerCase().includes(query) ||
+        (tour.description && tour.description.toLowerCase().includes(query)) ||
+        (tour.location && tour.location.toLowerCase().includes(query))
+      );
     }
+
+    return tours;
   };
 
-  // Get tours based on selected category or show all if none selected
-  const toursToShow = selectedCategory 
-    ? allTours[selectedCategory] 
-    : Object.values(allTours).flat();
+  const toursToShow = getToursToShow();
+
+  // Compact description getter
+  const getDescription = (tour) => {
+    const isVipTour = tour.comprehensiveImage && tour.category === 'vip';
+    
+    if (isVipTour) {
+      return "VIP luxury experience with premium service";
+    }
+    
+    if (tour.description) {
+      return tour.description.length > 80 
+        ? `${tour.description.substring(0, 80)}...` 
+        : tour.description;
+    }
+    
+    return "Premium tour experience with expert guides";
+  };
+
+  // Safe time getter
+  const getTime = (tour) => {
+    const isVipTour = tour.comprehensiveImage && tour.category === 'vip';
+    if (isVipTour) return "Flexible";
+    if (tour.time) {
+      return tour.time.includes('--') 
+        ? tour.time.split('--')[0].trim() 
+        : tour.time;
+    }
+    return "Flexible";
+  };
+
+  // Get tour type/category
+  const getTourType = (tour) => {
+    if (tour.category === 'vip') return 'VIP';
+    if (tour.category === 'private') return 'Private';
+    if (tour.category === 'sharing') return 'Group';
+    return 'Tour';
+  };
+
+  // Safe image getter
+  const getImage = (tour) => {
+    const isVipTour = tour.comprehensiveImage && tour.category === 'vip';
+    if (isVipTour && tour.comprehensiveImage) {
+      return tour.image;
+    }
+    return tour.image || tour.image;
+  };
+
+  // Check if tour is VIP
+  const isVipTour = (tour) => {
+    return tour.comprehensiveImage && tour.category === 'vip';
+  };
+
+  // Generate random rating between 4.0 and 5.0
+  const getRandomRating = (tourId) => {
+    return (4 + Math.random()).toFixed(1);
+  };
 
   return (
-    <>
-      <Section id="tours">
-        <ToursContainer>
-          <SectionTitle>
-            {selectedCategory 
-              ? `${selectedCategory.toUpperCase()} TOURS` 
-              : 'OUR TOURS'}
-          </SectionTitle>
-          
+    <Section id="tours">
+      <ToursContainer>
+        <SectionTitle>
+          Discover Amazing Tours
+        </SectionTitle>
+
+        {/* Centered Search */}
+        <SearchContainer>
+          <SearchBar>
+            <SearchIcon />
+            <SearchInput
+              type="text"
+              placeholder="Search tours by name, location, or description..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </SearchBar>
+        </SearchContainer>
+
+        {/* Results Count */}
+        {toursToShow.length > 0 && (
+          <ResultsCount>
+            Showing {toursToShow.length} {toursToShow.length === 1 ? 'tour' : 'tours'}
+            {searchQuery && ` for "${searchQuery}"`}
+          </ResultsCount>
+        )}
+
+        <AnimatePresence mode="wait">
           {toursToShow.length > 0 ? (
-            <>
-              <PrevButton onClick={() => scroll('left')}>
-                <FiChevronLeft size={24} />
-              </PrevButton>
-              
-              <ScrollContainer ref={scrollRef}>
-                <ToursWrapper>
-                  {toursToShow.map((tour, index) => (
-                    <TourCard
-                      key={tour.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                    >
-                      <TourImage src={tour.image} alt={tour.name} />
-                      <TourContent>
-                        <TourTitle>{tour.name}</TourTitle>
-                        <TourDescription>{tour.description.substring(0, 100)}...</TourDescription>
-                        <TourMeta>
-                          <span>{tour.time.split('--')[0].trim()}</span>
-                          <TourPrice>{tour.price}</TourPrice>
-                        </TourMeta>
-                        <DetailsButton to={`/tours/${tour.id}`}>
-                          View Details
-                        </DetailsButton>
-                      </TourContent>
-                    </TourCard>
-                  ))}
-                </ToursWrapper>
-              </ScrollContainer>
-              
-              <NextButton onClick={() => scroll('right')}>
-                <FiChevronRight size={24} />
-              </NextButton>
-            </>
+            <CompactGrid>
+              {toursToShow.map((tour, index) => (
+                <TourCard
+                  key={tour.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  whileHover={{ y: -8 }}
+                >
+                  <ImageContainer>
+                    <TourImage 
+                      src={getImage(tour)} 
+                      alt={tour.name}
+                      onError={(e) => {
+                        e.target.src = 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&h=240&fit=crop';
+                      }}
+                    />
+                    <ImageOverlay />
+                    {isVipTour(tour) && <VIPBadge>⭐ Specail Package</VIPBadge>}
+                  </ImageContainer>
+
+                  <TourContent>
+                    <TourHeader>
+                      <TourTitle>{tour.name}</TourTitle>
+                    </TourHeader>
+
+                    <TourDescription>
+                      {getDescription(tour)}
+                    </TourDescription>
+
+                    <TourFeatures>
+                      <Feature>
+                        <FiClock />
+                        <span>{getTime(tour)}</span>
+                      </Feature>
+                      <Feature>
+                        <FiUsers />
+                        <span>{getTourType(tour)}</span>
+                      </Feature>
+                      <Feature>
+                        <FiMapPin />
+                        <span>{tour.location || "Various"}</span>
+                      </Feature>
+                    </TourFeatures>
+
+                    <CardFooter>
+                      <Rating>
+                        <Stars>
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <Star key={star} filled={star <= 4}>
+                              ★
+                            </Star>
+                          ))}
+                        </Stars>
+                        <ReviewCount>
+                          {getRandomRating(tour.id)}
+                        </ReviewCount>
+                      </Rating>
+                      <DetailsButton to={`/tours/${tour.id}`}>
+                        View
+                      </DetailsButton>
+                    </CardFooter>
+                  </TourContent>
+                </TourCard>
+              ))}
+            </CompactGrid>
           ) : (
-            <p style={{ textAlign: 'center', fontSize: '1.2rem' }}>
-              Select a tour category above to see available tours
-            </p>
+            <EmptyState
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h3>No tours found</h3>
+              <p>
+                {searchQuery 
+                  ? `We couldn't find any tours matching "${searchQuery}". Try adjusting your search.`
+                  : "We couldn't find any tours available at the moment."}
+              </p>
+            </EmptyState>
           )}
-        </ToursContainer>
-      </Section>
-    </>
+        </AnimatePresence>
+      </ToursContainer>
+    </Section>
   );
 };
 

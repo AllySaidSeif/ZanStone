@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import TourCard from '../components/TourCard';
 import SectionTitle from '../components/SectionTitle';
 import Footer from '../components/Footer';
-// Sample tour data
+
 const tours = [
   {
     id: 1,

@@ -10,7 +10,7 @@ const NavContainer = styled.nav`
   top: 0;
   left: 0;
   width: 100%;
-  background: ${props => props.scrolled ? color.white : 'transparent'};
+  background: ${props => props.scrolled ?  'transparent' : 'transparent'};
   box-shadow: ${props => props.scrolled ? '0 2px 10px rgba(0, 0, 0, 0.1)' : 'none'};
   z-index: 1000;
   transition: all 0.3s ease;
@@ -57,7 +57,7 @@ const NavLinks = styled.ul`
 `;
 
 const NavLink = styled(Link)`
-  color: ${props => props.scrolled ? color.textDark : color.textLight};
+  color: ${props => props.scrolled ? color.primaryDark : color.textLight};
   text-decoration: none;
   font-weight: 500;
   position: relative;

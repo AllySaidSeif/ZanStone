@@ -1,5 +1,5 @@
 export const lightTheme = {
-  background: '#ffffff',
+  background: 'linear-gradient(135deg, #006d77 0%, #003049 50%, #ffffff 100%)',
   card: '#ffffff',
   text: '#1e293b',
   header: 'rgba(255, 255, 255, 0.9)',
