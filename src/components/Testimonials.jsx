@@ -12,6 +12,10 @@ import users from "../assets/image/user.jpg" ;
 const Section = styled.section`
   padding: 80px 0;
   background: ${color.secondary};
+
+  @media (max-width: 768px) {
+    padding: 40px 0;
+  }
 `;
 
 const CommentsContainer = styled.div`
@@ -19,6 +23,10 @@ const CommentsContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 40px;
+
+  @media (max-width: 768px) {
+    padding: 0 20px;
+  }
 `;
 
 const ScrollContainer = styled.div`
@@ -30,12 +38,21 @@ const ScrollContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+
+  @media (max-width: 768px) {
+    padding: 20px 0;
+  }
 `;
 
 const CommentsWrapper = styled.div`
   display: inline-flex;
   gap: 30px;
   padding: 0 10px;
+
+  @media (max-width: 768px) {
+    gap: 20px;
+    padding: 0 5px;
+  }
 `;
 
 const CommentCard = styled(motion.div)`
@@ -46,12 +63,28 @@ const CommentCard = styled(motion.div)`
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 768px) {
+    min-width: 280px;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  @media (max-width: 480px) {
+    min-width: 250px;
+    padding: 15px;
+    border-radius: 8px;
+  }
 `;
 
 const CommentHeader = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 15px;
+  }
 `;
 
 const Avatar = styled.img`
@@ -60,18 +93,42 @@ const Avatar = styled.img`
   border-radius: 50%;
   object-fit: cover;
   margin-right: 15px;
+
+  @media (max-width: 768px) {
+    width: 50px;
+    height: 50px;
+    margin-right: 12px;
+  }
+
+  @media (max-width: 480px) {
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+  }
 `;
 
 const UserInfo = styled.div`
   h4 {
     margin: 0 0 5px 0;
     font-size: 1.1rem;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 0.95rem;
+    }
   }
 
   p {
     margin: 0;
     color: #777;
     font-size: 0.9rem;
+
+    @media (max-width: 768px) {
+      font-size: 0.85rem;
+    }
   }
 `;
 
@@ -82,6 +139,11 @@ const Rating = styled.div`
   svg {
     color: ${color.primary};
     margin-right: 2px;
+
+    @media (max-width: 768px) {
+      width: 14px;
+      height: 14px;
+    }
   }
 `;
 
@@ -91,17 +153,32 @@ const CommentText = styled.p`
   color: #555;
   line-height: 1.6;
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+  }
 `;
 
 const CommentDate = styled.p`
   color: #999;
   font-size: 0.85rem;
   text-align: right;
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const NavButton = styled.button`
   position: absolute;
-  top: 50%;
+  top: 65%;
   transform: translateY(-50%);
   background: ${color.white};
   border: none;
@@ -120,14 +197,42 @@ const NavButton = styled.button`
     background: ${color.lightGray};
     transform: translateY(-50%) scale(1.1);
   }
+
+  @media (max-width: 768px) {
+    width: 40px;
+    height: 40px;
+    
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    width: 35px;
+    height: 35px;
+    
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
 `;
 
 const PrevButton = styled(NavButton)`
   left: 0;
+
+  @media (max-width: 768px) {
+    left: 10px;
+  }
 `;
 
 const NextButton = styled(NavButton)`
   right: 0;
+
+  @media (max-width: 768px) {
+    right: 10px;
+  }
 `;
 
 const Testimonials = () => {

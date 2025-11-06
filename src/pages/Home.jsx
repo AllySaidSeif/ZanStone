@@ -159,6 +159,7 @@ const HorizontalToursSection = styled.section`
   }
 `;
 
+
 const ToursContainer = styled.div`
   max-width: 1400px;
   margin: 0 auto;
@@ -166,7 +167,7 @@ const ToursContainer = styled.div`
   position: relative;
 
   @media (max-width: ${breakpoints.mobile}) {
-    padding: 0 10px;
+    padding: 0 8px; /* Reduced padding for mobile */
   }
 `;
 
@@ -181,12 +182,12 @@ const SectionTitle = styled.h2`
   -webkit-text-fill-color: transparent;
 
   @media (max-width: ${breakpoints.mobile}) {
-    font-size: 2rem;
-    margin-bottom: 30px;
+    font-size: 1.8rem; /* Further reduced for mobile */
+    margin-bottom: 25px; /* Reduced margin */
   }
 
   @media (max-width: 480px) {
-    font-size: 1.75rem;
+    font-size: 1.6rem; /* Even smaller for very small screens */
   }
 `;
 
@@ -209,8 +210,8 @@ const ScrollWrapper = styled.div`
   }
 
   @media (max-width: ${breakpoints.mobile}) {
-    gap: 20px;
-    padding: 15px 5px;
+    gap: 12px; /* Further reduced gap for mobile */
+    padding: 12px 4px; /* Reduced padding */
   }
 `;
 
@@ -243,8 +244,9 @@ const TourCard = styled(motion.div)`
   }
 
   @media (max-width: ${breakpoints.mobile}) {
-    min-width: 280px;
-    border-radius: 12px;
+    min-width: 200px; /* Significantly reduced from 240px */
+    height: 350px; /* Reduced height to match smaller width */
+    border-radius: 10px; /* Slightly smaller border radius */
     
     &:hover {
       transform: translateY(-4px);
@@ -252,7 +254,13 @@ const TourCard = styled(motion.div)`
   }
 
   @media (max-width: 480px) {
-    min-width: 260px;
+    min-width: 180px; /* Even smaller for very small screens */
+    height: 340px;
+  }
+
+  @media (max-width: 360px) {
+    min-width: 170px; /* Minimum width for very small devices */
+    height: 330px;
   }
 `;
 
@@ -262,7 +270,7 @@ const ImageContainer = styled.div`
   overflow: hidden;
 
   @media (max-width: ${breakpoints.mobile}) {
-    height: 180px;
+    height: 130px; /* Further reduced image height */
   }
 `;
 
@@ -293,10 +301,11 @@ const VIPBadge = styled.div`
   letter-spacing: 0.5px;
 
   @media (max-width: ${breakpoints.mobile}) {
-    font-size: 0.5rem;
-    padding: 4px 10px;
-    top: 8px;
-    right: 8px;
+    font-size: 0.45rem; /* Further reduced font size */
+    padding: 2px 6px; /* Further reduced padding */
+    top: 6px;
+    right: 6px;
+    border-radius: 12px; /* Smaller border radius */
   }
 `;
 
@@ -304,12 +313,16 @@ const TourContent = styled.div`
   padding: 20px;
 
   @media (max-width: ${breakpoints.mobile}) {
-    padding: 15px;
+    padding: 10px; /* Further reduced padding */
   }
 `;
 
 const TourHeader = styled.div`
   margin-bottom: 12px;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    margin-bottom: 8px; /* Reduced margin */
+  }
 `;
 
 const TourTitle = styled.h3`
@@ -324,8 +337,10 @@ const TourTitle = styled.h3`
   overflow: hidden;
 
   @media (max-width: ${breakpoints.mobile}) {
-    font-size: 1.1rem;
-    margin-bottom: 8px;
+    font-size: 0.9rem; /* Further reduced font size */
+    margin-bottom: 6px;
+    -webkit-line-clamp: 2; /* Ensure 2 lines max */
+    line-height: 1.2; /* Tighter line height */
   }
 `;
 
@@ -340,8 +355,8 @@ const TourPrice = styled.div`
   box-shadow: 0 3px 12px rgba(255, 125, 51, 0.3);
 
   @media (max-width: ${breakpoints.mobile}) {
-    font-size: 1rem;
-    padding: 6px 12px;
+    font-size: 0.85rem; /* Further reduced */
+    padding: 4px 8px; /* Further reduced padding */
   }
 `;
 
@@ -356,8 +371,10 @@ const TourDescription = styled.p`
   overflow: hidden;
 
   @media (max-width: ${breakpoints.mobile}) {
-    font-size: 0.85rem;
-    margin-bottom: 12px;
+    font-size: 0.75rem; /* Further reduced font size */
+    margin-bottom: 8px; /* Reduced margin */
+    line-height: 1.4; /* Tighter line height */
+    -webkit-line-clamp: 2; /* Ensure only 2 lines */
   }
 `;
 
@@ -368,8 +385,8 @@ const TourFeatures = styled.div`
   margin-bottom: 15px;
 
   @media (max-width: ${breakpoints.mobile}) {
-    gap: 8px;
-    margin-bottom: 12px;
+    gap: 4px; /* Further reduced gap */
+    margin-bottom: 8px; /* Reduced margin */
   }
 `;
 
@@ -387,11 +404,12 @@ const Feature = styled.div`
   }
 
   @media (max-width: ${breakpoints.mobile}) {
-    font-size: 0.75rem;
+    font-size: 0.65rem; /* Further reduced font size */
+    gap: 3px; /* Reduced gap */
     
     svg {
-      width: 12px;
-      height: 12px;
+      width: 8px; /* Further reduced icon size */
+      height: 8px;
     }
   }
 `;
@@ -403,7 +421,7 @@ const CardFooter = styled.div`
   margin-top: 15px;
 
   @media (max-width: ${breakpoints.mobile}) {
-    margin-top: 12px;
+    margin-top: 8px; /* Further reduced margin */
   }
 `;
 
@@ -411,6 +429,10 @@ const Rating = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    gap: 2px; /* Reduced gap */
+  }
 `;
 
 const Stars = styled.div`
@@ -423,7 +445,7 @@ const Star = styled.div`
   font-size: 0.8rem;
 
   @media (max-width: ${breakpoints.mobile}) {
-    font-size: 0.75rem;
+    font-size: 0.65rem; /* Further reduced star size */
   }
 `;
 
@@ -447,9 +469,10 @@ const DetailsButton = styled(Link)`
   }
 
   @media (max-width: ${breakpoints.mobile}) {
-    padding: 8px 14px;
-    font-size: 0.85rem;
-    min-width: 80px;
+    padding: 5px 10px; /* Further reduced padding */
+    font-size: 0.75rem; /* Further reduced font size */
+    min-width: 60px; /* Further reduced minimum width */
+    border-radius: 6px; /* Smaller border radius */
     
     &:hover {
       transform: translateY(-1px);
@@ -485,13 +508,13 @@ const NavButton = styled.button`
   }
 
   @media (max-width: ${breakpoints.mobile}) {
-    width: 40px;
-    height: 40px;
+    width: 30px; /* Further reduced button size */
+    height: 30px;
     display: ${props => props.$hideOnMobile ? 'none' : 'flex'};
     
     svg {
-      width: 18px;
-      height: 18px;
+      width: 14px; /* Further reduced icon size */
+      height: 14px;
     }
   }
 `;
@@ -500,7 +523,7 @@ const PrevButton = styled(NavButton)`
   left: -25px;
 
   @media (max-width: ${breakpoints.mobile}) {
-    left: -15px;
+    left: -8px; /* Adjusted position for smaller buttons */
   }
 `;
 
@@ -508,7 +531,7 @@ const NextButton = styled(NavButton)`
   right: -25px;
 
   @media (max-width: ${breakpoints.mobile}) {
-    right: -15px;
+    right: -8px; /* Adjusted position for smaller buttons */
   }
 `;
 
@@ -534,10 +557,11 @@ const ViewAllButton = styled(Link)`
   }
 
   @media (max-width: ${breakpoints.mobile}) {
-    margin-top: 30px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    max-width: 180px;
+    margin-top: 25px; /* Reduced margin */
+    padding: 8px 16px; /* Further reduced padding */
+    font-size: 0.85rem; /* Further reduced font size */
+    max-width: 140px; /* Further reduced width */
+    border-radius: 8px; /* Smaller border radius */
     
     &:hover {
       transform: translateY(-2px);
@@ -575,6 +599,7 @@ const GalleryToggleButton = styled.button`
   }
 `;
 
+
 // Horizontal Tours Component for Home Page
 const HorizontalTours = ({ selectedCategory }) => {
   const scrollRef = useRef(null);
@@ -594,7 +619,7 @@ const HorizontalTours = ({ selectedCategory }) => {
   const scroll = (direction) => {
     if (scrollRef.current) {
       const { current } = scrollRef;
-      const scrollAmount = isMobile ? 300 : 400;
+      const scrollAmount = isMobile ? 250 : 400; // Reduced mobile scroll amount
       current.scrollBy({ 
         left: direction === 'left' ? -scrollAmount : scrollAmount, 
         behavior: 'smooth' 

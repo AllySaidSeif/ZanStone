@@ -10,7 +10,7 @@ const NavContainer = styled.nav`
   top: 0;
   left: 0;
   width: 100%;
-  background: ${props => props.scrolled ?  'transparent' : 'transparent'};
+  background: ${props => props.scrolled ?  color.textLight : 'transparent'};
   box-shadow: ${props => props.scrolled ? '0 2px 10px rgba(0, 0, 0, 0.1)' : 'none'};
   z-index: 1000;
   transition: all 0.3s ease;

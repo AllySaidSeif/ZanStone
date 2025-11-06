@@ -92,13 +92,20 @@ const ThumbnailCarousel = styled(motion.div)`
   @media (max-width: 768px) {
     bottom: 15px;
     left: 15px;
+    right: auto;
     gap: 8px;
+    width: auto;
+    max-width: 70vw;
+    overflow-x: visible;
+    flex-direction: row;
+    align-items: flex-end;
   }
 
   @media (max-width: 480px) {
     bottom: 10px;
     left: 10px;
     gap: 6px;
+    max-width: 75vw;
   }
 `;
 
@@ -112,6 +119,18 @@ const ThumbnailItem = styled(motion.div)`
   transition: all 0.3s ease;
   width: ${props => props.isActive ? 'clamp(200px, 20vw, 220px)' : 'clamp(150px, 6vw, 100px)'};
   height: ${props => props.isActive ? 'clamp(100px, 18vw, 150px)' : 'clamp(95px, 4.5vw, 100px)'};
+
+  @media (max-width: 768px) {
+    width: ${props => props.isActive ? 'clamp(80px, 20vw, 100px)' : 'clamp(60px, 15vw, 80px)'};
+    height: ${props => props.isActive ? 'clamp(60px, 15vw, 80px)' : 'clamp(45px, 12vw, 60px)'};
+    border-width: ${props => props.isActive ? '2px' : '1px'};
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 480px) {
+    width: ${props => props.isActive ? 'clamp(70px, 18vw, 90px)' : 'clamp(50px, 12vw, 70px)'};
+    height: ${props => props.isActive ? 'clamp(50px, 12vw, 70px)' : 'clamp(40px, 10vw, 55px)'};
+  }
 
   &:hover {
     opacity: 1;
@@ -138,6 +157,17 @@ const LocationName = styled(motion.div)`
   font-weight: bold;
   opacity: ${props => props.isActive ? 1 : 0};
   transition: opacity 0.3s ease;
+
+  @media (max-width: 768px) {
+    font-size: 0.7rem;
+    padding: 2px;
+    opacity: ${props => props.isActive ? 0.9 : 0};
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.6rem;
+    padding: 1px;
+  }
 `;
 
 const NavigationButton = styled(motion.button)`
@@ -151,7 +181,33 @@ const NavigationButton = styled(motion.button)`
   font-size: clamp(1rem, 2vw, 1.2rem);
   opacity: 0.8;
   transition: opacity 0.3s ease;
-  &:hover { opacity: 1; background: rgba(255,255,255,0.1); }
+  
+  @media (max-width: 768px) {
+    width: 25px;
+    height: 25px;
+    font-size: 1rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 11;
+  }
+  
+  &:hover { 
+    opacity: 1; 
+    background: rgba(255,255,255,0.1); 
+  }
+`;
+
+const PrevButton = styled(NavigationButton)`
+  @media (max-width: 768px) {
+    left: -30px;
+  }
+`;
+
+const NextButton = styled(NavigationButton)`
+  @media (max-width: 768px) {
+    right: -30px;
+  }
 `;
 
 // Assets
@@ -178,7 +234,6 @@ const assets = [
   { src: p21, name: "StoneTown" },
   { src: p22, name: "StoneTown" },
   { src: p23, name: "Forodhan" },
-
 ];
 
 const Hero = () => {
@@ -221,7 +276,7 @@ const Hero = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <NavigationButton onClick={goPrev}>‹</NavigationButton>
+        <PrevButton onClick={goPrev}>‹</PrevButton>
         {visible.map(index => (
           <ThumbnailItem
             key={index}
@@ -234,7 +289,7 @@ const Hero = () => {
             </LocationName>
           </ThumbnailItem>
         ))}
-        <NavigationButton onClick={goNext}>›</NavigationButton>
+        <NextButton onClick={goNext}>›</NextButton>
       </ThumbnailCarousel>
 
       {/* Text Overlay */}
