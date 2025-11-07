@@ -700,7 +700,7 @@ const HorizontalTours = ({ selectedCategory }) => {
     if (!selectedCategory) return 'Featured Tours';
     
     const categoryNames = {
-      'vip': 'VIP Luxury Tours',
+      'vip': 'Special Packages Zanzibar',
       'private': 'Private Experiences', 
       'sharing': 'Group Adventures',
       'optional': 'Optional Activities'
