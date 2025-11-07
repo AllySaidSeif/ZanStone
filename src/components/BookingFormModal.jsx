@@ -9,7 +9,10 @@ import emailjs from "emailjs-com";
 
 const Overlay = styled(motion.div)`
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(6px);
   display: flex;
@@ -29,6 +32,7 @@ const Modal = styled(motion.div)`
 
   @media (max-width: 520px) {
     width: 90%;
+    max-width: 90vw;
   }
 `;
 
@@ -97,20 +101,38 @@ const SubmitButton = styled(motion.button)`
   box-shadow: 0 6px 18px rgba(0, 140, 82, 0.25);
 `;
 
-
-// ✅ Success Animation Container
-const SuccessPopup = styled(motion.div)`
+// ✅ Success Animation Container - FIXED for perfect centering
+const SuccessOverlay = styled(motion.div)`
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4000;
+  padding: 20px;
+`;
+
+const SuccessPopup = styled(motion.div)`
   background: white;
-  padding: 30px;
+  padding: 30px 25px;
   border-radius: 18px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
-  z-index: 4000;
   text-align: center;
-  width: 330px;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  
+  /* Mobile responsiveness */
+  @media (max-width: 480px) {
+    max-width: 280px;
+    padding: 25px 20px;
+    margin: 0 auto;
+  }
 `;
 
 const CheckMark = styled(motion.div)`
@@ -124,6 +146,12 @@ const CheckMark = styled(motion.div)`
   margin: 0 auto 18px auto;
   color: white;
   font-size: 2.4rem;
+  
+  @media (max-width: 480px) {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
 `;
 
 // -----------------------------------------------------
@@ -172,27 +200,34 @@ const BookingFormModal = ({ open, onClose }) => {
 
   return (
     <>
-      {/* ✅ SUCCESS POPUP */}
+      {/* ✅ SUCCESS POPUP - FIXED CENTERING */}
       <AnimatePresence>
         {success && (
-          <SuccessPopup
-            initial={{ scale: 0.6, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.6, opacity: 0 }}
+          <SuccessOverlay
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
-            <CheckMark
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 200, damping: 12 }}
+            <SuccessPopup
+              initial={{ scale: 0.6, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.6, opacity: 0 }}
+              transition={{ type: "spring", damping: 20 }}
             >
-              ✓
-            </CheckMark>
+              <CheckMark
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 200, damping: 12, delay: 0.1 }}
+              >
+                ✓
+              </CheckMark>
 
-            <h3 style={{ margin: 0, color: "#008d52" }}>Booking Sent!</h3>
-            <p style={{ color: "#444", fontSize: "0.95rem", marginTop: 8 }}>
-              We will contact you shortly.
-            </p>
-          </SuccessPopup>
+              <h3 style={{ margin: 0, color: "#008d52", fontSize: "1.4rem" }}>Booking Sent!</h3>
+              <p style={{ color: "#444", fontSize: "0.95rem", marginTop: 8, marginBottom: 0 }}>
+                We will contact you shortly.
+              </p>
+            </SuccessPopup>
+          </SuccessOverlay>
         )}
       </AnimatePresence>
 
@@ -236,15 +271,12 @@ const BookingFormModal = ({ open, onClose }) => {
 
               <Label>Tour Type</Label>
               <Select onChange={(e) => update("tourType", e.target.value)}>
-                <option value="">Select Tour Type</option>
+                <option value="" selected>Select Tour Type</option>
+                <option value="Safari Adventure">Safari Adventure</option>
+                <option value="Zanzibar Holiday">Zanzibar Holiday</option>
+                <option value="Special Package">Special Package</option>
                 <option value="Day Trip">Day Trip</option>
-                <option value="2 Days Safari">2 Days Safari</option>
-                <option value="3 Days Safari">3 Days Safari</option>
-                <option value="Camping Safari">Camping Safari</option>
-                <option value="Luxury Safari">Luxury Safari</option>
-                <option value="Honeymoon Package">Honeymoon Package</option>
-                <option value="Group Safari">Group Safari</option>
-                <option value="Custom Safari">Custom Safari</option>
+                <option value="Trekking">Trekking</option>
               </Select>
 
               <SubmitButton
