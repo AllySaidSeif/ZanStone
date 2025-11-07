@@ -245,7 +245,7 @@ const TourCard = styled(motion.div)`
 
   @media (max-width: ${breakpoints.mobile}) {
     min-width: 200px; /* Significantly reduced from 240px */
-    height: 350px; /* Reduced height to match smaller width */
+    height: 300px; /* Reduced height to match smaller width */
     border-radius: 10px; /* Slightly smaller border radius */
     
     &:hover {
@@ -254,13 +254,13 @@ const TourCard = styled(motion.div)`
   }
 
   @media (max-width: 480px) {
-    min-width: 180px; /* Even smaller for very small screens */
-    height: 340px;
+    width: 200px; /* Even smaller for very small screens */
+    height: 290px;
   }
 
   @media (max-width: 360px) {
     min-width: 170px; /* Minimum width for very small devices */
-    height: 330px;
+    height: 230px;
   }
 `;
 
@@ -930,20 +930,12 @@ const Home = () => {
             justifyContent: 'center',
             gap: '24px',
             marginTop: '40px',
-            flexWrap: 'wrap'
+            flexWrap: 'wrap',
+            '@media (max-width: 480px)': {
+              flexDirection: 'row',
+              alignItems: 'center'
+            }
           }}>
-            <img
-              src={mnemba}
-              alt="Zanzibar Beach"
-              style={{
-                width: '400px',
-                height: '260px',
-                objectFit: 'cover',
-                borderRadius: '18px',
-                boxShadow: '0 4px 24px rgba(0,0,0,0.12)',
-                maxWidth: '100%'
-              }}
-            />
             <img
               src={stone6}
               alt="Stone Town"
@@ -953,7 +945,10 @@ const Home = () => {
                 objectFit: 'cover',
                 borderRadius: '18px',
                 boxShadow: '0 4px 24px rgba(0,0,0,0.12)',
-                maxWidth: '100%'
+                maxWidth: '100%',
+                '@media (max-width: 480px)': {
+                  width: '100px'
+                }
               }}
             />
             <img
@@ -965,7 +960,10 @@ const Home = () => {
                 objectFit: 'cover',
                 borderRadius: '18px',
                 boxShadow: '0 4px 24px rgba(0,0,0,0.12)',
-                maxWidth: '100%'
+                maxWidth: '100%',
+                '@media (max-width: 480px)': {
+                 width: '100px'
+        }
               }}
             />
           </div>
