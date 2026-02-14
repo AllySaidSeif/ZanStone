@@ -1,6 +1,7 @@
 // src/components/Footer.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { supabase } from '../supabase';
 import { 
   FaFacebook, 
   FaInstagram, 
@@ -393,6 +394,7 @@ const Footer = () => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState({ text: '', type: '' });
+  const [visitorCount, setVisitorCount] = useState(null);
 
   const socialLinks = {
     facebook: 'https://www.facebook.com/profile.php?id=61563624100258',
@@ -436,6 +438,63 @@ const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Fetch visitor count from Supabase on mount and listen for updates
+  useEffect(() => {
+    let mounted = true;
+
+    const fetchCount = async () => {
+      try {
+        // Fetch from Supabase
+        const { data, error } = await supabase
+          .from('site_stats')
+          .select('count')
+          .eq('counter_key', 'visits')
+          .single();
+
+        if (error) throw error;
+        console.log('[visitor] fetch from Supabase', data?.count);
+        if (mounted && data) setVisitorCount(data.count);
+      } catch (err) {
+        console.error('[visitor] fetch error', err);
+        // Fallback to localStorage if Supabase fails
+        const stored = parseInt(localStorage.getItem('zan_visits') || '0', 10);
+        if (mounted) setVisitorCount(stored);
+      }
+    };
+
+    fetchCount();
+
+    const handler = (e) => {
+      console.log('[visitor] event received', e && e.detail);
+      if (e && e.detail) setVisitorCount(e.detail);
+    };
+
+    window.addEventListener('visitorCountUpdated', handler);
+
+    // Optional: Subscribe to real-time updates from Supabase (v2 API)
+    const channel = supabase
+      .channel('public:site_stats')
+      .on('postgres_changes', {
+        event: 'UPDATE',
+        schema: 'public',
+        table: 'site_stats',
+        filter: 'counter_key=eq.visits'
+      }, (payload) => {
+        console.log('[visitor] realtime update', payload?.new?.count);
+        if (mounted && payload?.new) setVisitorCount(payload.new.count);
+      })
+      .subscribe();
+
+    return () => {
+      mounted = false;
+      window.removeEventListener('visitorCountUpdated', handler);
+      // Unsubscribe from Supabase channel
+      if (channel && typeof channel.unsubscribe === 'function') {
+        try { channel.unsubscribe(); } catch (e) { /* ignore */ }
+      }
+    };
+  }, []);
 
   return (
     <FooterContainer>
@@ -532,6 +591,9 @@ const Footer = () => {
       <FooterBottom>
         <div>
           &copy; {new Date().getFullYear()} ZanStone Tours and Safaris. All rights reserved.
+          <div style={{ fontSize: '0.85rem', color: '#bbb', marginTop: 6 }}>
+            Visitors: {visitorCount !== null ? visitorCount.toLocaleString() : '—'}
+          </div>
         </div>
         <LegalLinks>
           <span>Privacy Policy</span>

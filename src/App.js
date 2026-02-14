@@ -15,15 +15,17 @@ import SafariExperience from './components/SafariExperience';
 import Gallery from './pages/Gallery';
 import Header from './components/Header';
 import WhatsAppButton from './components/WhatsAppButton';
+import SocialMediaButton from './components/SocialMediaButtonHover'; // Import the component
 import { GoogleOAuthProvider } from '@react-oauth/google';
-
+import DayTripsPage from './pages/DayTrips';
+import DayTripDetails from './pages/DayTripDetails';
 
 const AppContainer = styled.div`
   font-family: 'Poppins', sans-serif;
   color: #333;
+  position: relative;
+  min-height: 100vh;
 `;
-
-
 
 const App = () => {
   return (
@@ -32,6 +34,7 @@ const App = () => {
         <GlobalStyles />
         <AppContainer>
           <Header />
+         {/* Add this line */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -39,10 +42,12 @@ const App = () => {
             <Route path="/tours" element={<Tours />} />
             <Route path="/tourSection" element={<ToursSection />} />
             <Route path="/safariExperience" element={<SafariExperience />} />
-             <Route path="/tours/:id" element={<TourDetail />} />
+            <Route path="/tours/:id" element={<TourDetail />} />
             <Route path="/safaris" element={<Safaris />} />
             <Route path="/safaris/:id" element={<SafariDetail />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/dayTrips" element={<DayTripsPage />} />
+            <Route path="/TripsDetails/:id" element={<DayTripDetails />} />
           </Routes>
           <WhatsAppButton />
         </AppContainer>

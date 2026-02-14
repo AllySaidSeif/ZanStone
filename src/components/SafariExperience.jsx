@@ -162,7 +162,7 @@ const SafariExperience = ({ selectedCategory }) => {
     : Object.values(allSafaris).flat();
 
   return (
-    <Section id="safaris">
+    <Section id="safari-experience">
       <SafarisContainer>
         <SectionTitle>
           {selectedCategory 

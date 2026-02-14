@@ -114,13 +114,6 @@ import pung1 from "../src/assets/image/Folder1/pung1.jpeg"
 import pung2 from "../src/assets/image/Folder1/pung2.jpeg"
 import pung3 from "../src/assets/image/Folder1/pung3.jpg"
 import pung4 from "../src/assets/image/Folder1/pung4.jpg"
-import package1 from "../src/assets/image/packages/package1.jpg"
-import package2 from "../src/assets/image/packages/package2.jpg"
-import package3 from "../src/assets/image/packages/package3.jpg"
-import package4 from "../src/assets/image/packages/package4.jpg"
-import package5 from "../src/assets/image/packages/package5.jpg"
-import package6 from "../src/assets/image/packages/package6.jpg"
-import package7 from "../src/assets/image/packages/package7.jpg"
 
 
 export const tourCategories = [
@@ -167,71 +160,7 @@ export const tourCategories = [
 ];
 
 export const allTours = {
-    vip: [
-         {
-            id: "nakupenda-vip",
-            name: "8 Days & 7 Nights Zanzibar and Selous Safari",
-            category: "vip",
-            image: mnemba,
-            // Single comprehensive image containing all tour details
-            comprehensiveImage: package1,
-            // Remove all other detailed fields since they're now in the image
-        },
-       {
-            id: "mnemba-vip",
-            name: "6 Days & 5 Nights Zanzibar",
-            category: "vip",
-            image: nakupenda,
-            // Single comprehensive image containing all tour details
-            comprehensiveImage: package2,
-            // Remove all other detailed fields since they're now in the image
-        },
-          {
-            id: "sunset-cruise-vip",
-            name: "8 Days & 7 Nights Zanzibar and Mikumi Safari",
-            category: "vip",
-            image: mnemba10,
-            // Single comprehensive image containing all tour details
-            comprehensiveImage: package3,
-            // Remove all other detailed fields since they're now in the image
-        },
-        { 
-            id: "sunset-cruise-vip",
-            name: "8 Days & 7 Nights Zanzibar and Mikumi Safari",
-            category: "vip",
-            image: sunset,
-            // Single comprehensive image containing all tour details
-            comprehensiveImage: package4,
-            // Remove all other detailed fields since they're now in the image
-        },
-         {
-            id: "sunset-cruise-vip",
-            name: "7 Days & 6 Nights  Zanzibar and Mikumi Safari",
-            category: "vip",
-            image: zanz8,
-            // Single comprehensive image containing all tour details
-            comprehensiveImage: package5,
-            // Remove all other detailed fields since they're now in the image
-        },
-         {
-            id: "sunset-cruise-vip",
-            name: "7 Days & 6 Nights Zanzibar",
-            category: "vip",
-            image: spice,
-            // Single comprehensive image containing all tour details
-            comprehensiveImage: package6,
-            // Remove all other detailed fields since they're now in the image
-        },
-         {
-            id: "sunset-cruise-vip",
-            name: "5 Days & 4 Nights Zanzibar",
-            category: "vip",
-            image: zanz3,
-            // Single comprehensive image containing all tour details
-            comprehensiveImage: package7,
-            // Remove all other detailed fields since they're now in the image
-        },
-    ],
+    
     private: [
         {
             id: "kendwa-sunset",

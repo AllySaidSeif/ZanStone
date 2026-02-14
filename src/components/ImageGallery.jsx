@@ -1,13 +1,15 @@
 // src/components/Gallery/ImageGallery.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, lazy, Suspense } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { FiHeart, FiPlus, FiSearch } from 'react-icons/fi';
 import { FaPinterest } from 'react-icons/fa';
-import GalleryModal from './GalleryModal';
 import { color } from '../styles/color';
 
-// Import all your images
+// Lazy load the modal
+const GalleryModal = lazy(() => import('./GalleryModal'));
+
+// Import all your images (keeping all imports as they were)
 import safari1 from '../assets/image/safari1.jpg';
 import safari2 from '../assets/image/safari2.jpg';
 import safari3 from '../assets/image/safari3.jpg';
@@ -208,180 +210,213 @@ const fadeIn = keyframes`
   }
 `;
 
+// Optimized image configuration with lazy loading
 const images = [
-  { id: 0, src: adobe19, alt: 'Adobe 1', width: 350, height: 250, likes: 0 },
-  { id: 1, src: adobe2, alt: 'Adobe 2', width: 350, height: 250, likes: 0 },
-  { id: 2, src: adobe3, alt: 'Adobe 3', width: 350, height: 220, likes: 0 },
-  { id: 3, src: adobe4, alt: 'Adobe 4', width: 350, height: 260, likes: 0 },
-  { id: 4, src: adobe5, alt: 'Adobe 5', width: 350, height: 210, likes: 0 },
-  { id: 5, src: adobe6, alt: 'Adobe 6', width: 350, height: 270, likes: 0 },
-  { id: 6, src: adobe7, alt: 'Adobe 7', width: 350, height: 230, likes: 0 },
-  { id: 7, src: adobe8, alt: 'Adobe 8', width: 350, height: 240, likes: 0 },
-  { id: 8, src: adobe9, alt: 'Adobe 9', width: 350, height: 200, likes: 0 },
-  { id: 9, src: adobe10, alt: 'Adobe 10', width: 350, height: 260, likes: 0 },
-  { id: 10, src: adobe11, alt: 'Adobe 11', width: 350, height: 250, likes: 0 },
-  { id: 11, src: adobe12, alt: 'Adobe 12', width: 350, height: 220, likes: 0 },
-  {id : 12, src: adobe26, alt: 'Adobe 12b', width: 350, height: 240, likes: 0 }, 
-  {id : 13, src: adobe25, alt: 'Adobe 12c', width: 350, height: 230, likes: 0 },
-  {id : 14, src: sec1, alt: 'Sec1', width: 350, height: 260, likes: 0 },
-  {id : 15, src: sec3, alt: 'Sec3', width: 350, height: 250, likes: 0 },
-  {id : 16, src: sec4, alt: 'Sec2', width: 350, height: 240, likes: 0 },
-  {id : 17, src: sec5, alt: 'Sec5', width: 350, height: 260, likes: 0 },
-  {id : 18, src: sec6, alt: 'Sec6', width: 350, height: 250, likes: 0 },
-  {id : 19, src: sec7, alt: 'Sec7', width: 350, height: 240, likes: 0 },
-  {id : 20, src: sec8, alt: 'Sec8', width: 350, height: 260, likes: 0 },
-  {id : 21, src: sec9, alt: 'Sec9', width: 350, height: 250, likes: 0 },
-  {id : 22, src: sec10, alt: 'Sec10', width: 350, height: 240, likes: 0 },
-  {id : 23, src: sec11, alt: 'Sec11', width: 350, height: 260, likes: 0 },
-  {id : 24, src: sec12, alt: 'Sec12', width: 350, height: 210, likes: 0 },
-  {id : 25, src: sec13, alt: 'Sec13', width: 350, height: 230, likes: 0 },
-  {id : 26, src: sec14, alt: 'Sec14', width: 350, height: 250, likes: 0 },
-  {id : 27, src: sec15, alt: 'Sec15', width: 350, height: 220, likes: 0 },
-  {id : 28, src: sec16, alt: 'Sec16', width: 350, height: 240, likes: 0 },
-  {id : 29, src: sec17, alt: 'Sec17', width: 350, height: 260, likes: 0 },
-  {id : 30, src: sec18, alt: 'Sec18', width: 350, height: 250, likes: 0 },
-  {id : 31, src: sec19, alt: 'Sec19', width: 350, height: 220, likes: 0 },
-  {id : 32, src: sec20, alt: 'Sec20', width: 350, height: 240, likes: 0 },
-  {id : 33, src: sec21, alt: 'Sec21', width: 350, height: 260, likes: 0 },
-  {id : 34, src: sec22, alt: 'Sec22', width: 350, height: 250, likes: 0 },
-  {id : 35, src: sec23, alt: 'Sec23', width: 350, height: 220, likes: 0 },
-  {id : 36, src: sec24, alt: 'Sec24', width: 350, height: 240, likes: 0 },
-  {id : 37, src: sec25, alt: 'Sec25', width: 350, height: 260, likes: 0 },
-  {id : 38, src: sec26, alt: 'Sec26', width: 350, height: 250, likes: 0 },
-  {id : 39, src: sec27, alt: 'Sec27', width: 350, height: 220, likes: 0 },
-  {id : 40, src: sec28, alt: 'Sec28', width: 350, height: 240, likes: 0 },
-  {id : 41, src: sec29, alt: 'Sec29', width: 350, height: 260, likes: 0 },
-  {id : 42, src: sec30, alt: 'Sec30', width: 350, height: 250, likes: 0 },
-  {id : 43, src: sec31, alt: 'Sec31', width: 350, height: 220, likes: 0 },
-  {id : 44, src: sec32, alt: 'Sec32', width: 350, height: 240, likes: 0 },
-  {id : 45, src: sec33, alt: 'Sec33', width: 350, height: 260, likes: 0 },
-  {id : 46, src: sec34, alt: 'Sec34', width: 350, height: 250, likes: 0 },
-  {id : 47, src: sec35, alt: 'Sec35', width: 350, height: 220, likes: 0 },
-  {id : 48, src: sec36, alt: 'Sec36', width: 350, height: 240, likes: 0 },
-  {id : 49, src: sec37, alt: 'Sec37', width: 350, height: 260, likes: 0 },
-  {id : 50, src: sec38, alt: 'Sec38', width: 350, height: 250, likes: 0 },
-  {id : 51, src: sec39, alt: 'Sec39', width: 350, height: 220, likes: 0 },
-  {id : 52, src: sec40, alt: 'Sec40', width: 350, height: 240, likes: 0 },
-  {id : 53, src: sec41, alt: 'Sec41', width: 350, height: 260, likes: 0 },
-  {id : 54, src: sec42, alt: 'Sec42', width: 350, height: 250, likes: 0 },
-  {id : 55, src: sec43, alt: 'Sec43', width: 350, height: 220, likes: 0 },
-  {id : 56, src: adobe24, alt: 'Adobe 12d', width: 350, height: 280, likes: 0 },
-  {id : 57, src: adobe23, alt: 'Adobe 12e', width: 350, height: 210, likes: 0 },
-  { id: 58, src: adobe13, alt: 'Adobe 13', width: 350, height: 260, likes: 0 },
-  { id: 59, src: adobe14, alt: 'Adobe 14', width: 350, height: 230, likes: 0 },
-  { id: 60, src: adobe15, alt: 'Adobe 15', width: 350, height: 280, likes: 0 },
-  { id: 61, src: adobe16, alt: 'Adobe 16', width: 350, height: 210, likes: 0 },
-  { id: 62, src: adobe17, alt: 'Adobe 17', width: 350, height: 250, likes: 0 },
-  { id: 63, src: adobe18, alt: 'Adobe 18', width: 350, height: 220, likes: 0 },
-  { id: 64, src: adobe1, alt: 'Adobe 19', width: 350, height: 260, likes: 0 },
-  { id: 65, src: adobe20, alt: 'Adobe 20', width: 350, height: 230, likes: 0 },
-  { id: 66, src: adobe21, alt: 'Adobe 21', width: 350, height: 280, likes: 0 },
-  { id: 67, src: adobe22, alt: 'Adobe 22', width: 350, height: 210, likes: 0 },
-  { id: 68, src: jozani5, alt: 'Jozani Forest 5', width: 350, height: 280, likes: 0 },
-  { id: 69, src: jozani6, alt: 'Jozani Forest 6', width: 350, height: 210, likes: 0 },
-  { id: 70, src: jozani7, alt: 'Jozani Forest 7', width: 350, height: 240, likes: 0 },
-  { id: 71, src: jozani, alt: 'Jozani Forest', width: 350, height: 260, likes: 0 },
-  { id: 72, src: spice, alt: 'Spice Plantation', width: 350, height: 250, likes: 0 },
-  { id: 73, src: spice1, alt: 'Spice Tour 1', width: 350, height: 220, likes: 0 },
-  { id: 74, src: spice2, alt: 'Spice Tour 2', width: 350, height: 260, likes: 0 },
-  { id: 75, src: spice3, alt: 'Spice Tour 3', width: 350, height: 230, likes: 0 },
-  { id: 76, src: spice4, alt: 'Spice Tour 4', width: 350, height: 280, likes: 0 },
-  { id: 77, src: spice5, alt: 'Spice Tour 5', width: 350, height: 210, likes: 0 },
-  { id: 78, src: spice7, alt: 'Spice Tour 6', width: 350, height: 240, likes: 0 },
-  { id: 79, src: stone, alt: 'Stone Town View', width: 350, height: 260, likes: 0 },
-  { id: 80, src: stone2, alt: 'Stone Town Alley', width: 350, height: 250, likes: 0 },
-  { id: 81, src: stone3, alt: 'Stone Town Architecture', width: 350, height: 220, likes: 0 },
-  { id: 82, src: stone4, alt: 'Stone Town Market', width: 350, height: 240, likes: 0 },
-  { id: 83, src: stone5, alt: 'Stone Town Street', width: 350, height: 230, likes: 0 },
-  { id: 84, src: stone6, alt: 'Stone Town Harbor', width: 350, height: 280, likes: 0 },
-  { id: 85, src: stone7, alt: 'Stone Town Sunset', width: 350, height: 210, likes: 0 },
-  { id: 86, src: stone8, alt: 'Stone Town Culture', width: 350, height: 260, likes: 0 },
-  { id: 87, src: stone10, alt: 'Stone Town Nightlife', width: 350, height: 250, likes: 0 },
-  { id: 88, src: stone11, alt: 'Stone Town People', width: 350, height: 220, likes: 0 },
-  { id: 89, src: stone12, alt: 'Stone Town Festival', width: 350, height: 240, likes: 0 },
-  { id: 90, src: stone13, alt: 'Stone Town Heritage', width: 350, height: 230, likes: 0 },
-  { id: 91, src: mnemba, alt: 'Mnemba Island', width: 350, height: 280, likes: 0 },
-  { id: 92, src: mnemba1, alt: 'Mnemba Beach 1', width: 350, height: 210, likes: 0 },
-  { id: 93, src: mnemba2, alt: 'Mnemba Beach 2', width: 350, height: 240, likes: 0 },
-  { id: 94, src: mnemba3, alt: 'Mnemba Beach 3', width: 350, height: 260, likes: 0 },
-  { id: 95, src: mnemba4, alt: 'Mnemba Beach 4', width: 350, height: 250, likes: 0 },
-  { id: 96, src: mnemba5, alt: 'Mnemba Beach 5', width: 350, height: 220, likes: 0 },
-  { id: 97, src: mnemba6, alt: 'Mnemba Beach 6', width: 350, height: 230, likes: 0 },
-  { id: 98, src: mnemba7, alt: 'Mnemba Beach 7', width: 350, height: 280, likes: 0 },
-  { id: 99, src: mnemba8, alt: 'Mnemba Beach 8', width: 350, height: 210, likes: 0 },
-  { id: 100, src: mnemba9, alt: 'Mnemba Beach 9', width: 350, height: 240, likes: 0 },
-  { id: 101, src: mnemba10, alt: 'Mnemba Beach 10', width: 350, height: 260, likes: 0 },
-  { id: 102, src: mnemba11, alt: 'Mnemba Beach 11', width: 350, height: 250, likes: 0 },
-  { id: 103, src: mnemba12, alt: 'Mnemba Beach 12', width: 350, height: 220, likes: 0 },
-  { id: 104, src: mnemba13, alt: 'Mnemba Beach 13', width: 350, height: 230, likes: 0 },
-  { id: 105, src: mnemba14, alt: 'Mnemba Beach 14', width: 350, height: 280, likes: 0 },
-  { id: 106, src: nakupenda, alt: 'Nakupenda Sandbank', width: 350, height: 210, likes: 0 },
-  { id: 107, src: nakupenda1, alt: 'Nakupenda 1', width: 350, height: 240, likes: 0 },
-  { id: 108, src: nakupenda2, alt: 'Nakupenda 2', width: 350, height: 260, likes: 0 },
-  { id: 109, src: nakupenda3, alt: 'Nakupenda 3', width: 350, height: 250, likes: 0 },
-  { id: 110, src: nakupenda4, alt: 'Nakupenda 4', width: 350, height: 220, likes: 0 },
-  { id: 111, src: prison, alt: 'Prison Island', width: 350, height: 230, likes: 0 },
-  { id: 112, src: prison2, alt: 'Prison Island 2', width: 350, height: 280, likes: 0 },
-  { id: 113, src: prison3, alt: 'Prison Island 3', width: 350, height: 210, likes: 0 },
-  { id: 114, src: prison4, alt: 'Prison Island 4', width: 350, height: 240, likes: 0 },
-  { id: 115, src: prison5, alt: 'Prison Island 5', width: 350, height: 260, likes: 0 },
-  { id: 116, src: prison6, alt: 'Prison Island 6', width: 350, height: 250, likes: 0 },
-  { id: 117, src: prison7, alt: 'Prison Island 7', width: 350, height: 220, likes: 0 },
-  { id: 118, src: rock, alt: 'Rock Beach', width: 350, height: 230, likes: 0 },
-  { id: 119, src: rock1, alt: 'Rock Beach 1', width: 350, height: 280, likes: 0 },
-  { id: 120, src: rock2, alt: 'Rock Beach 2', width: 350, height: 210, likes: 0 },
-  { id: 121, src: rock3, alt: 'Rock Beach 3', width: 350, height: 240, likes: 0 },
-  { id: 122, src: sunset, alt: 'Sunset View', width: 350, height: 260, likes: 0 },
-  { id: 123, src: sunset1, alt: 'Sunset 1', width: 350, height: 250, likes: 0 },
-  { id: 124, src: sunset2, alt: 'Sunset 2', width: 350, height: 220, likes: 0 },
-  { id: 125, src: sunset3, alt: 'Sunset 3', width: 350, height: 230, likes: 0 },
-  { id: 126, src: sunset4, alt: 'Sunset 4', width: 350, height: 280, likes: 0 },
-  { id: 127, src: sunset5, alt: 'Sunset 5', width: 350, height: 210, likes: 0 },
-  { id: 128, src: sunset6, alt: 'Sunset 6', width: 350, height: 240, likes: 0 },
-  { id: 129, src: sunset7, alt: 'Sunset 7', width: 350, height: 260, likes: 0 },
-  { id: 130, src: sal1, alt: 'Sal1', width: 350, height: 250, likes: 0 },
-  { id: 131, src: sal2, alt: 'Sal2', width: 350, height: 220, likes: 0 },
-  { id: 132, src: sal3, alt: 'Sal3', width: 350, height: 260, likes: 0 },
-  { id: 133, src: beach1, alt: 'Beach1', width: 350, height: 230, likes: 0 },
-  { id: 134, src: beach2, alt: 'Beach2', width: 350, height: 280, likes: 0 },
-  { id: 135, src: beach3, alt: 'Beach3', width: 350, height: 210, likes: 0 },
-  { id: 136, src: beach4, alt: 'Beach4', width: 350, height: 240, likes: 0 },
-  { id: 137, src: beach5, alt: 'Beach5', width: 350, height: 260, likes: 0 },
-  { id: 138, src: beach6, alt: 'Beach6', width: 350, height: 250, likes: 0 },
-  { id: 139, src: car1, alt: 'Car1', width: 350, height: 220, likes: 0 },
-  { id: 140, src: car2, alt: 'Car2', width: 350, height: 230, likes: 0 },
-  { id: 141, src: car3, alt: 'Car3', width: 350, height: 280, likes: 0 },
-  { id: 142, src: car4, alt: 'Car4', width: 350, height: 210, likes: 0 },
-  { id: 143, src: car5, alt: 'Car5', width: 350, height: 240, likes: 0 },
-  { id: 144, src: car6, alt: 'Car6', width: 350, height: 260, likes: 0 },
-  { id: 145, src: safariBg, alt: 'Safari Background', width: 350, height: 250, likes: 0 },
-  { id: 146, src: farasi, alt: 'Farasi1', width: 350, height: 220, likes: 0 },
-  { id: 147, src: farasi1, alt: 'Farasi2', width: 350, height: 230, likes: 0 },
-  { id: 148, src: farasi2, alt: 'Farasi3', width: 350, height: 280, likes: 0 },
-  { id: 149, src: farasi3, alt: 'Farasi4', width: 350, height: 210, likes: 0 },
-  { id: 150, src: farasi4, alt: 'Farasi5', width: 350, height: 240, likes: 0 },
-  { id: 151, src: farasi5, alt: 'Farasi6', width: 350, height: 260, likes: 0 },
-  { id: 152, src: farasi6, alt: 'Farasi7', width: 350, height: 250, likes: 0 },
-  { id: 153, src: seaFood, alt: 'Sea Food', width: 350, height: 220, likes: 0 },
-  { id: 154, src: blue1, alt: 'Blue1', width: 350, height: 230, likes: 0 },
-  { id: 155, src: blue2, alt: 'Blue2', width: 350, height: 280, likes: 0 },
-  { id: 156, src: blue3, alt: 'Blue3', width: 350, height: 210, likes: 0 },
-  { id: 157, src: blue4, alt: 'Blue4', width: 350, height: 240, likes: 0 },
-  { id: 158, src: kayaking, alt: 'Kayaking', width: 350, height: 260, likes: 0 },
-  { id: 159, src: quad, alt: 'Quad Biking', width: 350, height: 250, likes: 0 },
-  { id: 160, src: maa1, alt: 'Maa1', width: 350, height: 220, likes: 0 },
-  { id: 161, src: maa2, alt: 'Maa2', width: 350, height: 230, likes: 0 },
-  { id: 162, src: maa3, alt: 'Maa3', width: 350, height: 280, likes: 0 },
-  { id: 163, src: maa4, alt: 'Maa4', width: 350, height: 210, likes: 0 },
-  { id: 164, src: maa5, alt: 'Maa5', width: 350, height: 240, likes: 0 },
-  { id: 165, src: pung1, alt: 'Pung1', width: 350, height: 260, likes: 0 },
-  { id: 166, src: pung2, alt: 'Pung2', width: 350, height: 250, likes: 0 },
-  { id: 167, src: pung3, alt: 'Pung3', width: 350, height: 220, likes: 0 },
-  { id: 168, src: pung4, alt: 'Pung4', width: 350, height: 230, likes: 0 },
-
-  // ... include all your other images with likes: 0
+  // 2. Zanzibar Excursions (Water & Nature) - Adobe images
+  { id: 0, src: adobe19, alt: 'safari-blue-zanzibar-dhow-tour', width: 350, height: 250, likes: 0, category: 'excursions' },
+  { id: 1, src: adobe2, alt: 'prison-island-giant-tortoise-zanzibar', width: 350, height: 250, likes: 0, category: 'excursions' },
+  { id: 2, src: adobe3, alt: 'nakupenda-sandbank-picnic-zanzibar', width: 350, height: 220, likes: 0, category: 'excursions' },
+  { id: 3, src: adobe4, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 260, likes: 0, category: 'excursions' },
+  { id: 4, src: adobe5, alt: 'jozani-forest-red-colobus-monkeys', width: 350, height: 210, likes: 0, category: 'excursions' },
+  { id: 5, src: adobe6, alt: 'swimming-with-turtles-baraka-aquarium-zanzibar', width: 350, height: 270, likes: 0, category: 'excursions' },
+  { id: 6, src: adobe7, alt: 'blue-lagoon-snorkeling-michamvi', width: 350, height: 230, likes: 0, category: 'excursions' },
+  { id: 7, src: adobe8, alt: 'safari-blue-zanzibar-dhow-tour', width: 350, height: 240, likes: 0, category: 'excursions' },
+  { id: 8, src: adobe9, alt: 'nakupenda-sandbank-picnic-zanzibar', width: 350, height: 200, likes: 0, category: 'excursions' },
+  { id: 9, src: adobe10, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 260, likes: 0, category: 'excursions' },
+  { id: 10, src: adobe11, alt: 'prison-island-giant-tortoise-zanzibar', width: 350, height: 250, likes: 0, category: 'excursions' },
+  { id: 11, src: adobe12, alt: 'jozani-forest-red-colobus-monkeys', width: 350, height: 220, likes: 0, category: 'excursions' },
+  { id: 12, src: adobe26, alt: 'blue-lagoon-snorkeling-michamvi', width: 350, height: 240, likes: 0, category: 'excursions' },
+  { id: 13, src: adobe25, alt: 'swimming-with-turtles-baraka-aquarium-zanzibar', width: 350, height: 230, likes: 0, category: 'excursions' },
+  
+  // 1. Safaris & Wildlife (Tanzania Mainland)
+  { id: 14, src: sec1, alt: 'mikumi-national-park-safari-tanzania', width: 350, height: 260, likes: 0, category: 'safari' },
+  { id: 15, src: sec3, alt: 'selous-game-reserve-wildlife-safari', width: 350, height: 250, likes: 0, category: 'safari' },
+  { id: 16, src: sec4, alt: 'serengeti-national-park-wildebeest-migration', width: 350, height: 240, likes: 0, category: 'safari' },
+  { id: 17, src: sec5, alt: 'tanzania-safari-tour-zanstone-vehicles', width: 350, height: 260, likes: 0, category: 'safari' },
+  { id: 18, src: sec6, alt: 'ngorongoro-crater-safari-tours-tanzania', width: 350, height: 250, likes: 0, category: 'safari' },
+  { id: 19, src: sec7, alt: 'ruaha-national-park-day-trip-safari', width: 350, height: 240, likes: 0, category: 'safari' },
+  { id: 20, src: sec8, alt: 'tarangire-national-park-elephant-safari', width: 350, height: 260, likes: 0, category: 'safari' },
+  { id: 21, src: sec9, alt: 'mikumi-national-park-safari-tanzania', width: 350, height: 250, likes: 0, category: 'safari' },
+  { id: 22, src: sec10, alt: 'selous-game-reserve-wildlife-safari', width: 350, height: 240, likes: 0, category: 'safari' },
+  { id: 23, src: sec11, alt: 'serengeti-national-park-wildebeest-migration', width: 350, height: 260, likes: 0, category: 'safari' },
+  { id: 24, src: sec12, alt: 'tanzania-safari-tour-zanstone-vehicles', width: 350, height: 210, likes: 0, category: 'safari' },
+  { id: 25, src: sec13, alt: 'ngorongoro-crater-safari-tours-tanzania', width: 350, height: 230, likes: 0, category: 'safari' },
+  { id: 26, src: sec14, alt: 'ruaha-national-park-day-trip-safari', width: 350, height: 250, likes: 0, category: 'safari' },
+  { id: 27, src: sec15, alt: 'tarangire-national-park-elephant-safari', width: 350, height: 220, likes: 0, category: 'safari' },
+  { id: 28, src: sec16, alt: 'mikumi-national-park-safari-tanzania', width: 350, height: 240, likes: 0, category: 'safari' },
+  { id: 29, src: sec17, alt: 'selous-game-reserve-wildlife-safari', width: 350, height: 260, likes: 0, category: 'safari' },
+  { id: 30, src: sec18, alt: 'serengeti-national-park-wildebeest-migration', width: 350, height: 250, likes: 0, category: 'safari' },
+  { id: 31, src: sec19, alt: 'tanzania-safari-tour-zanstone-vehicles', width: 350, height: 220, likes: 0, category: 'safari' },
+  { id: 32, src: sec20, alt: 'ngorongoro-crater-safari-tours-tanzania', width: 350, height: 240, likes: 0, category: 'safari' },
+  { id: 33, src: sec21, alt: 'ruaha-national-park-day-trip-safari', width: 350, height: 260, likes: 0, category: 'safari' },
+  { id: 34, src: sec22, alt: 'tarangire-national-park-elephant-safari', width: 350, height: 250, likes: 0, category: 'safari' },
+  { id: 35, src: sec23, alt: 'mikumi-national-park-safari-tanzania', width: 350, height: 220, likes: 0, category: 'safari' },
+  { id: 36, src: sec24, alt: 'selous-game-reserve-wildlife-safari', width: 350, height: 240, likes: 0, category: 'safari' },
+  { id: 37, src: sec25, alt: 'serengeti-national-park-wildebeest-migration', width: 350, height: 260, likes: 0, category: 'safari' },
+  { id: 38, src: sec26, alt: 'tanzania-safari-tour-zanstone-vehicles', width: 350, height: 250, likes: 0, category: 'safari' },
+  { id: 39, src: sec27, alt: 'ngorongoro-crater-safari-tours-tanzania', width: 350, height: 220, likes: 0, category: 'safari' },
+  { id: 40, src: sec28, alt: 'ruaha-national-park-day-trip-safari', width: 350, height: 240, likes: 0, category: 'safari' },
+  { id: 41, src: sec29, alt: 'tarangire-national-park-elephant-safari', width: 350, height: 260, likes: 0, category: 'safari' },
+  { id: 42, src: sec30, alt: 'mikumi-national-park-safari-tanzania', width: 350, height: 250, likes: 0, category: 'safari' },
+  { id: 43, src: sec31, alt: 'selous-game-reserve-wildlife-safari', width: 350, height: 220, likes: 0, category: 'safari' },
+  { id: 44, src: sec32, alt: 'serengeti-national-park-wildebeest-migration', width: 350, height: 240, likes: 0, category: 'safari' },
+  { id: 45, src: sec33, alt: 'tanzania-safari-tour-zanstone-vehicles', width: 350, height: 260, likes: 0, category: 'safari' },
+  { id: 46, src: sec34, alt: 'ngorongoro-crater-safari-tours-tanzania', width: 350, height: 250, likes: 0, category: 'safari' },
+  { id: 47, src: sec35, alt: 'ruaha-national-park-day-trip-safari', width: 350, height: 220, likes: 0, category: 'safari' },
+  { id: 48, src: sec36, alt: 'tarangire-national-park-elephant-safari', width: 350, height: 240, likes: 0, category: 'safari' },
+  { id: 49, src: sec37, alt: 'mikumi-national-park-safari-tanzania', width: 350, height: 260, likes: 0, category: 'safari' },
+  { id: 50, src: sec38, alt: 'selous-game-reserve-wildlife-safari', width: 350, height: 250, likes: 0, category: 'safari' },
+  { id: 51, src: sec39, alt: 'serengeti-national-park-wildebeest-migration', width: 350, height: 220, likes: 0, category: 'safari' },
+  { id: 52, src: sec40, alt: 'tanzania-safari-tour-zanstone-vehicles', width: 350, height: 240, likes: 0, category: 'safari' },
+  { id: 53, src: sec41, alt: 'ngorongoro-crater-safari-tours-tanzania', width: 350, height: 260, likes: 0, category: 'safari' },
+  { id: 54, src: sec42, alt: 'ruaha-national-park-day-trip-safari', width: 350, height: 250, likes: 0, category: 'safari' },
+  { id: 55, src: sec43, alt: 'tarangire-national-park-elephant-safari', width: 350, height: 220, likes: 0, category: 'safari' },
+  
+  // 2. Zanzibar Excursions (Continued)
+  { id: 56, src: adobe24, alt: 'safari-blue-zanzibar-dhow-tour', width: 350, height: 280, likes: 0, category: 'excursions' },
+  { id: 57, src: adobe23, alt: 'prison-island-giant-tortoise-zanzibar', width: 350, height: 210, likes: 0, category: 'excursions' },
+  { id: 58, src: adobe13, alt: 'nakupenda-sandbank-picnic-zanzibar', width: 350, height: 260, likes: 0, category: 'excursions' },
+  { id: 59, src: adobe14, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 230, likes: 0, category: 'excursions' },
+  { id: 60, src: adobe15, alt: 'jozani-forest-red-colobus-monkeys', width: 350, height: 280, likes: 0, category: 'excursions' },
+  { id: 61, src: adobe16, alt: 'swimming-with-turtles-baraka-aquarium-zanzibar', width: 350, height: 210, likes: 0, category: 'excursions' },
+  { id: 62, src: adobe17, alt: 'blue-lagoon-snorkeling-michamvi', width: 350, height: 250, likes: 0, category: 'excursions' },
+  { id: 63, src: adobe18, alt: 'safari-blue-zanzibar-dhow-tour', width: 350, height: 220, likes: 0, category: 'excursions' },
+  { id: 64, src: adobe1, alt: 'prison-island-giant-tortoise-zanzibar', width: 350, height: 260, likes: 0, category: 'excursions' },
+  { id: 65, src: adobe20, alt: 'nakupenda-sandbank-picnic-zanzibar', width: 350, height: 230, likes: 0, category: 'excursions' },
+  { id: 66, src: adobe21, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 280, likes: 0, category: 'excursions' },
+  { id: 67, src: adobe22, alt: 'jozani-forest-red-colobus-monkeys', width: 350, height: 210, likes: 0, category: 'excursions' },
+  
+  // 1. Safaris & Wildlife - Safari background
+  { id: 145, src: safariBg, alt: 'tanzania-safari-tour-zanstone-vehicles', width: 350, height: 250, likes: 0, category: 'safari' },
+  { id: 146, src: farasi, alt: 'mikumi-national-park-safari-tanzania', width: 350, height: 220, likes: 0, category: 'safari' },
+  { id: 147, src: farasi1, alt: 'selous-game-reserve-wildlife-safari', width: 350, height: 230, likes: 0, category: 'safari' },
+  { id: 148, src: farasi2, alt: 'serengeti-national-park-wildebeest-migration', width: 350, height: 280, likes: 0, category: 'safari' },
+  { id: 149, src: farasi3, alt: 'ngorongoro-crater-safari-tours-tanzania', width: 350, height: 210, likes: 0, category: 'safari' },
+  { id: 150, src: farasi4, alt: 'ruaha-national-park-day-trip-safari', width: 350, height: 240, likes: 0, category: 'safari' },
+  { id: 151, src: farasi5, alt: 'tarangire-national-park-elephant-safari', width: 350, height: 260, likes: 0, category: 'safari' },
+  { id: 152, src: farasi6, alt: 'mikumi-national-park-safari-tanzania', width: 350, height: 250, likes: 0, category: 'safari' },
+  
+  // 4. Logistics & Transfers
+  { id: 139, src: car1, alt: 'zanzibar-airport-transfer-zanstone-tours', width: 350, height: 220, likes: 0, category: 'transfers' },
+  { id: 140, src: car2, alt: 'private-car-rental-zanzibar-with-driver', width: 350, height: 230, likes: 0, category: 'transfers' },
+  { id: 141, src: car3, alt: 'ferry-terminal-transfer-stone-town', width: 350, height: 280, likes: 0, category: 'transfers' },
+  { id: 142, src: car4, alt: 'zanzibar-airport-transfer-zanstone-tours', width: 350, height: 210, likes: 0, category: 'transfers' },
+  { id: 143, src: car5, alt: 'private-car-rental-zanzibar-with-driver', width: 350, height: 240, likes: 0, category: 'transfers' },
+  { id: 144, src: car6, alt: 'ferry-terminal-transfer-stone-town', width: 350, height: 260, likes: 0, category: 'transfers' },
+  
+  // 2. Zanzibar Excursions - Jozani Forest
+  { id: 68, src: jozani5, alt: 'jozani-forest-red-colobus-monkeys', width: 350, height: 280, likes: 0, category: 'excursions' },
+  { id: 69, src: jozani6, alt: 'jozani-forest-red-colobus-monkeys', width: 350, height: 210, likes: 0, category: 'excursions' },
+  { id: 70, src: jozani7, alt: 'jozani-forest-red-colobus-monkeys', width: 350, height: 240, likes: 0, category: 'excursions' },
+  { id: 71, src: jozani, alt: 'jozani-forest-red-colobus-monkeys', width: 350, height: 260, likes: 0, category: 'excursions' },
+  
+  // 3. Culture, History & Sightseeing - Spice Plantation
+  { id: 72, src: spice, alt: 'zanzibar-spice-farm-tour-experience', width: 350, height: 250, likes: 0, category: 'culture' },
+  { id: 73, src: spice1, alt: 'zanzibar-spice-farm-tour-experience', width: 350, height: 220, likes: 0, category: 'culture' },
+  { id: 74, src: spice2, alt: 'zanzibar-spice-farm-tour-experience', width: 350, height: 260, likes: 0, category: 'culture' },
+  { id: 75, src: spice3, alt: 'zanzibar-spice-farm-tour-experience', width: 350, height: 230, likes: 0, category: 'culture' },
+  { id: 76, src: spice4, alt: 'zanzibar-spice-farm-tour-experience', width: 350, height: 280, likes: 0, category: 'culture' },
+  { id: 77, src: spice5, alt: 'zanzibar-spice-farm-tour-experience', width: 350, height: 210, likes: 0, category: 'culture' },
+  { id: 78, src: spice7, alt: 'zanzibar-spice-farm-tour-experience', width: 350, height: 240, likes: 0, category: 'culture' },
+  
+  // 3. Culture, History & Sightseeing - Stone Town
+  { id: 79, src: stone, alt: 'stone-town-walking-tour-historical-sites', width: 350, height: 260, likes: 0, category: 'culture' },
+  { id: 80, src: stone2, alt: 'stone-town-walking-tour-historical-sites', width: 350, height: 250, likes: 0, category: 'culture' },
+  { id: 81, src: stone3, alt: 'stone-town-walking-tour-historical-sites', width: 350, height: 220, likes: 0, category: 'culture' },
+  { id: 82, src: stone4, alt: 'stone-town-walking-tour-historical-sites', width: 350, height: 240, likes: 0, category: 'culture' },
+  { id: 83, src: stone5, alt: 'stone-town-walking-tour-historical-sites', width: 350, height: 230, likes: 0, category: 'culture' },
+  { id: 84, src: stone6, alt: 'stone-town-walking-tour-historical-sites', width: 350, height: 280, likes: 0, category: 'culture' },
+  { id: 85, src: stone7, alt: 'stone-town-walking-tour-historical-sites', width: 350, height: 210, likes: 0, category: 'culture' },
+  { id: 86, src: stone8, alt: 'stone-town-walking-tour-historical-sites', width: 350, height: 260, likes: 0, category: 'culture' },
+  { id: 87, src: stone10, alt: 'stone-town-walking-tour-historical-sites', width: 350, height: 250, likes: 0, category: 'culture' },
+  { id: 88, src: stone11, alt: 'stone-town-walking-tour-historical-sites', width: 350, height: 220, likes: 0, category: 'culture' },
+  { id: 89, src: stone12, alt: 'stone-town-walking-tour-historical-sites', width: 350, height: 240, likes: 0, category: 'culture' },
+  { id: 90, src: stone13, alt: 'stone-town-walking-tour-historical-sites', width: 350, height: 230, likes: 0, category: 'culture' },
+  
+  // 2. Zanzibar Excursions - Mnemba Island
+  { id: 91, src: mnemba, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 280, likes: 0, category: 'excursions' },
+  { id: 92, src: mnemba1, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 210, likes: 0, category: 'excursions' },
+  { id: 93, src: mnemba2, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 240, likes: 0, category: 'excursions' },
+  { id: 94, src: mnemba3, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 260, likes: 0, category: 'excursions' },
+  { id: 95, src: mnemba4, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 250, likes: 0, category: 'excursions' },
+  { id: 96, src: mnemba5, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 220, likes: 0, category: 'excursions' },
+  { id: 97, src: mnemba6, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 230, likes: 0, category: 'excursions' },
+  { id: 98, src: mnemba7, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 280, likes: 0, category: 'excursions' },
+  { id: 99, src: mnemba8, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 210, likes: 0, category: 'excursions' },
+  { id: 100, src: mnemba9, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 240, likes: 0, category: 'excursions' },
+  { id: 101, src: mnemba10, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 260, likes: 0, category: 'excursions' },
+  { id: 102, src: mnemba11, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 250, likes: 0, category: 'excursions' },
+  { id: 103, src: mnemba12, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 220, likes: 0, category: 'excursions' },
+  { id: 104, src: mnemba13, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 230, likes: 0, category: 'excursions' },
+  { id: 105, src: mnemba14, alt: 'mnemba-island-snorkeling-tour-zanzibar', width: 350, height: 280, likes: 0, category: 'excursions' },
+  
+  // 2. Zanzibar Excursions - Nakupenda Sandbank
+  { id: 106, src: nakupenda, alt: 'nakupenda-sandbank-picnic-zanzibar', width: 350, height: 210, likes: 0, category: 'excursions' },
+  { id: 107, src: nakupenda1, alt: 'nakupenda-sandbank-picnic-zanzibar', width: 350, height: 240, likes: 0, category: 'excursions' },
+  { id: 108, src: nakupenda2, alt: 'nakupenda-sandbank-picnic-zanzibar', width: 350, height: 260, likes: 0, category: 'excursions' },
+  { id: 109, src: nakupenda3, alt: 'nakupenda-sandbank-picnic-zanzibar', width: 350, height: 250, likes: 0, category: 'excursions' },
+  { id: 110, src: nakupenda4, alt: 'nakupenda-sandbank-picnic-zanzibar', width: 350, height: 220, likes: 0, category: 'excursions' },
+  
+  // 2. Zanzibar Excursions - Prison Island
+  { id: 111, src: prison, alt: 'prison-island-giant-tortoise-zanzibar', width: 350, height: 230, likes: 0, category: 'excursions' },
+  { id: 112, src: prison2, alt: 'prison-island-giant-tortoise-zanzibar', width: 350, height: 280, likes: 0, category: 'excursions' },
+  { id: 113, src: prison3, alt: 'prison-island-giant-tortoise-zanzibar', width: 350, height: 210, likes: 0, category: 'excursions' },
+  { id: 114, src: prison4, alt: 'prison-island-giant-tortoise-zanzibar', width: 350, height: 240, likes: 0, category: 'excursions' },
+  { id: 115, src: prison5, alt: 'prison-island-giant-tortoise-zanzibar', width: 350, height: 260, likes: 0, category: 'excursions' },
+  { id: 116, src: prison6, alt: 'prison-island-giant-tortoise-zanzibar', width: 350, height: 250, likes: 0, category: 'excursions' },
+  { id: 117, src: prison7, alt: 'prison-island-giant-tortoise-zanzibar', width: 350, height: 220, likes: 0, category: 'excursions' },
+  
+  // 3. Culture, History & Sightseeing - The Rock Restaurant
+  { id: 118, src: rock, alt: 'the-rock-restaurant-zanzibar-view', width: 350, height: 230, likes: 0, category: 'culture' },
+  { id: 119, src: rock1, alt: 'the-rock-restaurant-zanzibar-view', width: 350, height: 280, likes: 0, category: 'culture' },
+  { id: 120, src: rock2, alt: 'the-rock-restaurant-zanzibar-view', width: 350, height: 210, likes: 0, category: 'culture' },
+  { id: 121, src: rock3, alt: 'the-rock-restaurant-zanzibar-view', width: 350, height: 240, likes: 0, category: 'culture' },
+  
+  // 3. Culture, History & Sightseeing - Sunset/Kendwa
+  { id: 122, src: sunset, alt: 'kendwa-sunset-cruise-zanzibar-luxury', width: 350, height: 260, likes: 0, category: 'culture' },
+  { id: 123, src: sunset1, alt: 'kendwa-sunset-cruise-zanzibar-luxury', width: 350, height: 250, likes: 0, category: 'culture' },
+  { id: 124, src: sunset2, alt: 'kendwa-sunset-cruise-zanzibar-luxury', width: 350, height: 220, likes: 0, category: 'culture' },
+  { id: 125, src: sunset3, alt: 'kendwa-sunset-cruise-zanzibar-luxury', width: 350, height: 230, likes: 0, category: 'culture' },
+  { id: 126, src: sunset4, alt: 'kendwa-sunset-cruise-zanzibar-luxury', width: 350, height: 280, likes: 0, category: 'culture' },
+  { id: 127, src: sunset5, alt: 'kendwa-sunset-cruise-zanzibar-luxury', width: 350, height: 210, likes: 0, category: 'culture' },
+  { id: 128, src: sunset6, alt: 'kendwa-sunset-cruise-zanzibar-luxury', width: 350, height: 240, likes: 0, category: 'culture' },
+  { id: 129, src: sunset7, alt: 'kendwa-sunset-cruise-zanzibar-luxury', width: 350, height: 260, likes: 0, category: 'culture' },
+  
+  // 2. Zanzibar Excursions - Safari Blue & Beach Activities
+  { id: 130, src: sal1, alt: 'safari-blue-zanzibar-dhow-tour', width: 350, height: 250, likes: 0, category: 'excursions' },
+  { id: 131, src: sal2, alt: 'safari-blue-zanzibar-dhow-tour', width: 350, height: 220, likes: 0, category: 'excursions' },
+  { id: 132, src: sal3, alt: 'safari-blue-zanzibar-dhow-tour', width: 350, height: 260, likes: 0, category: 'excursions' },
+  { id: 133, src: beach1, alt: 'paje-beach-kite-surfing-zanzibar', width: 350, height: 230, likes: 0, category: 'excursions' },
+  { id: 134, src: beach2, alt: 'nungwi-village-tour-zanzibar', width: 350, height: 280, likes: 0, category: 'excursions' },
+  { id: 135, src: beach3, alt: 'paje-beach-kite-surfing-zanzibar', width: 350, height: 210, likes: 0, category: 'excursions' },
+  { id: 136, src: beach4, alt: 'nungwi-village-tour-zanzibar', width: 350, height: 240, likes: 0, category: 'excursions' },
+  { id: 137, src: beach5, alt: 'paje-beach-kite-surfing-zanzibar', width: 350, height: 260, likes: 0, category: 'excursions' },
+  { id: 138, src: beach6, alt: 'nungwi-village-tour-zanzibar', width: 350, height: 250, likes: 0, category: 'excursions' },
+  
+  // 2. Zanzibar Excursions - Food & Water Activities
+  { id: 153, src: seaFood, alt: 'safari-blue-zanzibar-dhow-tour', width: 350, height: 220, likes: 0, category: 'excursions' },
+  { id: 154, src: blue1, alt: 'blue-lagoon-snorkeling-michamvi', width: 350, height: 230, likes: 0, category: 'excursions' },
+  { id: 155, src: blue2, alt: 'blue-lagoon-snorkeling-michamvi', width: 350, height: 280, likes: 0, category: 'excursions' },
+  { id: 156, src: blue3, alt: 'blue-lagoon-snorkeling-michamvi', width: 350, height: 210, likes: 0, category: 'excursions' },
+  { id: 157, src: blue4, alt: 'blue-lagoon-snorkeling-michamvi', width: 350, height: 240, likes: 0, category: 'excursions' },
+  { id: 158, src: kayaking, alt: 'safari-blue-zanzibar-dhow-tour', width: 350, height: 260, likes: 0, category: 'excursions' },
+  { id: 159, src: quad, alt: 'safari-blue-zanzibar-dhow-tour', width: 350, height: 250, likes: 0, category: 'excursions' },
+  
+  // 3. Culture, History & Sightseeing - Maasai & Cultural
+  { id: 160, src: maa1, alt: 'zanzibar-spice-farm-tour-experience', width: 350, height: 220, likes: 0, category: 'culture' },
+  { id: 161, src: maa2, alt: 'zanzibar-spice-farm-tour-experience', width: 350, height: 230, likes: 0, category: 'culture' },
+  { id: 162, src: maa3, alt: 'zanzibar-spice-farm-tour-experience', width: 350, height: 280, likes: 0, category: 'culture' },
+  { id: 163, src: maa4, alt: 'zanzibar-spice-farm-tour-experience', width: 350, height: 210, likes: 0, category: 'culture' },
+  { id: 164, src: maa5, alt: 'zanzibar-spice-farm-tour-experience', width: 350, height: 240, likes: 0, category: 'culture' },
+  
+  // 2. Zanzibar Excursions - Punge Sandbank
+  { id: 165, src: pung1, alt: 'nakupenda-sandbank-picnic-zanzibar', width: 350, height: 260, likes: 0, category: 'excursions' },
+  { id: 166, src: pung2, alt: 'nakupenda-sandbank-picnic-zanzibar', width: 350, height: 250, likes: 0, category: 'excursions' },
+  { id: 167, src: pung3, alt: 'nakupenda-sandbank-picnic-zanzibar', width: 350, height: 220, likes: 0, category: 'excursions' },
+  { id: 168, src: pung4, alt: 'nakupenda-sandbank-picnic-zanzibar', width: 350, height: 230, likes: 0, category: 'excursions' },
 ];
 
+// Rest of the styled components remain the same...
 const GalleryContainer = styled.div`
   padding: 70px 12px 25px;
   max-width: 1400px;
@@ -400,26 +435,6 @@ const HeaderSection = styled.div`
 
   @media (min-width: 768px) {
     margin-bottom: 40px;
-  }
-`;
-
-const PinterestLogo = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 12px;
-  
-  svg {
-    font-size: 1.8rem;
-    color: #e60023;
-    background: white;
-    border-radius: 50%;
-    padding: 6px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    
-    @media (min-width: 768px) {
-      font-size: 2rem;
-    }
   }
 `;
 
@@ -468,54 +483,6 @@ const SearchIcon = styled.div`
   @media (min-width: 768px) {
     right: 18px;
     font-size: 0.9rem;
-  }
-`;
-
-const StatsBar = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  margin: 20px 0;
-  padding: 12px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-
-  @media (min-width: 768px) {
-    gap: 25px;
-    padding: 15px;
-    border-radius: 15px;
-    max-width: 500px;
-    margin: 25px auto;
-  }
-`;
-
-const StatItem = styled.div`
-  text-align: center;
-  
-  .stat-number {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #e60023;
-    margin-bottom: 2px;
-    
-    @media (min-width: 768px) {
-      font-size: 1.1rem;
-    }
-  }
-  
-  .stat-label {
-    font-size: 0.7rem;
-    color: #666;
-    font-weight: 500;
-    
-    @media (min-width: 768px) {
-      font-size: 0.75rem;
-    }
   }
 `;
 
@@ -582,86 +549,67 @@ const ItemImage = styled.img`
   }
 `;
 
-const ItemOverlay = styled.div`
+// Skeleton loader component for better UX while images load
+const SkeletonLoader = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  display: flex;
-  align-items: flex-end;
-  padding: 10px;
-
-  ${GalleryItem}:hover & {
-    opacity: 1;
-  }
-`;
-
-const ItemActions = styled.div`
-  display: flex;
-  justify-content: space-between;
   width: 100%;
-`;
-
-const ActionButton = styled.button`
-  background: white;
-  border: none;
-  border-radius: 20px;
-  padding: 6px 12px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  transition: all 0.2s ease;
-
-  &:hover {
-    background: #f0f0f0;
-    transform: scale(1.05);
-  }
-
-  @media (min-width: 768px) {
-    padding: 8px 14px;
-    font-size: 0.75rem;
+  height: 100%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  
+  @keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
   }
 `;
 
-const FloatingActionButton = styled.button`
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #e60023, #bd001c);
-  border: none;
-  color: white;
-  font-size: 1.1rem;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(230, 0, 35, 0.35);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1000;
+// Optimized image component with lazy loading
+const LazyImage = ({ src, alt }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [imageSrc, setImageSrc] = useState(null);
+  const imgRef = React.useRef();
 
-  &:hover {
-    transform: scale(1.1) rotate(90deg);
-    box-shadow: 0 6px 20px rgba(230, 0, 35, 0.5);
-  }
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setImageSrc(src);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: '100px' }
+    );
 
-  @media (min-width: 768px) {
-    width: 50px;
-    height: 50px;
-    font-size: 1.2rem;
-    bottom: 25px;
-    right: 25px;
-  }
-`;
+    if (imgRef.current) {
+      observer.observe(imgRef.current);
+    }
+
+    return () => {
+      if (imgRef.current) {
+        observer.unobserve(imgRef.current);
+      }
+    };
+  }, [src]);
+
+  return (
+    <div ref={imgRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+      {!isLoaded && <SkeletonLoader />}
+      {imageSrc && (
+        <ItemImage
+          src={imageSrc}
+          alt={alt}
+          loading="lazy"
+          onLoad={() => setIsLoaded(true)}
+        />
+      )}
+    </div>
+  );
+};
 
 const ImageGallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -669,6 +617,7 @@ const ImageGallery = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [likedImages, setLikedImages] = useState(new Set());
   const [favoriteImages, setFavoriteImages] = useState(new Set());
+  const [visibleCount, setVisibleCount] = useState(24); // Show only 24 images initially
 
   // Load favorites from localStorage on component mount
   useEffect(() => {
@@ -682,6 +631,21 @@ const ImageGallery = () => {
   useEffect(() => {
     localStorage.setItem('favoriteImages', JSON.stringify([...favoriteImages]));
   }, [favoriteImages]);
+
+  // Infinite scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop
+        >= document.documentElement.offsetHeight - 500
+      ) {
+        setVisibleCount(prev => Math.min(prev + 12, images.length));
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const openModal = (image) => {
     setSelectedImage(image);
@@ -719,11 +683,21 @@ const ImageGallery = () => {
     });
   };
 
-  const filteredImages = images.filter(image =>
-    image.alt.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Memoize filtered images to prevent unnecessary recalculations
+  const filteredImages = useMemo(() => {
+    return images
+      .filter(image => image.alt.toLowerCase().includes(searchQuery.toLowerCase()))
+      .slice(0, visibleCount);
+  }, [searchQuery, visibleCount]);
 
-  const totalLikes = images.reduce((sum, image) => sum + image.likes, 0);
+  // Reset visible count when search query changes
+  useEffect(() => {
+    setVisibleCount(24);
+  }, [searchQuery]);
+
+  const totalLikes = useMemo(() => {
+    return images.reduce((sum, image) => sum + image.likes, 0);
+  }, []);
 
   return (
     <>
@@ -770,24 +744,34 @@ const ImageGallery = () => {
               onClick={() => openModal(image)}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.3 }}
             >
-              <ItemImage src={image.src} alt={image.alt} />
-              
+              <LazyImage src={image.src} alt={image.alt} />
             </GalleryItem>
           ))}
         </GalleryGrid>
 
+        {filteredImages.length === 0 && (
+          <div style={{ 
+            textAlign: 'center', 
+            padding: '40px 20px',
+            color: '#666',
+            fontSize: '1.1rem'
+          }}>
+            No images found. Try searching for something else!
+          </div>
+        )}
+
         {isModalOpen && (
-          <GalleryModal
-            item={selectedImage}
-            type="image"
-            onClose={closeModal}
-          />
+          <Suspense fallback={<div>Loading...</div>}>
+            <GalleryModal
+              item={selectedImage}
+              type="image"
+              onClose={closeModal}
+            />
+          </Suspense>
         )}
       </GalleryContainer>
-
-     
     </>
   );
 };

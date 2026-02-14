@@ -118,7 +118,7 @@ export const allSafaris = {
       category: 'southern',
       duration: '2 Days | 1 Night',
       type: 'Private | Luxury | Wildlife',
-      price: '$620 per person',
+      price: '$700 per person',
       description: `Perfect for: Adventure lovers seeking a quick escape into one of Africa’s largest and most untouched wildlife sanctuaries from Zanzibar.
 Includes: Flight, Safari Game Drive, Boat Safari, Maasai Village Visit, Accommodation, Meals.`,
        image: safariBG,

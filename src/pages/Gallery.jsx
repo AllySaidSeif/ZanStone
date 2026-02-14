@@ -158,7 +158,8 @@ const TabContainer = styled.div`
   padding: 5px;
   border-radius: 20px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  max-width: 320px;
+  max-width: 100%;
+  width: fit-content;
   margin-left: auto;
   margin-right: auto;
 
@@ -171,8 +172,8 @@ const TabContainer = styled.div`
 `;
 
 const TabButton = styled.button`
-  padding: 8px 20px;
-  margin: 0 3px;
+  padding: 10px 16px;
+  margin: 0 4px;
   background: ${props => props.active ? 'linear-gradient(135deg, #e62300ff, #bd2600ff)' : 'transparent'};
   color: ${props => props.active ? 'white' : '#333'};
   border: none;
@@ -182,6 +183,7 @@ const TabButton = styled.button`
   font-weight: 600;
   display: flex;
   align-items: center;
+  white-space: nowrap;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: ${props => props.active ? '0 2px 8px rgba(230, 0, 35, 0.25)' : 'none'};
 
@@ -353,9 +355,12 @@ const ModernSectionTitle = styled(SectionTitle)`
 `;
 
 const ModernGalleryWrapper = styled.div`
+  width: 100%;
+  
   .image-gallery,
   .video-gallery {
-    // Add any specific styling needed for your components here
+    width: 100%;
+    display: block;
   }
 `;
 
@@ -385,14 +390,11 @@ const EmptyState = styled.div`
 `;
 
 const GalleryPage = () => {
-  const [activeTab, setActiveTab] = useState('images');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
   const [favoriteImages, setFavoriteImages] = useState([]);
-  const [favoriteVideos, setFavoriteVideos] = useState([]);
   const [stats, setStats] = useState({
     totalImages: 120,
-    totalVideos: 14,
     totalLikes: 0,
     totalFavorites: 0
   });
@@ -408,25 +410,21 @@ const GalleryPage = () => {
   // Load favorites from localStorage on component mount
   useEffect(() => {
     const savedImageFavorites = localStorage.getItem('favoriteImages');
-    const savedVideoFavorites = localStorage.getItem('favoriteVideos');
     
     if (savedImageFavorites) {
       setFavoriteImages(JSON.parse(savedImageFavorites));
-    }
-    if (savedVideoFavorites) {
-      setFavoriteVideos(JSON.parse(savedVideoFavorites));
     }
   }, []);
 
   // Update stats when favorites change
   useEffect(() => {
-    const totalFavorites = favoriteImages.length + favoriteVideos.length;
+    const totalFavorites = favoriteImages.length;
     setStats(prev => ({
       ...prev,
       totalFavorites,
-      totalLikes: Math.floor((favoriteImages.length * 15) + (favoriteVideos.length * 25))
+      totalLikes: Math.floor(favoriteImages.length * 15)
     }));
-  }, [favoriteImages, favoriteVideos]);
+  }, [favoriteImages]);
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -452,10 +450,7 @@ const GalleryPage = () => {
   const handleStatClick = (statType) => {
     switch (statType) {
       case 'photos':
-        setActiveTab('images');
-        break;
-      case 'videos':
-        setActiveTab('videos');
+        // Already on photos
         break;
       case 'likes':
         setActiveFilter('popular');
@@ -480,32 +475,22 @@ const GalleryPage = () => {
   };
 
   const renderEmptyState = () => {
-    if (activeFilter === 'favorites' && favoriteImages.length === 0 && favoriteVideos.length === 0) {
+    if (activeFilter === 'favorites' && favoriteImages.length === 0) {
       return (
         <EmptyState>
           <FiHeart size={48} />
           <h3>No Favorites Yet</h3>
-          <p>Start liking photos and videos to see them here. Your favorites will be saved across sessions.</p>
+          <p>Start liking photos to see them here. Your favorites will be saved across sessions.</p>
         </EmptyState>
       );
     }
     
-    if (searchQuery && activeTab === 'images' && favoriteImages.length === 0) {
+    if (searchQuery && favoriteImages.length === 0) {
       return (
         <EmptyState>
           <FiSearch size={48} />
-          <h3>No Images Found</h3>
-          <p>Try adjusting your search terms or browse all images.</p>
-        </EmptyState>
-      );
-    }
-    
-    if (searchQuery && activeTab === 'videos' && favoriteVideos.length === 0) {
-      return (
-        <EmptyState>
-          <FiSearch size={48} />
-          <h3>No Videos Found</h3>
-          <p>Try adjusting your search terms or browse all videos.</p>
+          <h3>No Photos Found</h3>
+          <p>Try adjusting your search terms or browse all photos.</p>
         </EmptyState>
       );
     }
@@ -539,41 +524,25 @@ const GalleryPage = () => {
           </HeaderSection>
         </DesktopHeader>
 
-       
         
         <TabContainer>
           <TabButton 
-            active={activeTab === 'images'} 
-            onClick={() => setActiveTab('images')}
+            active={true}
+            disabled
           >
             <FiImage /> Photos
-          </TabButton>
-          <TabButton 
-            active={activeTab === 'videos'} 
-            onClick={() => setActiveTab('videos')}
-          >
-            <FiVideo /> Videos
           </TabButton>
         </TabContainer>
         <ModernGalleryWrapper>
           {renderEmptyState() || (
-            <>
-              {activeTab === 'images' ? (
-                <ImageGallery 
-                  searchQuery={searchQuery}
-                  activeFilter={activeFilter}
-                  favoriteImages={favoriteImages}
-                  setFavoriteImages={setFavoriteImages}
-                />
-              ) : (
-                <VideoGallery 
-                  searchQuery={searchQuery}
-                  activeFilter={activeFilter}
-                  favoriteVideos={favoriteVideos}
-                  setFavoriteVideos={setFavoriteVideos}
-                />
-              )}
-            </>
+            <div className="image-gallery">
+              <ImageGallery 
+                searchQuery={searchQuery}
+                activeFilter={activeFilter}
+                favoriteImages={favoriteImages}
+                setFavoriteImages={setFavoriteImages}
+              />
+            </div>
           )}
         </ModernGalleryWrapper>
       </GalleryContainer>
