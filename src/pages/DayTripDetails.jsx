@@ -1,15 +1,15 @@
-// src/pages/TourDetails.jsx
+// src/pages/TourDetails.jsx (or DayTripsDetails.jsx)
 
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiClock, FiUsers, FiMapPin, FiCheck, FiX, FiArrowLeft, FiCalendar, FiStar, FiCamera, FiHeart, FiShare2, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiClock, FiUsers, FiMapPin, FiCheck, FiX, FiArrowLeft, FiCalendar, FiStar, FiCamera, FiHeart, FiShare2 } from 'react-icons/fi';
 import { FaStar, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
-import { dayTripsData, getDayTripById } from '../DataTripsData';
+import { dayTripsData, getDayTripById } from '../DataTripsData'; // Fixed import path
 import { allTours } from '../tourData';
 import Footer from '../components/Footer';
-import BookingFormModal from '../components/BookingFormModal'; // Import the booking form
+import BookingFormModal from '../components/BookingFormModal';
 
 const breakpoints = {
   mobile: '768px',
@@ -20,42 +20,6 @@ const breakpoints = {
 const PageContainer = styled.div`
   min-height: 100vh;
   background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
-`;
-
-const MobileHeader = styled.div`
-  display: none;
-  
-  @media (max-width: ${breakpoints.mobile}) {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px 20px;
-    background: white;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  }
-`;
-
-const MobileBackButton = styled(Link)`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  color: #4a5568;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem;
-`;
-
-const MobileShareButton = styled.button`
-  background: none;
-  border: none;
-  color: #4a5568;
-  font-size: 1.3rem;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
 `;
 
 const BackButton = styled(Link)`
@@ -80,7 +44,7 @@ const BackButton = styled(Link)`
   }
 
   @media (max-width: ${breakpoints.mobile}) {
-    display: none;
+    margin: 15px 20px;
   }
 `;
 
@@ -106,13 +70,13 @@ const HeroOverlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
   display: flex;
   align-items: flex-end;
   padding: 60px;
 
   @media (max-width: ${breakpoints.mobile}) {
-    padding: 20px;
+    padding: 30px 20px;
   }
 `;
 
@@ -128,9 +92,7 @@ const HeroTitle = styled(motion.h1)`
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 
   @media (max-width: ${breakpoints.mobile}) {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-    line-height: 1.2;
+    font-size: 2rem;
   }
 `;
 
@@ -138,10 +100,6 @@ const HeroBadges = styled.div`
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
-
-  @media (max-width: ${breakpoints.mobile}) {
-    gap: 8px;
-  }
 `;
 
 const HeroBadge = styled.span`
@@ -154,8 +112,8 @@ const HeroBadge = styled.span`
   border: 1px solid rgba(255,255,255,0.3);
 
   @media (max-width: ${breakpoints.mobile}) {
-    padding: 4px 10px;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
+    padding: 6px 15px;
   }
 `;
 
@@ -172,11 +130,6 @@ const ContentContainer = styled.div`
     gap: 30px;
     padding: 40px 20px;
   }
-
-  @media (max-width: ${breakpoints.mobile}) {
-    padding: 20px 15px;
-    gap: 20px;
-  }
 `;
 
 const MainContent = styled.div``;
@@ -184,12 +137,6 @@ const MainContent = styled.div``;
 const Sidebar = styled.div`
   @media (max-width: ${breakpoints.tablet}) {
     order: -1;
-  }
-
-  @media (max-width: ${breakpoints.mobile}) {
-    position: sticky;
-    top: 70px;
-    z-index: 90;
   }
 `;
 
@@ -204,12 +151,6 @@ const InfoCard = styled.div`
   @media (max-width: ${breakpoints.tablet}) {
     position: static;
   }
-
-  @media (max-width: ${breakpoints.mobile}) {
-    padding: 20px;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  }
 `;
 
 const PriceBox = styled.div`
@@ -217,21 +158,12 @@ const PriceBox = styled.div`
   margin-bottom: 30px;
   padding-bottom: 30px;
   border-bottom: 2px solid #f0f0f0;
-
-  @media (max-width: ${breakpoints.mobile}) {
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-  }
 `;
 
 const PriceLabel = styled.div`
   color: #64748b;
   font-size: 1rem;
   margin-bottom: 10px;
-
-  @media (max-width: ${breakpoints.mobile}) {
-    font-size: 0.9rem;
-  }
 `;
 
 const PriceAmount = styled.div`
@@ -247,11 +179,7 @@ const PriceAmount = styled.div`
   }
 
   @media (max-width: ${breakpoints.mobile}) {
-    font-size: 2rem;
-    
-    small {
-      font-size: 0.8rem;
-    }
+    font-size: 2.5rem;
   }
 `;
 
@@ -259,55 +187,10 @@ const PriceNote = styled.div`
   color: #94a3b8;
   font-size: 0.9rem;
   margin-top: 10px;
-
-  @media (max-width: ${breakpoints.mobile}) {
-    font-size: 0.8rem;
-  }
-`;
-
-const TieredPricing = styled.div`
-  margin-top: 15px;
-  background: #f8fafc;
-  border-radius: 12px;
-  padding: 15px;
-
-  @media (max-width: ${breakpoints.mobile}) {
-    padding: 10px;
-  }
-`;
-
-const TierRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid #e2e8f0;
-  font-size: 0.95rem;
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  .group {
-    color: #4a5568;
-  }
-
-  .price {
-    font-weight: 700;
-    color: #FF7D33;
-  }
-
-  @media (max-width: ${breakpoints.mobile}) {
-    font-size: 0.85rem;
-    padding: 6px 0;
-  }
 `;
 
 const QuickInfo = styled.div`
   margin-bottom: 30px;
-
-  @media (max-width: ${breakpoints.mobile}) {
-    margin-bottom: 20px;
-  }
 `;
 
 const InfoItem = styled.div`
@@ -324,7 +207,6 @@ const InfoItem = styled.div`
   svg {
     color: #FF7D33;
     font-size: 1.3rem;
-    min-width: 24px;
   }
 
   div {
@@ -342,23 +224,6 @@ const InfoItem = styled.div`
     font-weight: 600;
     font-size: 1.1rem;
   }
-
-  @media (max-width: ${breakpoints.mobile}) {
-    gap: 10px;
-    padding: 12px 0;
-    
-    svg {
-      font-size: 1.1rem;
-    }
-    
-    .label {
-      font-size: 0.8rem;
-    }
-    
-    .value {
-      font-size: 0.95rem;
-    }
-  }
 `;
 
 const RatingBox = styled.div`
@@ -369,11 +234,6 @@ const RatingBox = styled.div`
   padding: 20px;
   background: #f8fafc;
   border-radius: 12px;
-
-  @media (max-width: ${breakpoints.mobile}) {
-    margin-bottom: 20px;
-    padding: 15px;
-  }
 `;
 
 const RatingScore = styled.div`
@@ -394,21 +254,6 @@ const RatingScore = styled.div`
     color: #64748b;
     font-size: 0.9rem;
   }
-
-  @media (max-width: ${breakpoints.mobile}) {
-    .number {
-      font-size: 1.5rem;
-    }
-    
-    .stars svg {
-      width: 14px;
-      height: 14px;
-    }
-    
-    .reviews {
-      font-size: 0.8rem;
-    }
-  }
 `;
 
 const ActionButtons = styled.div`
@@ -416,11 +261,6 @@ const ActionButtons = styled.div`
   flex-direction: column;
   gap: 15px;
   margin-top: 30px;
-
-  @media (max-width: ${breakpoints.mobile}) {
-    margin-top: 20px;
-    gap: 10px;
-  }
 `;
 
 const BookButton = styled.button`
@@ -445,7 +285,6 @@ const BookButton = styled.button`
   @media (max-width: ${breakpoints.mobile}) {
     padding: 14px;
     font-size: 1rem;
-    border-radius: 10px;
   }
 `;
 
@@ -469,20 +308,10 @@ const WhatsAppButton = styled.a`
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
   }
-
-  @media (max-width: ${breakpoints.mobile}) {
-    padding: 12px;
-    font-size: 0.9rem;
-    gap: 8px;
-  }
 `;
 
 const Section = styled.section`
   margin-bottom: 50px;
-
-  @media (max-width: ${breakpoints.mobile}) {
-    margin-bottom: 30px;
-  }
 `;
 
 const SectionTitle = styled.h2`
@@ -502,17 +331,6 @@ const SectionTitle = styled.h2`
     background: linear-gradient(90deg, #FF7D33, #FF6B6B);
     border-radius: 2px;
   }
-
-  @media (max-width: ${breakpoints.mobile}) {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    
-    &::after {
-      width: 40px;
-      height: 3px;
-      bottom: -8px;
-    }
-  }
 `;
 
 const Description = styled.div`
@@ -524,15 +342,6 @@ const Description = styled.div`
   p {
     margin-bottom: 20px;
   }
-
-  @media (max-width: ${breakpoints.mobile}) {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    
-    p {
-      margin-bottom: 15px;
-    }
-  }
 `;
 
 const HighlightsGrid = styled.div`
@@ -543,8 +352,6 @@ const HighlightsGrid = styled.div`
 
   @media (max-width: ${breakpoints.mobile}) {
     grid-template-columns: 1fr;
-    gap: 12px;
-    margin-top: 20px;
   }
 `;
 
@@ -560,26 +367,11 @@ const HighlightItem = styled.div`
   svg {
     color: #FF7D33;
     font-size: 1.2rem;
-    min-width: 20px;
   }
 
   span {
     color: #2d3748;
     font-weight: 500;
-    font-size: 0.95rem;
-  }
-
-  @media (max-width: ${breakpoints.mobile}) {
-    padding: 12px;
-    gap: 8px;
-    
-    svg {
-      font-size: 1rem;
-    }
-    
-    span {
-      font-size: 0.9rem;
-    }
   }
 `;
 
@@ -591,8 +383,6 @@ const InclusionsExclusions = styled.div`
 
   @media (max-width: ${breakpoints.mobile}) {
     grid-template-columns: 1fr;
-    gap: 20px;
-    margin-top: 20px;
   }
 `;
 
@@ -600,10 +390,6 @@ const ListCard = styled.div`
   background: ${props => props.type === 'included' ? '#f0fdf4' : '#fef2f2'};
   padding: 25px;
   border-radius: 16px;
-
-  @media (max-width: ${breakpoints.mobile}) {
-    padding: 18px;
-  }
 `;
 
 const ListTitle = styled.h3`
@@ -613,11 +399,6 @@ const ListTitle = styled.h3`
   color: ${props => props.type === 'included' ? '#166534' : '#991b1b'};
   font-size: 1.3rem;
   margin-bottom: 20px;
-
-  @media (max-width: ${breakpoints.mobile}) {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-  }
 `;
 
 const List = styled.ul`
@@ -638,20 +419,10 @@ const ListItem = styled.li`
     flex-shrink: 0;
     margin-top: 3px;
   }
-
-  @media (max-width: ${breakpoints.mobile}) {
-    font-size: 0.85rem;
-    margin-bottom: 10px;
-    gap: 8px;
-  }
 `;
 
 const PhotoGallery = styled.div`
   margin-top: 50px;
-
-  @media (max-width: ${breakpoints.mobile}) {
-    margin-top: 30px;
-  }
 `;
 
 const GalleryTitle = styled.h2`
@@ -659,11 +430,6 @@ const GalleryTitle = styled.h2`
   color: #1a202c;
   margin-bottom: 30px;
   font-weight: 700;
-
-  @media (max-width: ${breakpoints.mobile}) {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-  }
 `;
 
 const GalleryGrid = styled.div`
@@ -677,7 +443,6 @@ const GalleryGrid = styled.div`
 
   @media (max-width: ${breakpoints.mobile}) {
     grid-template-columns: 1fr;
-    gap: 15px;
   }
 `;
 
@@ -694,10 +459,6 @@ const GalleryImage = styled(motion.img)`
     transform: scale(1.02);
     box-shadow: 0 8px 25px rgba(0,0,0,0.2);
   }
-
-  @media (max-width: ${breakpoints.mobile}) {
-    height: 200px;
-  }
 `;
 
 const ImageModal = styled(motion.div)`
@@ -706,12 +467,12 @@ const ImageModal = styled(motion.div)`
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0,0,0,0.95);
+  background: rgba(0,0,0,0.9);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;
-  padding: 20px;
+  padding: 40px;
   cursor: pointer;
 `;
 
@@ -719,38 +480,6 @@ const ModalImage = styled.img`
   max-width: 90vw;
   max-height: 90vh;
   object-fit: contain;
-`;
-
-const ModalCloseButton = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: rgba(255,255,255,0.2);
-  border: none;
-  color: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  cursor: pointer;
-  backdrop-filter: blur(5px);
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: rgba(255,255,255,0.3);
-    transform: scale(1.1);
-  }
-
-  @media (max-width: ${breakpoints.mobile}) {
-    top: 15px;
-    right: 15px;
-    width: 35px;
-    height: 35px;
-    font-size: 1.2rem;
-  }
 `;
 
 const LoadingContainer = styled.div`
@@ -776,66 +505,6 @@ const ErrorContainer = styled.div`
     color: #64748b;
     margin-bottom: 30px;
   }
-
-  @media (max-width: ${breakpoints.mobile}) {
-    padding: 60px 15px;
-    
-    h2 {
-      font-size: 1.5rem;
-    }
-    
-    p {
-      font-size: 0.95rem;
-    }
-  }
-`;
-
-const MobileFloatingBar = styled.div`
-  display: none;
-  
-  @media (max-width: ${breakpoints.mobile}) {
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: white;
-    padding: 12px 15px;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
-    z-index: 99;
-    gap: 10px;
-  }
-`;
-
-const MobileBookButton = styled.button`
-  flex: 2;
-  background: linear-gradient(135deg, #FF7D33, #E56C2B);
-  color: white;
-  text-align: center;
-  padding: 14px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1rem;
-  border: none;
-  cursor: pointer;
-`;
-
-const MobileWhatsAppButton = styled.a`
-  flex: 1;
-  background: linear-gradient(135deg, #25D366, #128C7E);
-  color: white;
-  text-align: center;
-  padding: 14px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  cursor: pointer;
 `;
 
 const DayTripsDetails = () => {
@@ -844,7 +513,6 @@ const DayTripsDetails = () => {
   const [tour, setTour] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [showShareOptions, setShowShareOptions] = useState(false);
   const [showBookingForm, setShowBookingForm] = useState(false); // State for booking form
 
   useEffect(() => {
@@ -874,18 +542,6 @@ const DayTripsDetails = () => {
     window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: tour?.name,
-        text: tour?.description,
-        url: window.location.href,
-      });
-    } else {
-      setShowShareOptions(!showShareOptions);
-    }
-  };
-
   const handleBookNow = () => {
     setShowBookingForm(true); // Open the booking form modal
   };
@@ -895,15 +551,15 @@ const DayTripsDetails = () => {
   };
 
   const formatPrice = (price) => {
-    if (!price) return 'Contact';
+    if (!price) return 'Contact for pricing';
     if (typeof price === 'string') return price;
     if (typeof price === 'object') {
       const firstTier = Object.entries(price)[0];
       if (firstTier) {
-        return firstTier[1];
+        return `${firstTier[1]}`;
       }
     }
-    return 'Contact';
+    return 'Contact for pricing';
   };
 
   const renderPriceDetails = () => {
@@ -911,15 +567,20 @@ const DayTripsDetails = () => {
     
     if (typeof tour.price === 'object') {
       return (
-        <TieredPricing>
-          <PriceLabel style={{ textAlign: 'left', marginBottom: '10px' }}>Price per person:</PriceLabel>
+        <div style={{ marginTop: '15px' }}>
+          <PriceLabel>Price per person (by group size):</PriceLabel>
           {Object.entries(tour.price).map(([group, price]) => (
-            <TierRow key={group}>
-              <span className="group">{group} people</span>
-              <span className="price">{price}</span>
-            </TierRow>
+            <div key={group} style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between',
+              padding: '8px 0',
+              borderBottom: '1px solid #f0f0f0'
+            }}>
+              <span style={{ color: '#64748b' }}>{group} people:</span>
+              <span style={{ fontWeight: '600', color: '#FF7D33' }}>{price}</span>
+            </div>
           ))}
-        </TieredPricing>
+        </div>
       );
     }
     return null;
@@ -943,21 +604,13 @@ const DayTripsDetails = () => {
   if (!tour) {
     return (
       <PageContainer>
-        <MobileHeader>
-          <MobileBackButton to="/">
-            <FiArrowLeft /> Back
-          </MobileBackButton>
-          <MobileShareButton onClick={handleShare}>
-            <FiShare2 />
-          </MobileShareButton>
-        </MobileHeader>
         <BackButton to="/">
           <FiArrowLeft /> Back to Home
         </BackButton>
         <ErrorContainer>
           <h2>Tour Not Found</h2>
           <p>Sorry, we couldn't find the tour you're looking for.</p>
-          <BookButton as={Link} to="/" style={{ display: 'inline-block', padding: '12px 30px' }}>
+          <BookButton onClick={() => navigate('/')} style={{ display: 'inline-block', padding: '12px 30px' }}>
             Return to Homepage
           </BookButton>
         </ErrorContainer>
@@ -973,21 +626,9 @@ const DayTripsDetails = () => {
 
   return (
     <PageContainer>
-      
       {/* Booking Form Modal */}
       <BookingFormModal open={showBookingForm} onClose={handleCloseBookingForm} />
       
-      {/* Mobile Header */}
-      <MobileHeader>
-        <MobileBackButton to={isDayTrip ? "/day-trips" : "/"}>
-          <FiArrowLeft /> Back
-        </MobileBackButton>
-        <MobileShareButton onClick={handleShare}>
-          <FiShare2 />
-        </MobileShareButton>
-      </MobileHeader>
-
-      {/* Desktop Back Button */}
       <BackButton to={isDayTrip ? "/day-trips" : "/"}>
         <FiArrowLeft /> Back to {isDayTrip ? 'Day Trips' : 'Home'}
       </BackButton>
@@ -1162,8 +803,7 @@ const DayTripsDetails = () => {
               </RatingScore>
             </RatingBox>
 
-            {/* Desktop Action Buttons - Hidden on Mobile */}
-            <ActionButtons className="desktop-only">
+            <ActionButtons>
               <BookButton onClick={handleBookNow}>
                 Book This Tour
               </BookButton>
@@ -1176,17 +816,6 @@ const DayTripsDetails = () => {
         </Sidebar>
       </ContentContainer>
 
-      {/* Mobile Floating Action Bar */}
-      <MobileFloatingBar>
-        <MobileBookButton onClick={handleBookNow}>
-          Book Now
-        </MobileBookButton>
-        <MobileWhatsAppButton onClick={handleWhatsAppClick}>
-          <FaWhatsapp size={18} />
-          WhatsApp
-        </MobileWhatsAppButton>
-      </MobileFloatingBar>
-
       {/* Image Modal */}
       <AnimatePresence>
         {selectedImage && (
@@ -1197,9 +826,6 @@ const DayTripsDetails = () => {
             exit={{ opacity: 0 }}
           >
             <ModalImage src={selectedImage.url} alt={selectedImage.alt} />
-            <ModalCloseButton onClick={() => setSelectedImage(null)}>
-              <FiX />
-            </ModalCloseButton>
           </ImageModal>
         )}
       </AnimatePresence>
