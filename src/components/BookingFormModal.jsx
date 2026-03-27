@@ -272,11 +272,28 @@ const BookingFormModal = ({ open, onClose }) => {
               <Label>Tour Type</Label>
               <Select onChange={(e) => update("tourType", e.target.value)}>
                 <option value="" selected>Select Tour Type</option>
-                <option value="Safari Adventure">Safari Adventure</option>
-                <option value="Zanzibar Holiday">Zanzibar Holiday</option>
-                <option value="Special Package">Special Package</option>
-                <option value="Day Trip">Day Trip</option>
-                <option value="Trekking">Trekking</option>
+                <option value="Zanzibar & Mikumi Safari Adventure">Zanzibar & Mikumi Safari Adventure</option>
+                <option value="VIP Special Parkage">VIP Special Parkage</option>
+                <option value="Kilimanjaro Machame Route Expedition">Kilimanjaro Machame Route Expedition</option>
+                <option value="Kendwa Sunset Cruise">Kendwa Sunset Cruise</option>
+                <option value="Salaam Cave & Maalum Cave Experience">Salaam Cave & Maalum Cave Experience</option>
+                <option value="Prison Island & Nakupenda Sandbank">Prison Island & Nakupenda Sandbank</option>
+                <option value="Nyange Private Sandbank Escape">Nyange Private Sandbank Escape</option>
+                <option value="StoneTown & Prison Island Heritage Tour">StoneTown & Prison Island Heritage Tour</option>
+                <option value="Salaam Cave: Swimming with Turtles">Salaam Cave: Swimming with Turtles</option>
+                <option value="Stone Town & Spice Farm Discovery">Stone Town & Spice Farm Discovery</option>
+                <option value="The Legendary Safari Blue Adventure">The Safari Blue Adventure</option>
+                <option value="ZanStone Grand Slam VIP Experience">ZanStone Grand Slam VIP Experience</option>
+                <option value="Pungume Island Hidden Sandbank">Pungume Island Hidden Sandbank</option>
+                <option value="Selous Safari & Zanzibar Beach Escape">Selous Safari & Zanzibar Beach Escape</option>
+                <option value="Exclusive Zanzibar 5-Day Escape">Exclusive Zanzibar 5-Day Escape</option>
+                <option value="ZanStone Signature Package">ZanStone Signature Package</option>
+                <option value="Grand Island Odyssey">Grand Island Odyssey</option>
+                <option value="Safari Fusion">Safari Fusion</option>
+                <option value="Zanzibar Cave Wonders: Salaam & Maalum">Zanzibar Cave Wonders: Salaam & Maalum</option>
+                <option value="Elite Media Experience">Elite Media Experience</option>
+                <option value="Salaam Cave & Jozani Forest Expedition">Salaam Cave & Jozani Forest Expedition</option>
+                <option value="Mnemba Island Snorkeling Trip">Mnemba Island Snorkeling Trip</option>
               </Select>
 
               <SubmitButton
