@@ -3,61 +3,55 @@
 // Placeholder imports for tour images
 // You'll need to add actual images to your assets folder
 
-import zanz1 from "../src/assets/image/zanz1.jpg";
-import zanz2 from "../src/assets/image/zanz2.jpg";
-import zanz3 from "../src/assets/image/zanz3.jpg";
-import zanz4 from "../src/assets/image/zanz4.jpg";
-import zanz5 from "../src/assets/image/zanz5.jpg";
-import zanz6 from "../src/assets/image/zanz6.jpg";
-import zanz7 from "../src/assets/image/zanz7.jpg";
-import zanz8 from "../src/assets/image/zanz8.jpg";
-import jozani1 from "../src/assets/image/jozani/jozani1.jpg";
-import jozani2 from "../src/assets/image/jozani/jozani2.jpg";
-import jozani3 from "../src/assets/image/jozani/jozani3.jpg";
-import jozani4 from "../src/assets/image/jozani/jozani4.jpg";
-import jozani5 from "../src/assets/image/jozani/jozani5.jpg";
-import jozani6 from "../src/assets/image/jozani/jozani6.jpg";
-import jozani7 from "../src/assets/image/jozani/jozani7.jpg";
+import beach1 from "../src/assets/image/Folder1/beac.jpg";
+import beach2 from "../src/assets/image/Folder1/beach.jpg";
+import beach3 from "../src/assets/image/Folder1/beach2.jpg";
+import beach4 from "../src/assets/image/Folder1/beach3.jpg";
+import beach5 from "../src/assets/image/Folder1/beach4.jpg";
+import beach6 from "../src/assets/image/Folder1/beach5.jpg";
+import blue1 from "../src/assets/image/Folder1/blue1.jpg";
+import blue2 from "../src/assets/image/Folder1/blue2.jpg";
+import blue3 from "../src/assets/image/Folder1/blue3.jpg";
+import blue4 from "../src/assets/image/Folder1/blue4.jpg";
+import safariBg from "../src/assets/image/Folder1/desti.jpg";
+import farasi from "../src/assets/image/Folder1/farasi1.jpg";
+import farasi1 from "../src/assets/image/Folder1/farasi2.jpg";
+import farasi2 from "../src/assets/image/Folder1/farasi3.jpg";
+import farasi3 from "../src/assets/image/Folder1/farasi4.jpg";
+import farasi4 from "../src/assets/image/Folder1/farasi5.jpg";
+import farasi5 from "../src/assets/image/Folder1/farasi6.jpg";
+import farasi6 from "../src/assets/image/Folder1/farasi7.jpg";
+import kayaking from "../src/assets/image/Folder1/kayaking.jpg";
+import maa1 from "../src/assets/image/Folder1/maa1.jpeg";
+import maa2 from "../src/assets/image/Folder1/maa2.jpeg";
+import maa3 from "../src/assets/image/Folder1/maa3.jpeg";
+import maa4 from "../src/assets/image/Folder1/maa4.jpg";
+import maa5 from "../src/assets/image/Folder1/maa5.jpg";
+import pung1 from "../src/assets/image/Folder1/pung1.jpeg";
+import rock4 from "../src/assets/image/Folder1/rock.jpg";
+import rock5 from "../src/assets/image/Folder1/rock1.jpg";
+import sal1 from "../src/assets/image/Folder1/sal1.jpg";
+import sal2 from "../src/assets/image/Folder1/sal2.jpg";
+import sal3 from "../src/assets/image/Folder1/salaam.jpg";
 import jozani from "../src/assets/image/jozani/jozani.jpg";
-import spice from "../src/assets/image/spice/spice.jpg";
-import spice1 from "../src/assets/image/spice/spice1.jpg";
-import spice2 from "../src/assets/image/spice/spice2.jpg";
-import spice3 from "../src/assets/image/spice/spice3.jpg";
-import spice4 from "../src/assets/image/spice/spice4.jpg";
-import spice5 from "../src/assets/image/spice/spice5.jpg";
-import spice7 from "../src/assets/image/spice/spice7.jpg";
-import stone from "../src/assets/image/stonetown/stonetown.jpg";
-import stone2 from "../src/assets/image/stonetown/stonetown2.jpg";
-import stone3 from "../src/assets/image/stonetown/stonetown3.jpg";
-import stone4 from "../src/assets/image/stonetown/stonetown4.jpg";
-import stone5 from "../src/assets/image/stonetown/stonetown5.avif";
-import stone6 from "../src/assets/image/stonetown/stonetown6.jpg";
-import stone7 from "../src/assets/image/stonetown/stonetown7.jpg";
-import stone8 from "../src/assets/image/stonetown/stonetown8.jpg";
-import stone10 from "../src/assets/image/stonetown/stonetown10.jpg";
-import stone11 from "../src/assets/image/stonetown/stonetown11.jpg";
-import stone13 from "../src/assets/image/stonetown/stonetown13.jpg";
-import stone12 from "../src/assets/image/stonetown/stonetown12.jpg";
+import jozani2 from "../src/assets/image/jozani/jozani2.jpg";
 import mnemba from "../src/assets/image/mnemba/mnemba.jpg";
 import mnemba1 from "../src/assets/image/mnemba/mnemba1.jpg";
-import mnemba2 from "../src/assets/image/mnemba/mnemba2.jpg";
-import mnemba3 from "../src/assets/image/mnemba/mnemba3.jpg";
-import mnemba4 from "../src/assets/image/mnemba/mnemba4.jpg";
-import mnemba5 from "../src/assets/image/mnemba/mnemba5.jpg";
-import mnemba6 from "../src/assets/image/mnemba/mnemba6.jpg";
-import mnemba7 from "../src/assets/image/mnemba/mnemba7.jpg";
-import mnemba8 from "../src/assets/image/mnemba/mnemba8.jpg";
-import mnemba9 from "../src/assets/image/mnemba/mnemba9.jpg";
 import mnemba10 from "../src/assets/image/mnemba/mnemba10.jpg";
 import mnemba11 from "../src/assets/image/mnemba/mnemba11.jpg";
 import mnemba12 from "../src/assets/image/mnemba/mnemba12.jpg";
 import mnemba13 from "../src/assets/image/mnemba/mnemba13.jpg";
 import mnemba14 from "../src/assets/image/mnemba/mnemba14.jpg";
+import mnemba5 from "../src/assets/image/mnemba/mnemba5.jpg";
+import mnemba6 from "../src/assets/image/mnemba/mnemba6.jpg";
+import mnemba7 from "../src/assets/image/mnemba/mnemba7.jpg";
+import mnemba8 from "../src/assets/image/mnemba/mnemba8.jpg";
+import mnemba9 from "../src/assets/image/mnemba/mnemba9.jpg";
+import nakupenda4 from "../src/assets/image/nakupenda/nakupenda2.jpg";
+import nakupenda3 from "../src/assets/image/nakupenda/nakupenda5.jpg";
+import nakupenda2 from "../src/assets/image/nakupenda/nakupenda6.jpg";
 import nakupenda from "../src/assets/image/nakupenda/nakupendasandbank.jpg";
 import nakupenda1 from "../src/assets/image/nakupenda/nalupenda1.jpg";
-import nakupenda2 from "../src/assets/image/nakupenda/nakupenda6.jpg";
-import nakupenda3 from "../src/assets/image/nakupenda/nakupenda5.jpg";
-import nakupenda4 from "../src/assets/image/nakupenda/nakupenda2.jpg";
 import prison from "../src/assets/image/prison/prisonisland.jpg";
 import prison2 from "../src/assets/image/prison/prisonisland2.avif";
 import prison3 from "../src/assets/image/prison/prisonisland3.jpg";
@@ -68,85 +62,85 @@ import prison7 from "../src/assets/image/prison/prisonisland7.jpg";
 import rock from "../src/assets/image/rock/rock.jpg";
 import rock2 from "../src/assets/image/rock/rock2.jpg";
 import rock3 from "../src/assets/image/rock/rock3.jpg";
-import rock4 from "../src/assets/image/Folder1/rock.jpg";
-import rock5 from "../src/assets/image/Folder1/rock1.jpg";
-import sunset from "../src/assets/image/sunset/sunset.jpg"
-import sunset1 from "../src/assets/image/sunset/sunset1.jpg"
-import sunset2 from "../src/assets/image/sunset/sunset2.jpg"
-import sunset3 from "../src/assets/image/sunset/sunset3.jpg"
-import sunset4 from "../src/assets/image/sunset/sunset4.jpg"
-import sunset5 from "../src/assets/image/sunset/sunset5.jpg"
-import sunset6 from "../src/assets/image/sunset/sunset6.jpg"
-import sunset7 from "../src/assets/image/sunset/sunset7.jpg";
-import sal1 from "../src/assets/image/Folder1/sal1.jpg"
-import sal2 from "../src/assets/image/Folder1/sal2.jpg"
-import sal3 from "../src/assets/image/Folder1/salaam.jpg"
-import beach1 from "../src/assets/image/Folder1/beac.jpg"
-import beach2 from "../src/assets/image/Folder1/beach.jpg"
-import beach3 from "../src/assets/image/Folder1/beach2.jpg"
-import beach4 from "../src/assets/image/Folder1/beach3.jpg"
-import beach5 from "../src/assets/image/Folder1/beach4.jpg"
-import beach6 from "../src/assets/image/Folder1/beach5.jpg"
-import car1 from "../src/assets/image/Folder1/car.jpg"
-import car2 from "../src/assets/image/Folder1/car1.jpg"
-import car3 from "../src/assets/image/Folder1/car2.jpg"
-import car4 from "../src/assets/image/Folder1/car3.jpg"
-import car5 from "../src/assets/image/Folder1/car4.jpg"
-import car6 from "../src/assets/image/Folder1/car6.jpg"
-import safariBg from "../src/assets/image/Folder1/desti.jpg"
-import farasi from "../src/assets/image/Folder1/farasi1.jpg"
-import farasi1 from "../src/assets/image/Folder1/farasi2.jpg"
-import farasi2 from "../src/assets/image/Folder1/farasi3.jpg"
-import farasi3 from "../src/assets/image/Folder1/farasi4.jpg"
-import farasi4 from "../src/assets/image/Folder1/farasi5.jpg"
-import farasi5 from "../src/assets/image/Folder1/farasi6.jpg"
-import farasi6 from "../src/assets/image/Folder1/farasi7.jpg"
-import seaFood from "../src/assets/image/Folder1/seafood.jpg"
-import blue1 from "../src/assets/image/Folder1/blue1.jpg"
-import blue2 from "../src/assets/image/Folder1/blue2.jpg"
-import blue3 from "../src/assets/image/Folder1/blue3.jpg"
-import blue4 from "../src/assets/image/Folder1/blue4.jpg"
-import kayaking from "../src/assets/image/Folder1/kayaking.jpg"
-import quad from "../src/assets/image/Folder1/quad.jpg"
-import maa1 from "../src/assets/image/Folder1/maa1.jpeg"
-import maa2 from "../src/assets/image/Folder1/maa2.jpeg"
-import maa3 from "../src/assets/image/Folder1/maa3.jpeg"
-import maa4 from "../src/assets/image/Folder1/maa4.jpg"
-import maa5 from "../src/assets/image/Folder1/maa5.jpg"
-import pung1 from "../src/assets/image/Folder1/pung1.jpeg"
-import pung2 from "../src/assets/image/Folder1/pung2.jpeg"
-import pung3 from "../src/assets/image/Folder1/pung3.jpg"
-import pung4 from "../src/assets/image/Folder1/pung4.jpg"
-import { safariCategories } from "./safariData";
+import spice from "../src/assets/image/spice/spice.jpg";
+import spice1 from "../src/assets/image/spice/spice1.jpg";
+import spice2 from "../src/assets/image/spice/spice2.jpg";
+import spice3 from "../src/assets/image/spice/spice3.jpg";
+import stone from "../src/assets/image/stonetown/stonetown.jpg";
+import stone2 from "../src/assets/image/stonetown/stonetown2.jpg";
+import stone3 from "../src/assets/image/stonetown/stonetown3.jpg";
+import stone4 from "../src/assets/image/stonetown/stonetown4.jpg";
+import stone5 from "../src/assets/image/stonetown/stonetown5.avif";
+import stone6 from "../src/assets/image/stonetown/stonetown6.jpg";
+import stone7 from "../src/assets/image/stonetown/stonetown7.jpg";
+import stone8 from "../src/assets/image/stonetown/stonetown8.jpg";
+import sunset from "../src/assets/image/sunset/sunset.jpg";
+import sunset1 from "../src/assets/image/sunset/sunset1.jpg";
+import sunset2 from "../src/assets/image/sunset/sunset2.jpg";
+import sunset3 from "../src/assets/image/sunset/sunset3.jpg";
+import sunset4 from "../src/assets/image/sunset/sunset4.jpg";
+import sunset5 from "../src/assets/image/sunset/sunset5.jpg";
+import sunset6 from "../src/assets/image/sunset/sunset6.jpg";
 import kilimanjaro from '../src/assets/kilimanjaro.jpg.jpeg';
-import selous from '../src/assets/Selous.jpg.jpeg'
+import selous from '../src/assets/Selous.jpg.jpeg';
 
 
 
 // Use placeholder images instead of actual imports to avoid dependency issues
 const placeholderImages = {
-  mnemba: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop",
-  stoneTown: "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=800&h=600&fit=crop",
-  spice: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=800&h=600&fit=crop",
-  prison: "https://images.unsplash.com/photo-1590523278191-995cbcda646b?w=800&h=600&fit=crop",
-  jozani: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&h=600&fit=crop",
-  nakupenda: "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=800&h=600&fit=crop",
-  sunset: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&h=600&fit=crop",
-  safari: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&h=600&fit=crop",
-  cave: "https://images.unsplash.com/photo-1590523278191-995cbcda646b?w=800&h=600&fit=crop",
-  default: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop"
+  mnemba,
+  stoneTown: stone,
+  spice,
+  prison,
+  jozani,
+  nakupenda,
+  sunset,
+  safari: safariBg,
+  cave: sal1,
+  default: stone
 };
-// Helper function to generate photo placeholders
+
+const tourPhotosByName = {
+  'zanzibar-mikumi-safari': [safariBg, mnemba, prison, stone, sunset, spice],
+  'vip-special-package': [mnemba1, nakupenda1, prison2, stone2, spice1, sunset1],
+  'kilimanjaro-machame': [kilimanjaro, farasi, farasi1, farasi2, farasi3, farasi4],
+  'kendwa-sunset': [sunset, sunset1, sunset2, sunset3, sunset4, sunset5],
+  'salaam-maalum-caves': [maa1, maa2, maa3, sal1, beach1, beach2],
+  'prison-island-nakupenda': [prison, nakupenda, prison2, nakupenda2, prison3, nakupenda3],
+  'nyange-private': [rock, rock2, rock3, rock4, rock5, beach3],
+  'stone-town-prison': [stone, prison, stone2, prison4, stone3, prison5],
+  'prison-stone-town-late': [prison6, stone4, prison7, stone5, stone6, stone7],
+  'salaam-cave': [sal1, sal2, sal3, maa4, maa5, pung1],
+  'stone-town-spice': [stone, spice, stone2, spice2, stone3, spice3],
+  'safari-blue': [blue1, blue2, blue3, blue4, beach4, beach5],
+  'grand-slam': [mnemba5, nakupenda4, prison7, stone8, rock3, sunset6],
+  'stone-town-walking': [stone, stone2, stone3, stone4, stone5, stone6],
+  'pungume-island': [farasi5, farasi6, beach6, beach1, beach2, beach3],
+  'selous-zanzibar': [selous, mnemba6, mnemba7, mnemba8, mnemba9, mnemba10],
+  'exclusive-5days': [safariBg, mnemba, stone, sunset, rock, spice],
+  'signature-6days': [safariBg, mnemba1, stone2, sunset2, rock2, spice2],
+  'grand-island': [mnemba11, mnemba12, mnemba13, mnemba14, stone7, stone8],
+  'safari-fusion': [safariBg, selous, mnemba, nakupenda, prison, beach4],
+  'salaam-maalum-dup': [sal1, sal2, sal3, maa1, maa2, maa3]
+};
+
 const generateTourPhotos = (baseName, count = 6) => {
+  let chosenPhotos = tourPhotosByName[baseName] || Object.values(placeholderImages);
+  if (!chosenPhotos || chosenPhotos.length === 0) {
+    chosenPhotos = [stone, mnemba, spice, prison, sunset, safariBg];
+  }
+
   const photos = [];
-  for (let i = 1; i <= count; i++) {
+  for (let i = 0; i < count; i++) {
+    const image = chosenPhotos[i % chosenPhotos.length];
     photos.push({
-      id: `${baseName}-photo-${i}`,
-      url: `https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop&sig=${i}`,
-      alt: `${baseName.replace(/-/g, ' ')} - Photo ${i}`,
-      caption: `${baseName.replace(/-/g, ' ')} - View ${i}`
+      id: `${baseName}-photo-${i + 1}`,
+      url: image,
+      alt: `${baseName.replace(/-/g, ' ')} - Photo ${i + 1}`,
+      caption: `${baseName.replace(/-/g, ' ')} - View ${i + 1}`
     });
   }
+
   return photos;
 };
 export const dayTripsData = [
@@ -200,6 +194,20 @@ Enjoy a final morning at leisure — last stroll on the beach or hotel relaxatio
     category: 'daytrip',
     isDayTrip: false,
     location: 'Zanzibar & Mikumi',
+    tips: [
+      {
+        text: 'Book the Safari Blue and the Nakupenda day trip early in the morning for best water clarity and quieter beaches.',
+        image: safariBg
+      },
+      {
+        text: 'Carry sun protection, a swim vest, and waterproof shoes for beach and rockland walking.',
+        image: mnemba
+      },
+      {
+        text: 'Bring a small binoculurs to spot wildlife during the Mikumi safari segment.',
+        image: prison
+      }
+    ],
     highlights: [
       'Safari Blue Adventure with Kwa Le Island',
       'Nakupenda Sandbank & Prison Island Tour',
@@ -278,6 +286,11 @@ Start: Morning at leisure. Transfer: Anytime (Scheduled according to your flight
     category: 'daytrip',
     isDayTrip: false,
     location: 'Zanzibar & Mikumi',
+    tips: [
+      { text: 'Use reef-safe sunscreen when snorkeling at Mnemba Atoll.', image: mnemba1 },
+      { text: 'Carry extra water and insect repellent for the Mikumi safari day.', image: safariBg },
+      { text: 'Pack a lightweight windbreaker for cooler evenings in the safaris.', image: stone2 }
+    ],
     highlights: [
       'Safari Blue Adventure',
       'Nakupenda Sandbank',

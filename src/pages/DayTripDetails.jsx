@@ -1,15 +1,15 @@
 // src/pages/TourDetails.jsx (or DayTripsDetails.jsx)
 
-import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { FaStar, FaWhatsapp } from 'react-icons/fa';
+import { FiArrowLeft, FiCalendar, FiCheck, FiClock, FiMapPin, FiStar, FiUsers, FiX } from 'react-icons/fi';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FiClock, FiUsers, FiMapPin, FiCheck, FiX, FiArrowLeft, FiCalendar, FiStar, FiCamera, FiHeart, FiShare2 } from 'react-icons/fi';
-import { FaStar, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
-import { dayTripsData, getDayTripById } from '../DataTripsData'; // Fixed import path
-import { allTours } from '../tourData';
-import Footer from '../components/Footer';
 import BookingFormModal from '../components/BookingFormModal';
+import Footer from '../components/Footer';
+import { getDayTripById } from '../DataTripsData'; // Fixed import path
+import { allTours } from '../tourData';
 
 const breakpoints = {
   mobile: '768px',
@@ -375,6 +375,43 @@ const HighlightItem = styled.div`
   }
 `;
 
+const TipsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const TipCard = styled.div`
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+`;
+
+const TipImage = styled.img`
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+`;
+
+const TipText = styled.p`
+  padding: 14px;
+  color: #334155;
+  font-weight: 500;
+  line-height: 1.5;
+  font-size: 0.95rem;
+`;
+
 const InclusionsExclusions = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -687,6 +724,20 @@ const DayTripsDetails = () => {
               ))}
             </HighlightsGrid>
           </Section>
+
+          {tour.tips && tour.tips.length > 0 && (
+            <Section>
+              <SectionTitle>Travel Tips</SectionTitle>
+              <TipsGrid>
+                {tour.tips.map((tip, index) => (
+                  <TipCard key={`tip-${index}`}>
+                    {tip.image && <TipImage src={tip.image} alt={`Tip ${index + 1}`} />}
+                    <TipText>{tip.text}</TipText>
+                  </TipCard>
+                ))}
+              </TipsGrid>
+            </Section>
+          )}
 
           {(tour.includes || tour.excludes) && (
             <Section>

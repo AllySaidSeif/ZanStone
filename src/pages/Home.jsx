@@ -1,38 +1,34 @@
 // src/pages/Home.js
-import React, { useState, useRef, useEffect } from 'react';
-import styled from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
-import { supabase } from '../supabase';
-import Hero from '../components/Hero';
-import SafariExperience from '../components/SafariExperience';
-import ImageGallery from '../components/ImageGallery';
-import VideoGallery from '../components/VideoGallery';
-import Testimonials from '../components/Testimonials';
-import Partners from '../components/Partners';
-import Footer from '../components/Footer';
-import { allTours } from '../tourData';
-import { dayTripsData, getFeaturedDayTrips } from '../DataTripsData';
-import stone6 from "../assets/image/stonetown/stonetown6.jpg";
-import spice from "../assets/image/spice/spice.jpg";
-import ContactForm from "../components/ContactForm";
-import { FiClock, FiUsers, FiMapPin, FiMessageSquare, FiBook, FiChevronUp, FiX, FiStar, FiEye } from 'react-icons/fi';
-import { FaStar, FaGoogle } from 'react-icons/fa';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { FaGoogle, FaStar } from 'react-icons/fa';
+import { FiBook, FiCheck, FiChevronUp, FiClock, FiEye, FiMapPin, FiMessageSquare, FiStar, FiUsers, FiX } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import { FiChevronDown, FiCheck } from 'react-icons/fi';
-import sec3 from  "../assets/image/more/sec3.jpg"
-import sec18 from  "../assets/image/more/sec18.jpg"
-import adobe10 from "../assets/image/more/adobe10.jpg"
-import sec25 from  "../assets/image/more/sec25.jpg"
-import sec38 from  "../assets/image/more/sec38.jpg"
-import adobe13 from "../assets/image/more/adobe13.jpg"
-import adobe14 from "../assets/image/more/adobe14.jpg"
-import sec33 from  "../assets/image/more/sec33.jpg"
-import sec35 from  "../assets/image/more/sec35.jpg"
-import sec28 from  "../assets/image/more/sec28.jpg"
-import sec26 from  "../assets/image/more/sec26.jpg"
-import sec8 from  "../assets/image/more/sec8.jpg"
-import adobe1 from "../assets/image/more/adobe1.jpg"
-import adobe12 from "../assets/image/more/adobe12.jpg"
+import styled from 'styled-components';
+import { dayTripsData, getFeaturedDayTrips } from '../DataTripsData';
+import adobe1 from "../assets/image/more/adobe1.jpg";
+import adobe10 from "../assets/image/more/adobe10.jpg";
+import adobe12 from "../assets/image/more/adobe12.jpg";
+import adobe13 from "../assets/image/more/adobe13.jpg";
+import adobe14 from "../assets/image/more/adobe14.jpg";
+import sec18 from "../assets/image/more/sec18.jpg";
+import sec25 from "../assets/image/more/sec25.jpg";
+import sec26 from "../assets/image/more/sec26.jpg";
+import sec28 from "../assets/image/more/sec28.jpg";
+import sec3 from "../assets/image/more/sec3.jpg";
+import sec33 from "../assets/image/more/sec33.jpg";
+import sec35 from "../assets/image/more/sec35.jpg";
+import sec38 from "../assets/image/more/sec38.jpg";
+import sec8 from "../assets/image/more/sec8.jpg";
+import ContactForm from "../components/ContactForm";
+import Footer from '../components/Footer';
+import Hero from '../components/Hero';
+import Partners from '../components/Partners';
+import SafariExperience from '../components/SafariExperience';
+import Testimonials from '../components/Testimonials';
+import VideoGallery from '../components/VideoGallery';
+import { supabase } from '../supabase';
+import { allTours } from '../tourData';
 // Add this import if not already present
 
 // Responsive breakpoints
@@ -1774,12 +1770,6 @@ const VerticalTours = () => {
       <ToursContainer>
         <TourToggleSection>
           <TourToggleButton
-            active={tourType === 'zanzibar'}
-            onClick={() => setTourType('zanzibar')}
-          >
-            🏝️ Zanzibar Tours
-          </TourToggleButton>
-          <TourToggleButton
             active={tourType === 'daytrip'}
             onClick={handleDayTripClick}
           >
@@ -2256,7 +2246,7 @@ const Home = () => {
       <HeroAboutWrapper>
         <Hero />
 
-        <VerticalTours />
+      
 
         <SafariExperience />
 

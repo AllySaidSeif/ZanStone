@@ -1,9 +1,14 @@
 // src/pages/Tours.js
-import React from 'react';
 import styled from 'styled-components';
-import TourCard from '../components/TourCard';
-import SectionTitle from '../components/SectionTitle';
+import jozaniImg from '../assets/image/jozani/jozani.jpg';
+import mnembaImg from '../assets/image/mnemba/mnemba.jpg';
+import prisonImg from '../assets/image/prison/prisonisland.jpg';
+import spiceImg from '../assets/image/spice/spice.jpg';
+import stoneTownImg from '../assets/image/stonetown/stonetown.jpg';
+import sunsetImg from '../assets/image/sunset/sunset.jpg';
 import Footer from '../components/Footer';
+import SectionTitle from '../components/SectionTitle';
+import TourCard from '../components/TourCard';
 
 const tours = [
   {
@@ -12,7 +17,7 @@ const tours = [
     description: 'Explore the UNESCO World Heritage Site with its rich history and architecture.',
     price: '$45',
     duration: '3 hours',
-    image: 'https://source.unsplash.com/random/600x400/?zanzibar,stone-town',
+    image: stoneTownImg,
     whatsappMessage: 'Hi, I want to book the Stone Town Walking Tour'
   },
   {
@@ -21,7 +26,7 @@ const tours = [
     description: 'Visit working spice farms and learn about Zanzibar\'s spice trade history.',
     price: '$60',
     duration: '4 hours',
-    image: 'https://source.unsplash.com/random/600x400/?zanzibar,spice',
+    image: spiceImg,
     whatsappMessage: 'Hi, I want to book the Spice Farm Experience'
   },
   {
@@ -30,7 +35,7 @@ const tours = [
     description: 'Visit the historic Prison Island and meet giant Aldabra tortoises.',
     price: '$75',
     duration: '5 hours',
-    image: 'https://source.unsplash.com/random/600x400/?zanzibar,prison-island',
+    image: prisonImg,
     whatsappMessage: 'Hi, I want to book the Prison Island Excursion'
   },
   {
@@ -39,7 +44,7 @@ const tours = [
     description: 'Walk through the forest to spot the rare red colobus monkeys.',
     price: '$55',
     duration: '4 hours',
-    image: 'https://source.unsplash.com/random/600x400/?zanzibar,forest',
+    image: jozaniImg,
     whatsappMessage: 'Hi, I want to book the Jozani Forest Tour'
   },
   {
@@ -48,7 +53,7 @@ const tours = [
     description: 'Traditional dhow sailing with spectacular sunset views.',
     price: '$85',
     duration: '2 hours',
-    image: 'https://source.unsplash.com/random/600x400/?zanzibar,dhow',
+    image: sunsetImg,
     whatsappMessage: 'Hi, I want to book the Sunset Dhow Cruise'
   },
   {
@@ -57,7 +62,7 @@ const tours = [
     description: 'Explore the vibrant coral reefs of Mnemba Atoll.',
     price: '$90',
     duration: 'Full day',
-    image: 'https://source.unsplash.com/random/600x400/?zanzibar,snorkeling',
+    image: mnembaImg,
     whatsappMessage: 'Hi, I want to book the Snorkeling Adventure'
   }
 ];

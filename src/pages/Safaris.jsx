@@ -1,9 +1,12 @@
 // src/pages/Safaris.js
-import React from 'react';
 import styled from 'styled-components';
-import TourCard from '../components/TourCard';
-import SectionTitle from '../components/SectionTitle';
+import selousImg from '../assets/Selous.jpg.jpeg';
+import mikumiImg from '../assets/image/Folder1/desti.jpg';
+import ruahaImg from '../assets/image/Folder1/farasi1.jpg';
+import nyerereImg from '../assets/image/Folder1/pung1.jpeg';
 import Footer from '../components/Footer';
+import SectionTitle from '../components/SectionTitle';
+import TourCard from '../components/TourCard';
 // Sample safari data
 const safaris = [
   {
@@ -12,7 +15,7 @@ const safaris = [
     description: 'One of Africa\'s largest game reserves with diverse wildlife.',
     price: '$450',
     duration: '3 days',
-    image: 'https://source.unsplash.com/random/600x400/?tanzania,safari',
+    image: selousImg,
     whatsappMessage: 'Hi, I want to book the Selous Game Reserve Safari'
   },
   {
@@ -21,7 +24,7 @@ const safaris = [
     description: 'See lions, elephants, and zebras in their natural habitat.',
     price: '$380',
     duration: '2 days',
-    image: 'https://source.unsplash.com/random/600x400/?mikumi,safari',
+    image: mikumiImg,
     whatsappMessage: 'Hi, I want to book the Mikumi National Park Safari'
   },
   {
@@ -30,7 +33,7 @@ const safaris = [
     description: 'Tanzania\'s largest national park with stunning landscapes.',
     price: '$520',
     duration: '4 days',
-    image: 'https://source.unsplash.com/random/600x400/?ruaha,safari',
+    image: ruahaImg,
     whatsappMessage: 'Hi, I want to book the Ruaha National Park Safari'
   },
   {
@@ -39,7 +42,7 @@ const safaris = [
     description: 'Boat safaris and walking safaris in pristine wilderness.',
     price: '$490',
     duration: '3 days',
-    image: 'https://source.unsplash.com/random/600x400/?nyerere,safari',
+    image: nyerereImg,
     whatsappMessage: 'Hi, I want to book the Nyerere National Park Safari'
   }
 ];
