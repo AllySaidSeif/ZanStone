@@ -20,6 +20,7 @@ import sec33 from "../assets/image/more/sec33.jpg";
 import sec35 from "../assets/image/more/sec35.jpg";
 import sec38 from "../assets/image/more/sec38.jpg";
 import sec8 from "../assets/image/more/sec8.jpg";
+import safariBg from "../assets/image/safariBG.jpg";
 import ContactForm from "../components/ContactForm";
 import Footer from '../components/Footer';
 import Hero from '../components/Hero';
@@ -29,7 +30,6 @@ import Testimonials from '../components/Testimonials';
 import VideoGallery from '../components/VideoGallery';
 import { supabase } from '../supabase';
 import { allTours } from '../tourData';
-// Add this import if not already present
 
 // Responsive breakpoints
 const breakpoints = {
@@ -46,6 +46,392 @@ const HeroAboutWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+`;
+
+// Booking Form Section Styles
+const BookingFormSection = styled.section`
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #FF7D33, #FF6B6B, #FF7D33);
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    padding: 40px 15px;
+  }
+`;
+
+const BookingFormContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: start;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+`;
+
+const BookingInfo = styled(motion.div)`
+  h2 {
+    font-size: 2.5rem;
+    color: #1a202c;
+    margin-bottom: 20px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #FF7D33, #FF6B6B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    @media (max-width: ${breakpoints.mobile}) {
+      font-size: 2rem;
+    }
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 25px;
+
+    @media (max-width: ${breakpoints.mobile}) {
+      font-size: 1rem;
+    }
+  }
+`;
+
+const InfoFeatures = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 30px;
+`;
+
+const InfoFeature = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  
+  svg {
+    color: #FF7D33;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  
+  span {
+    color: #2d3748;
+    font-size: 1rem;
+    
+    @media (max-width: ${breakpoints.mobile}) {
+      font-size: 0.95rem;
+    }
+  }
+`;
+
+const FormWrapper = styled(motion.div)`
+  background: white;
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    padding: 25px 20px;
+  }
+`;
+
+const FormTitle = styled.h3`
+  font-size: 1.5rem;
+  color: #1a202c;
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: 600;
+`;
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const FormGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const Label = styled.label`
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2d3748;
+`;
+
+const Input = styled.input`
+  padding: 12px 15px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #FF7D33;
+    box-shadow: 0 0 0 3px rgba(255, 125, 51, 0.1);
+  }
+`;
+
+const Select = styled.select`
+  padding: 12px 15px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #FF7D33;
+    box-shadow: 0 0 0 3px rgba(255, 125, 51, 0.1);
+  }
+`;
+
+const TextArea = styled.textarea`
+  padding: 12px 15px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  min-height: 100px;
+  resize: vertical;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #FF7D33;
+    box-shadow: 0 0 0 3px rgba(255, 125, 51, 0.1);
+  }
+`;
+
+const SubmitButton = styled.button`
+  background: linear-gradient(135deg, #FF7D33, #FF6B6B);
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(255, 125, 51, 0.3);
+  }
+`;
+
+const SuccessMessage = styled(motion.div)`
+  background: #48bb78;
+  color: white;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 15px;
+`;
+
+const ErrorMessage = styled(motion.div)`
+  background: #f56565;
+  color: white;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 15px;
+`;
+
+// Navigation Buttons Section
+const NavigationButtonsSection = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    gap: 15px;
+  }
+`;
+
+const NavButton = styled(motion.button)`
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: ${props => props.$safari ? 'linear-gradient(135deg, #FF7D33, #FF6B6B)' : 'linear-gradient(135deg, #4CAF50, #45a049)'};
+  color: white;
+  box-shadow: ${props => props.$safari ? '0 8px 25px rgba(255, 125, 51, 0.3)' : '0 8px 25px rgba(76, 175, 80, 0.3)'};
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: ${props => props.$safari ? '0 12px 35px rgba(255, 125, 51, 0.4)' : '0 12px 35px rgba(76, 175, 80, 0.4)'};
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    padding: 12px 25px;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 560px) {
+    width: 100%;
+    max-width: 360px;
+    justify-content: center;
+    padding: 13px 18px;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+`;
+
+const BookingShowcaseSection = styled.section`
+  min-height: auto;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #fff7f0 0%, #f5fbf8 100%);
+  padding: 52px 20px;
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    padding: 36px 16px;
+  }
+
+  @media (max-width: 420px) {
+    padding: 36px 12px;
+  }
+`;
+
+const BookingShowcaseInner = styled.div`
+  max-width: 1180px;
+  width: 100%;
+  margin: 0 auto;
+`;
+
+const BookingShowcaseGrid = styled.div`
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
+  gap: 36px;
+  align-items: center;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+`;
+
+const BookingImagePanel = styled(motion.div)`
+  min-height: 0;
+  max-height: 440px;
+  border-radius: 24px;
+  aspect-ratio: 16 / 10;
+  background:
+    linear-gradient(180deg, rgba(8, 19, 24, 0.08), rgba(8, 19, 24, 0.28)),
+    url(${safariBg}) center/cover no-repeat;
+  box-shadow: 0 20px 44px rgba(34, 50, 42, 0.15);
+  overflow: hidden;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 24px;
+    pointer-events: none;
+  }
+
+  @media (max-width: ${breakpoints.tablet}) {
+    max-height: none;
+    aspect-ratio: 4 / 3;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    display: none;
+  }
+
+  @media (max-width: 420px) {
+    aspect-ratio: 16 / 11;
+    border-radius: 18px;
+
+    &::after {
+      inset: 12px;
+      border-radius: 18px;
+    }
+  }
+`;
+
+const BookingFormThumbnail = styled.div`
+  display: none;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    display: block;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: clamp(82px, 28vw, 112px);
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+    background:
+      linear-gradient(180deg, rgba(8, 19, 24, 0), rgba(8, 19, 24, 0.16)),
+      url(${safariBg}) center/cover no-repeat;
+    border: 2px solid #ffffff;
+    box-shadow: 0 12px 26px rgba(24, 37, 45, 0.18);
+    z-index: 1;
+  }
+
+  @media (max-width: 420px) {
+    top: 12px;
+    right: 12px;
+    width: clamp(76px, 30vw, 96px);
+    border-radius: 14px;
+  }
+`;
+
+const BookingFormShell = styled.div`
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+`;
+
+const BookingJumpButtons = styled(NavigationButtonsSection)`
+  margin-top: 28px;
+
+  @media (max-width: 560px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
 `;
 
 const AboutSection = styled.section`
@@ -1494,10 +1880,6 @@ const TourToggleButton = styled.button`
   }
 `;
 
-// In Home.jsx, replace your existing DayTripSection component with this updated version:
-
-// In Home.jsx, replace your existing DayTripSection component with this updated version:
-
 // Day Trip Section Component
 const DayTripSection = () => {
   const [dayTrips, setDayTrips] = useState([]);
@@ -1540,7 +1922,7 @@ const DayTripSection = () => {
     <VerticalToursSection id="day-trips" style={{ background: 'linear-gradient(135deg, #fff9f0 0%, #fff 100%)' }}>
       <ToursContainer>
         <SectionTitle style={{ background: 'linear-gradient(135deg, #4CAF50, #45a049)', WebkitBackgroundClip: 'text' }}>
-          ☀️ Zanzibar Day Trips
+          ☀️ Zanzibar Special Excursions
         </SectionTitle>
         
         <AboutText style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 40px' }}>
@@ -1627,7 +2009,7 @@ const DayTripSection = () => {
         </ToursGrid>
 
         <ViewAllButton to="/dayTrips" style={{ background: 'linear-gradient(135deg, #4CAF50, #45a049)' }}>
-          View All Day Trips
+          View All Trips
         </ViewAllButton>
       </ToursContainer>
     </VerticalToursSection>
@@ -1773,7 +2155,7 @@ const VerticalTours = () => {
             active={tourType === 'daytrip'}
             onClick={handleDayTripClick}
           >
-            ☀️ Day Trips
+            ☀️ Zanzibar Trips
           </TourToggleButton>
           <TourToggleButton
             active={false}
@@ -1858,6 +2240,363 @@ const VerticalTours = () => {
   );
 };
 
+// Ultra-Slim Smooth Neumorphism Booking Form
+const BookingFormComponent = () => {
+  const [formData, setFormData] = useState({
+    adults: '2',
+    children: '0',
+    arrivalDate: ''
+  });
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [activeField, setActiveField] = useState(null);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const WHATSAPP_PHONE = '255616543216';
+  
+  const formatWhatsAppMessage = (data) => {
+    const today = new Date().toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    
+    return `🏝️ *NEW TRIP REQUEST* 🏝️
+    
+👥 Adults: ${data.adults}
+👶 Children: ${data.children}
+📅 Arrival: ${data.arrivalDate || 'Not specified'}
+🕐 Submitted: ${today}
+
+*Ready to design this dream trip!* ✨`;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.arrivalDate) {
+      alert('Please select your arrival date');
+      return;
+    }
+    const sanitizedData = {
+      adults: formData.adults || '1',
+      children: formData.children || '0',
+      arrivalDate: formData.arrivalDate
+    };
+    setIsSubmitting(true);
+    try {
+      const message = formatWhatsAppMessage(sanitizedData);
+      window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`, '_blank');
+      setShowSuccess(true);
+      setFormData({ adults: '2', children: '0', arrivalDate: '' });
+      setTimeout(() => setShowSuccess(false), 4000);
+    } catch (error) {
+      alert('Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleFieldChange = (field, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const scrollToSection = (sectionId) => {
+    document.getElementById(sectionId)?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
+
+  const inputStyle = (field) => ({
+    width: '100%',
+    boxSizing: 'border-box',
+    padding: isMobile ? '11px 12px' : '12px 13px',
+    border: 'none',
+    borderBottom: `2px solid ${activeField === field ? '#FF7D33' : '#dfe7ec'}`,
+    borderRadius: '8px 8px 0 0',
+    background: activeField === field ? 'rgba(255, 125, 51, 0.06)' : '#f7faf9',
+    color: '#18252d',
+    fontSize: isMobile ? '0.92rem' : '0.98rem',
+    fontWeight: 600,
+    outline: 'none',
+    transition: 'background 0.2s ease, border-color 0.2s ease'
+  });
+
+  const labelStyle = {
+    display: 'block',
+    color: '#52616b',
+    fontSize: isMobile ? '0.72rem' : '0.78rem',
+    fontWeight: 800,
+    letterSpacing: '0.8px',
+    marginBottom: '7px'
+  };
+
+  const fieldShellStyle = {
+    minWidth: 0
+  };
+
+  const formCardStyle = {
+    background: '#ffffff',
+    border: '1px solid rgba(24, 37, 45, 0.08)',
+    borderRadius: isMobile ? '18px' : '22px',
+    padding: isMobile ? '18px' : '28px',
+    width: '100%',
+    boxSizing: 'border-box',
+    boxShadow: '0 18px 42px rgba(24, 37, 45, 0.1)',
+    position: 'relative',
+    overflow: 'hidden'
+  };
+
+  const submitStyle = {
+    width: '100%',
+    minHeight: isMobile ? '44px' : '48px',
+    background: 'linear-gradient(135deg, #FF7D33, #FF6B6B)',
+    border: 'none',
+    borderRadius: '12px',
+    color: 'white',
+    fontSize: isMobile ? '0.9rem' : '0.98rem',
+    fontWeight: 800,
+    cursor: isSubmitting ? 'not-allowed' : 'pointer',
+    opacity: isSubmitting ? 0.75 : 1,
+    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+    boxShadow: '0 12px 24px rgba(255, 125, 51, 0.28)'
+  };
+
+  const trustTextStyle = {
+    color: '#6b7b86',
+    fontSize: isMobile ? '0.76rem' : '0.82rem',
+    margin: '12px 0 0',
+    textAlign: 'center',
+    lineHeight: 1.45
+  };
+
+  const formGridStyle = {
+    display: 'grid',
+    gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(2, minmax(0, 1fr))',
+    gap: isMobile ? '10px' : '12px',
+    marginBottom: isMobile ? '12px' : '14px'
+  };
+
+  const fullWidthFieldStyle = {
+    ...fieldShellStyle,
+    marginBottom: isMobile ? '16px' : '18px'
+  };
+
+  return (
+    <BookingShowcaseSection id="booking">
+      <BookingShowcaseInner>
+        <BookingShowcaseGrid>
+          <BookingImagePanel
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.65, ease: "easeOut" }}
+            aria-label="Safari landscape"
+          />
+          <BookingFormShell>
+            <div style={formCardStyle}>
+              <BookingFormThumbnail aria-hidden="true" />
+              <div style={{
+                marginBottom: isMobile ? '16px' : '22px',
+                paddingRight: isMobile ? '112px' : 0,
+                position: 'relative',
+                zIndex: 2
+              }}>
+                <p style={{
+                  margin: '0 0 5px',
+                  color: '#FF7D33',
+                  fontSize: isMobile ? '0.72rem' : '0.78rem',
+                  fontWeight: 900,
+                  letterSpacing: '1.4px'
+                }}>
+                  PLAN YOUR
+                </p>
+                <h2 style={{
+                  color: '#18252d',
+                  fontSize: isMobile ? '1.45rem' : '2rem',
+                  lineHeight: 1.1,
+                  margin: 0,
+                  fontWeight: 900
+                }}>
+                  Dream Trip
+                </h2>
+                <p style={{
+                  color: '#6b7b86',
+                  fontSize: isMobile ? '0.82rem' : '0.95rem',
+                  lineHeight: 1.5,
+                  margin: '9px 0 0',
+                  paddingRight: isMobile ? '12px' : 0
+                }}>
+                  Tell us your group size and arrival date. We will reply on WhatsApp.
+                </p>
+              </div>
+
+              <form onSubmit={handleSubmit}>
+                <div style={formGridStyle}>
+                  <div style={fieldShellStyle}>
+                    <label htmlFor="booking-adults" style={labelStyle}>ADULTS</label>
+                    <input
+                      id="booking-adults"
+                      type="number"
+                      inputMode="numeric"
+                      min="1"
+                      max="10"
+                      value={formData.adults}
+                      onChange={(e) => handleFieldChange('adults', e.target.value)}
+                      onFocus={() => setActiveField('adults')}
+                      onBlur={() => setActiveField(null)}
+                      style={inputStyle('adults')}
+                      placeholder="2"
+                    />
+                  </div>
+
+                  <div style={fieldShellStyle}>
+                    <label htmlFor="booking-children" style={labelStyle}>CHILDREN</label>
+                    <input
+                      id="booking-children"
+                      type="number"
+                      inputMode="numeric"
+                      min="0"
+                      max="8"
+                      value={formData.children}
+                      onChange={(e) => handleFieldChange('children', e.target.value)}
+                      onFocus={() => setActiveField('children')}
+                      onBlur={() => setActiveField(null)}
+                      style={inputStyle('children')}
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+
+                <div style={fullWidthFieldStyle}>
+                  <label htmlFor="booking-arrival" style={labelStyle}>ARRIVAL DATE</label>
+                  <input
+                    id="booking-arrival"
+                    type="date"
+                    name="arrivalDate"
+                    value={formData.arrivalDate}
+                    onChange={(e) => handleFieldChange('arrivalDate', e.target.value)}
+                    onFocus={() => setActiveField('date')}
+                    onBlur={() => setActiveField(null)}
+                    required
+                    min={new Date().toISOString().split('T')[0]}
+                    style={inputStyle('date')}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  style={submitStyle}
+                  onMouseEnter={(e) => {
+                    if (!isSubmitting) {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 16px 30px rgba(255, 125, 51, 0.34)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 12px 24px rgba(255, 125, 51, 0.28)';
+                  }}
+                >
+                  {isSubmitting ? 'Opening WhatsApp...' : 'Start Planning'}
+                </button>
+
+                <p style={trustTextStyle}>
+                  No cost. No pressure. 100% tailor-made.
+                </p>
+              </form>
+            </div>
+
+        {/* Success Toast - Slim */}
+        {showSuccess && (
+          <div style={{
+            position: 'fixed',
+            bottom: '24px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            background: 'linear-gradient(135deg, #00AA6C, #008C5A)',
+            color: 'white',
+            padding: '10px 20px',
+            borderRadius: '40px',
+            fontSize: '12px',
+            fontWeight: '600',
+            zIndex: 1000,
+            animation: 'slideUp 0.3s ease',
+            whiteSpace: 'nowrap',
+            boxShadow: '5px 5px 12px #c8c9ce, -5px -5px 12px #ffffff'
+          }}>
+            ✓ WhatsApp opened!
+          </div>
+        )}
+          </BookingFormShell>
+        </BookingShowcaseGrid>
+
+        <BookingJumpButtons>
+          <NavButton
+            type="button"
+            $safari
+            onClick={() => scrollToSection('safari-experience')}
+            whileTap={{ scale: 0.97 }}
+          >
+            <FiMapPin /> Safari Experience
+          </NavButton>
+          <NavButton
+            type="button"
+            onClick={() => scrollToSection('day-trips')}
+            whileTap={{ scale: 0.97 }}
+          >
+            <FiClock /> Zanzibar Special Excursions
+          </NavButton>
+        </BookingJumpButtons>
+      </BookingShowcaseInner>
+
+      <style>
+        {`
+          @keyframes slideUp {
+            from {
+              opacity: 0;
+              transform: translateX(-50%) translateY(15px);
+            }
+            to {
+              opacity: 1;
+              transform: translateX(-50%) translateY(0);
+            }
+          }
+          
+          input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            opacity: 0.4;
+          }
+          
+          input[type="date"]::-webkit-calendar-picker-indicator:hover {
+            opacity: 0.8;
+          }
+          
+          button {
+            cursor: pointer;
+          }
+        `}
+      </style>
+    </BookingShowcaseSection>
+  );
+};
 // Google Reviews Component
 const GoogleReviews = () => {
   const scrollContainerRef = useRef(null);
@@ -2246,7 +2985,8 @@ const Home = () => {
       <HeroAboutWrapper>
         <Hero />
 
-      
+        {/* Added BookingFormComponent here */}
+        <BookingFormComponent />
 
         <SafariExperience />
 

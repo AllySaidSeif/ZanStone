@@ -1,11 +1,11 @@
 // src/components/Header/Navbar.js
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { useEffect, useRef, useState } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import { color } from '../styles/color';
+import { FiChevronDown, FiMenu, FiX } from 'react-icons/fi';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import logo from '../assets/zanstoneLogo.png';
+import { color } from '../styles/color';
 
 const NavContainer = styled.nav`
   position: fixed;
@@ -256,9 +256,130 @@ const CloseButton = styled(FiX)`
   }
 `;
 
+const LanguageWrapper = styled.div`
+  position: relative;
+  flex-shrink: 0;
+`;
+
+const LanguageButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 125, 51, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #24323a;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: ${color.primary};
+    transform: translateY(-1px);
+  }
+
+  svg {
+    font-size: 1rem;
+    transition: transform 0.2s ease;
+    transform: ${props => props.$open ? 'rotate(180deg)' : 'rotate(0deg)'};
+  }
+
+  @media (max-width: 768px) {
+    height: 38px;
+    padding: 0 10px;
+    gap: 5px;
+    font-size: 0.78rem;
+  }
+
+  @media (max-width: 480px) {
+    height: 36px;
+    padding: 0 9px;
+  }
+`;
+
+const FlagText = styled.span`
+  font-size: 1.08rem;
+  line-height: 1;
+`;
+
+const LanguageMenu = styled.div`
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 190px;
+  padding: 8px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid rgba(24, 37, 45, 0.08);
+  box-shadow: 0 18px 40px rgba(24, 37, 45, 0.16);
+  opacity: ${props => props.$open ? 1 : 0};
+  visibility: ${props => props.$open ? 'visible' : 'hidden'};
+  transform: ${props => props.$open ? 'translateY(0)' : 'translateY(-6px)'};
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+  z-index: 1002;
+
+  @media (max-width: 768px) {
+    right: -48px;
+  }
+
+  @media (max-width: 480px) {
+    right: -42px;
+    width: 176px;
+  }
+`;
+
+const LanguageOption = styled.button`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 11px;
+  border: none;
+  border-radius: 11px;
+  background: ${props => props.$active ? 'rgba(255, 125, 51, 0.1)' : 'transparent'};
+  color: #24323a;
+  font-size: 0.9rem;
+  font-weight: ${props => props.$active ? 800 : 600};
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 125, 51, 0.12);
+    color: ${color.primary};
+  }
+`;
+
+const HiddenTranslateRoot = styled.div`
+  position: fixed;
+  left: -9999px;
+  top: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+`;
+
+const LANGUAGES = [
+  { code: 'en', short: 'EN', label: 'English', flag: '🇬🇧' },
+  { code: 'pl', short: 'PL', label: 'Polish', flag: '🇵🇱' },
+  { code: 'de', short: 'DE', label: 'German', flag: '🇩🇪' },
+  { code: 'it', short: 'IT', label: 'Italian', flag: '🇮🇹' },
+  { code: 'fr', short: 'FR', label: 'French', flag: '🇫🇷' },
+  { code: 'es', short: 'ES', label: 'Spanish', flag: '🇪🇸' }
+];
+
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [languageOpen, setLanguageOpen] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState(() => localStorage.getItem('zanstone-language') || 'en');
+  const languageRef = useRef(null);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -273,6 +394,44 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    window.googleTranslateElementInit = () => {
+      if (!window.google?.translate?.TranslateElement) return;
+
+      new window.google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: LANGUAGES.map(language => language.code).join(','),
+        autoDisplay: false
+      }, 'google_translate_element');
+    };
+
+    if (!document.querySelector('script[src*="translate_a/element.js"]')) {
+      const script = document.createElement('script');
+      script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      script.async = true;
+      document.body.appendChild(script);
+    } else if (window.google?.translate?.TranslateElement) {
+      window.googleTranslateElementInit();
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleDocumentClick = (event) => {
+      if (!languageRef.current?.contains(event.target)) {
+        setLanguageOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleDocumentClick);
+    return () => document.removeEventListener('mousedown', handleDocumentClick);
+  }, []);
+
+  useEffect(() => {
+    if (currentLanguage !== 'en') {
+      applyGoogleTranslate(currentLanguage);
+    }
+  }, [currentLanguage]);
+
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -284,11 +443,65 @@ const Header = () => {
     setMenuOpen(false);
   };
 
+  const clearGoogleTranslateCookie = () => {
+    document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`;
+
+    const hostParts = window.location.hostname.split('.');
+    if (hostParts.length > 1) {
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${hostParts.slice(-2).join('.')};`;
+    }
+  };
+
+  const applyGoogleTranslate = (languageCode) => {
+    const combo = document.querySelector('.goog-te-combo');
+
+    if (!combo) {
+      setTimeout(() => applyGoogleTranslate(languageCode), 350);
+      return;
+    }
+
+    combo.value = languageCode === 'en' ? '' : languageCode;
+    combo.dispatchEvent(new Event('change'));
+  };
+
+  const handleLanguageChange = (languageCode) => {
+    setCurrentLanguage(languageCode);
+    setLanguageOpen(false);
+    localStorage.setItem('zanstone-language', languageCode);
+
+    if (languageCode === 'en') {
+      clearGoogleTranslateCookie();
+      window.location.reload();
+      return;
+    }
+
+    document.cookie = `googtrans=/en/${languageCode}; path=/;`;
+    applyGoogleTranslate(languageCode);
+  };
+
   const handleReviewsClick = (e) => {
     e.preventDefault();
     setMenuOpen(false);
     document.getElementById('google-reviews')?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const handleBookingClick = (e) => {
+    e.preventDefault();
+    setMenuOpen(false);
+
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+      return;
+    }
+
+    document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const selectedLanguage = LANGUAGES.find(language => language.code === currentLanguage) || LANGUAGES[0];
 
   return (
     <NavContainer scrolled={scrolled || menuOpen}>
@@ -310,10 +523,10 @@ const Header = () => {
             </li>
             <li>
               <NavLink 
-                to="/tourSection" 
+                to="/dayTrips" 
                 onClick={() => setMenuOpen(false)}
               >
-                Tours
+                Day Trips
               </NavLink>
             </li>
             <li>
@@ -368,10 +581,38 @@ const Header = () => {
           <span>Chat on WhatsApp</span>
         </WhatsAppButton>
 
+        <LanguageWrapper ref={languageRef}>
+          <LanguageButton
+            type="button"
+            $open={languageOpen}
+            onClick={() => setLanguageOpen(open => !open)}
+            aria-label="Change language"
+            aria-expanded={languageOpen}
+          >
+            <FlagText>{selectedLanguage.flag}</FlagText>
+            <span>{selectedLanguage.short}</span>
+            <FiChevronDown />
+          </LanguageButton>
+          <LanguageMenu $open={languageOpen}>
+            {LANGUAGES.map(language => (
+              <LanguageOption
+                key={language.code}
+                type="button"
+                $active={currentLanguage === language.code}
+                onClick={() => handleLanguageChange(language.code)}
+              >
+                <FlagText>{language.flag}</FlagText>
+                <span>{language.label}</span>
+              </LanguageOption>
+            ))}
+          </LanguageMenu>
+        </LanguageWrapper>
+
         <MobileMenuButton onClick={toggleMenu}>
           <FiMenu />
         </MobileMenuButton>
       </NavContent>
+      <HiddenTranslateRoot id="google_translate_element" />
     </NavContainer>
   );
 };
